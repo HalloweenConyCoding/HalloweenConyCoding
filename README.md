@@ -18,26 +18,31 @@
 
 ### 🧰 Technical Skills
 
+<!-- Core Programming -->
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=python,js,html,css,git,github&perline=6"/>
+  <img src="https://skillicons.dev/icons?i=vscode,python,js,html,css,git,github&perline=7"/>
+</p>
+
+<!-- Technical Skills -->
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-0f172a?style=for-the-badge&logo=python&logoColor=38bdf8"/>
+  <img src="https://img.shields.io/badge/Data%20Query%20%26%20Automation-0f172a?style=for-the-badge&logoColor=38bdf8"/>
+  <img src="https://img.shields.io/badge/Pandas-0f172a?style=for-the-badge&logo=pandas&logoColor=38bdf8"/>
+  <img src="https://img.shields.io/badge/Power%20BI-0f172a?style=for-the-badge&logo=powerbi&logoColor=38bdf8"/>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/QGIS-589632?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/Power%20BI-F2C811?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/TIBCO-FF6F00?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/Pandas-150458?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/Geospatial%20Analysis-0ea5e9?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/Network%20Planning-22c55e?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/TIBCO-0f172a?style=for-the-badge&logoColor=38bdf8"/>
+  <img src="https://img.shields.io/badge/QGIS-0f172a?style=for-the-badge&logo=qgis&logoColor=38bdf8"/>
+  <img src="https://img.shields.io/badge/Network%20Planning-0f172a?style=for-the-badge&logoColor=38bdf8"/>
+  <img src="https://img.shields.io/badge/4G%2F5G%20Optimization-0f172a?style=for-the-badge&logoColor=38bdf8"/>
 </p>
-
----
 
 ### 🌟 Featured Project
 
 <p align="center">
   <a href="https://halloweenconycoding.github.io/Radio_Planning_Tools/">
-    <img src="https://img.shields.io/badge/🚀%20Live%20Demo-Open%20Radio%20Planning%20Tools-22d3ee?style=for-the-badge&logo=githubpages&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Radio%20Planning%20Tools-Open%20Project-7c3aed?style=for-the-badge&logo=githubpages&logoColor=ffffff&labelColor=1e1b4b"/>
   </a>
 </p>
 
@@ -49,18 +54,24 @@ It helps engineers perform calculations faster, reduce manual effort, and improv
 
 ### 🔧 Key Features
 
-- 📐 **Antenna Tilt & Coverage Calculations**  
-  Improve planning accuracy with fast engineering calculations  
+- 📐 **Antenna Coverage & Beam Visualization**  
+  Visualize how antenna signals spread and interact with real-world environments  
 
-- ⚡ **Power & Signal Tools**  
-  Support practical RF-related analysis  
+- 📊 **Antenna Pattern Analysis Tool**  
+  Analyze antenna radiation patterns to understand signal direction and strength  
 
-- 📡 **Network Planning Utilities**  
-  Designed for daily telecom engineering workflows  
+- 📡 **Mobile Network Planning Utilities**  
+  Support daily engineering tasks for network design and optimization  
+
+- ⚡ **Power & Signal Calculations**  
+  Convert and analyze signal-related values for practical engineering use  
+
+- 🗺️ **Interactive Map Drawing Tools**  
+  Measure distance, draw coverage areas, and visualize planning scenarios  
 
 - 🌐 **Web-Based & Easy Access**  
-  No installation required — use anywhere  
-
+  No installation required — accessible from anywhere
+  
 ---
 
 <p align="center">
