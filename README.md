@@ -1,73 +1,108 @@
-<h1 align="center">Hi 👋, I'm Chatchon</h1>
-
-<h3 align="center">
-Telecom Engineer | 4G/5G Planning & Optimization | Python Planning Tools Developer
-</h3>
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:0f172a,100:1e293b&height=200&section=header&text=Chatchon%20Prajayapipatana&fontSize=34&fontColor=38bdf8&fontAlignY=35&animation=twinkling"/>
 
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=23&pause=1000&center=true&vCenter=true&width=900&lines=Telecom+Engineer;4G+%2F+5G+Planning+and+Optimization;Python+Developer+for+Network+Planning+Tools;QGIS+%7C+Power+BI+%7C+TIBCO+Visualization;Power+Query+%7C+Power+Automate+Workflow+Automation" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=1000&color=22D3EE&center=true&vCenter=true&width=760&lines=Telecom+Engineer+%7C+4G%2F5G+Network+Planning;Python+Developer+%7C+Automation+%26+Data+Tools;Data+Visualization+%7C+QGIS+%7C+Power+BI+%7C+TIBCO;Turning+Complex+Network+Data+into+Actionable+Insights"/>
 </p>
 
 ---
 
-## 👨‍💻 About Me
+<img align="right" height="240" src="https://media.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif"/>
 
-I am **Chatchon**, a telecom engineer focused on **4G/5G radio planning, optimization, data analytics, and automation**.
+### 🚀 About Me
 
-I use **Python** to build custom tools that help my team work faster, reduce manual tasks, and visualize telecom data more clearly.
+* 📡 Telecom Engineer specializing in **4G/5G Network Planning & Optimization**
+* 🐍 Python Developer building **automation tools for real-world telecom problems**
+* 📊 Experienced in **data analysis and visualization** using **QGIS, Power BI, and TIBCO**
+* ⚡ Focused on improving **mobile network performance, coverage, and user experience**
+* 🧠 Passionate about transforming complex technical data into **clear and actionable insights**
 
-My work combines:
-
-- 📡 **4G/5G network planning and optimization**
-- 🐍 **Python-based planning tools**
-- 🗺️ **QGIS geospatial visualization**
-- 📊 **Power BI and TIBCO dashboards**
-- ⚙️ **Power Query and Power Automate workflows**
-- 📁 **Excel, CSV, shapefile, and telecom configuration data processing**
+<br/>
 
 ---
 
-## 🛠️ Tools & Skills
+### 🧰 Technical Skills
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-Planning%20Tools-blue?style=for-the-badge&logo=python" />
-  <img src="https://img.shields.io/badge/QGIS-Geospatial%20Analysis-green?style=for-the-badge&logo=qgis" />
-  <img src="https://img.shields.io/badge/Power%20BI-Data%20Visualization-yellow?style=for-the-badge&logo=powerbi" />
-  <img src="https://img.shields.io/badge/Power%20Query-Data%20Automation-2E8B57?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Power%20Automate-Workflow%20Automation-blue?style=for-the-badge&logo=powerautomate" />
+  <img src="https://skillicons.dev/icons?i=python,js,html,css,git,github&perline=6"/>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/QGIS-589632?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Power%20BI-F2C811?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/TIBCO-FF6F00?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Pandas-150458?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Geospatial%20Analysis-0ea5e9?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Network%20Planning-22c55e?style=for-the-badge"/>
 </p>
 
 ---
 
-## 🚀 What I Build
+### 🌟 Featured Project
 
-### 📡 Telecom Planning Tools
+<p align="center">
+  <a href="https://halloweenconycoding.github.io/Radio_Planning_Tools/">
+    <img src="https://img.shields.io/badge/Radio%20Planning%20Tools-Visit%20Project-22d3ee?style=for-the-badge&logo=githubpages&logoColor=white"/>
+  </a>
+</p>
 
-I create tools for processing and visualizing telecom planning data, including cell information, antenna parameters, PRB usage, coverage shapes, and network configuration data.
+**Radio Planning Tools** is a web-based toolkit designed to support mobile network planning and engineering workflows.
 
-### 🗺️ QGIS & Geospatial Visualization
+It helps simplify technical calculations, improve planning accuracy, and reduce repetitive manual work for telecom engineers.
 
-I work with shapefiles, cell-sector coverage polygons, map layers, QGIS styling, and custom plugins to make network planning data easier to analyze.
+**Main focus areas:**
 
-### 📊 Data Analytics & Dashboards
-
-I use Power BI, TIBCO, Excel, and Python to transform raw telecom data into dashboards, reports, and decision-support tools.
-
-### ⚙️ Automation
-
-I use Power Query, Power Automate, and Python scripts to reduce repetitive manual work and improve data refresh workflows.
+* 📡 Radio network planning support
+* 📐 Antenna tilt and coverage calculation
+* ⚡ Power and signal-related engineering tools
+* 🧰 Practical utilities for daily telecom engineering work
+* 🌐 Web-based tools that are easy to access and share
 
 ---
 
-## 📌 Current Focus
+### 🧩 What I Build
 
-- Improving my Python development skills
-- Building better telecom planning tools
-- Learning more data science and analytics
-- Creating useful automation workflows for daily engineering tasks
+* **Planning Tools**
+  Web tools for telecom engineering calculations and decision support
+
+* **Automation Workflows**
+  Python scripts to reduce repetitive manual work and speed up reporting
+
+* **Network Data Analysis**
+  Analysis of mobile traffic, coverage, and performance data
+
+* **Visualization Tools**
+  Interactive maps, dashboards, and reports for better network insight
+
+---
+
+### 🌐 Connect With Me
+
+<p align="center">
+  <a href="https://www.linkedin.com/in/chatchon-prajayapipatana">
+    <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"/>
+  </a>
+  <a href="mailto:chatchonbeer99@gmail.com">
+    <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white"/>
+  </a>
+</p>
+
+---
+
+### 📊 GitHub Activity
+
+<p align="center">
+  <img width="48%" src="https://github-readme-stats.vercel.app/api?username=halloweenconycoding&show_icons=true&theme=tokyonight&hide_border=true"/>
+  <img width="48%" src="https://github-readme-streak-stats.herokuapp.com/?user=halloweenconycoding&theme=tokyonight&hide_border=true"/>
+</p>
+
+<p align="center">
+  <img width="95%" src="https://github-readme-activity-graph.vercel.app/graph?username=halloweenconycoding&theme=tokyo-night&hide_border=true&area=true"/>
+</p>
 
 ---
 
 <p align="center">
-  <b>Turning telecom data into practical planning tools and clear visual insights.</b>
+  <i>Building practical engineering tools for real-world mobile network planning.</i>
 </p>
+
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:0f172a,100:1e293b&height=100&section=footer"/>
