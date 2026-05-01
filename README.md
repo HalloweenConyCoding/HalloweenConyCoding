@@ -6,17 +6,13 @@
 
 ---
 
-<img align="right" height="240" src="https://media.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif"/>
-
 ### 🚀 About Me
 
-* 📡 Telecom Engineer specializing in **4G/5G Network Planning & Optimization**
-* 🐍 Python Developer building **automation tools for real-world telecom problems**
-* 📊 Experienced in **data analysis and visualization** using **QGIS, Power BI, and TIBCO**
-* ⚡ Focused on improving **mobile network performance, coverage, and user experience**
-* 🧠 Passionate about transforming complex technical data into **clear and actionable insights**
-
-<br/>
+- 📡 Telecom Engineer specializing in **4G/5G Network Planning & Optimization**
+- 🐍 Python Developer building **automation tools for real-world telecom problems**
+- 📊 Experienced in **data analysis and visualization** using **QGIS, Power BI, and TIBCO**
+- ⚡ Focused on improving **mobile network performance, coverage, and user experience**
+- 🧠 Passionate about transforming complex technical data into **clear and actionable insights**
 
 ---
 
@@ -49,28 +45,20 @@
 
 It helps simplify technical calculations, improve planning accuracy, and reduce repetitive manual work for telecom engineers.
 
-**Main focus areas:**
-
-* 📡 Radio network planning support
-* 📐 Antenna tilt and coverage calculation
-* ⚡ Power and signal-related engineering tools
-* 🧰 Practical utilities for daily telecom engineering work
-* 🌐 Web-based tools that are easy to access and share
-
 ---
 
 ### 🧩 What I Build
 
-* **Planning Tools**
+- **Planning Tools**  
   Web tools for telecom engineering calculations and decision support
 
-* **Automation Workflows**
+- **Automation Workflows**  
   Python scripts to reduce repetitive manual work and speed up reporting
 
-* **Network Data Analysis**
+- **Network Data Analysis**  
   Analysis of mobile traffic, coverage, and performance data
 
-* **Visualization Tools**
+- **Visualization Tools**  
   Interactive maps, dashboards, and reports for better network insight
 
 ---
@@ -88,15 +76,20 @@ It helps simplify technical calculations, improve planning accuracy, and reduce 
 
 ---
 
-### 📊 GitHub Activity
+### 📊 GitHub Profile and Activities
 
 <p align="center">
-  <img width="48%" src="https://github-readme-stats.vercel.app/api?username=halloweenconycoding&show_icons=true&theme=tokyonight&hide_border=true"/>
-  <img width="48%" src="https://github-readme-streak-stats.herokuapp.com/?user=halloweenconycoding&theme=tokyonight&hide_border=true"/>
+  <a href="https://github.com/halloweenconycoding">
+    <img src="https://img.shields.io/badge/GitHub-halloweenconycoding-181717?style=for-the-badge&logo=github&logoColor=white"/>
+  </a>
 </p>
 
 <p align="center">
-  <img width="95%" src="https://github-readme-activity-graph.vercel.app/graph?username=halloweenconycoding&theme=tokyo-night&hide_border=true&area=true"/>
+  <img width="65%" src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=halloweenconycoding&theme=tokyonight"/>
+</p>
+
+<p align="center">
+  <img width="95%" src="https://github-readme-activity-graph.vercel.app/graph?username=halloweenconycoding&theme=tokyo-night&hide_border=true&area=true&custom_title=Contribution%20Overview"/>
 </p>
 
 ---
