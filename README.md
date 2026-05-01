@@ -37,13 +37,41 @@
 
 <p align="center">
   <a href="https://halloweenconycoding.github.io/Radio_Planning_Tools/">
-    <img src="https://img.shields.io/badge/Radio%20Planning%20Tools-Visit%20Project-22d3ee?style=for-the-badge&logo=githubpages&logoColor=white"/>
+    <img src="https://img.shields.io/badge/🚀%20Live%20Demo-Open%20Radio%20Planning%20Tools-22d3ee?style=for-the-badge&logo=githubpages&logoColor=white"/>
   </a>
 </p>
 
-**Radio Planning Tools** is a web-based toolkit designed to support mobile network planning and engineering workflows.
+<p align="center">
+  <a href="https://halloweenconycoding.github.io/Radio_Planning_Tools/">
+    <img src="https://via.placeholder.com/900x400/0f172a/38bdf8?text=Radio+Planning+Tools+Preview" width="95%"/>
+  </a>
+</p>
 
-It helps simplify technical calculations, improve planning accuracy, and reduce repetitive manual work for telecom engineers.
+**Radio Planning Tools** is a web-based toolkit designed to support **mobile network planning and engineering workflows**.
+
+It helps engineers perform calculations faster, reduce manual effort, and improve decision-making in real-world network scenarios.
+
+---
+
+### 🔧 Key Features
+
+- 📐 **Antenna Tilt & Coverage Calculations**  
+  Improve planning accuracy with fast engineering calculations  
+
+- ⚡ **Power & Signal Tools**  
+  Support practical RF-related analysis  
+
+- 📡 **Network Planning Utilities**  
+  Designed for daily telecom engineering workflows  
+
+- 🌐 **Web-Based & Easy Access**  
+  No installation required — use anywhere  
+
+---
+
+<p align="center">
+  <b>👉 Click the preview or button above to explore the tool</b>
+</p>
 
 ---
 
