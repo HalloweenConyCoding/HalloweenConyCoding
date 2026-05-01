@@ -1,7 +1,7 @@
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:0f172a,100:1e293b&height=200&section=header&text=Chatchon%20Prajayapipatana&fontSize=34&fontColor=38bdf8&fontAlignY=35&animation=twinkling"/>
 
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=1000&color=22D3EE&center=true&vCenter=true&width=760&lines=Telecom+Engineer+%7C+4G%2F5G+Network+Planning;Python+Developer+%7C+Automation+%26+Data+Tools;Data+Visualization+%7C+QGIS+%7C+Power+BI+%7C+TIBCO;Turning+Complex+Network+Data+into+Actionable+Insights"/>
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=1000&color=22D3EE&center=true&vCenter=true&width=900&lines=Telecom+Engineer+%7C+4G%2F5G+Network+Planning+%26+Optimization;Python+Developer+%7C+Automation+%26+Data+Tools;Data+Visualization+%7C+QGIS+%7C+Power+BI+%7C+TIBCO;Turning+Complex+Network+Data+into+Actionable+Insights"/>
 </p>
 
 ---
@@ -38,12 +38,6 @@
 <p align="center">
   <a href="https://halloweenconycoding.github.io/Radio_Planning_Tools/">
     <img src="https://img.shields.io/badge/🚀%20Live%20Demo-Open%20Radio%20Planning%20Tools-22d3ee?style=for-the-badge&logo=githubpages&logoColor=white"/>
-  </a>
-</p>
-
-<p align="center">
-  <a href="https://halloweenconycoding.github.io/Radio_Planning_Tools/">
-    <img src="https://via.placeholder.com/900x400/0f172a/38bdf8?text=Radio+Planning+Tools+Preview" width="95%"/>
   </a>
 </p>
 
