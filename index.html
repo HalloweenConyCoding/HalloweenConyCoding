@@ -1,0 +1,1803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CODE CANVAS — Premium Code Snippet Generator</title>
+
+  <!-- ============================================================
+       GOOGLE FONTS: Inter (headings/UI) + JetBrains Mono (code)
+       ============================================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- ============================================================
+       HIGHLIGHT.JS CDN — Syntax highlighting engine
+       ============================================================ -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
+  />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <!-- ============================================================
+       HTML2CANVAS CDN — Screenshot / image export
+       ============================================================ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <!-- ============================================================
+       ALL STYLES — Inline CSS with CSS custom properties for theming
+       ============================================================ -->
+  <style>
+    /* ==========================================================
+       PAGE-LEVEL CONSTANTS — These NEVER change with theme.
+       The outer page always uses the Midnight Slate palette.
+       Only the code window inside changes when you pick a theme.
+       ========================================================== */
+    :root {
+      --page-bg-start: #0f172a;
+      --page-bg-mid: #1e293b;
+      --page-bg-end: #0f172a;
+      --page-accent-rgb: 56, 189, 248;
+      --page-text: #f1f5f9;
+      --page-text-sec: #94a3b8;
+      --page-text-muted: #64748b;
+
+      /* ── Default theme (Midnight Slate) for the code window ── */
+      --tw-bg-start: #0f172a;
+      --tw-bg-mid: #1e293b;
+      --tw-bg-end: #0f172a;
+      --tw-card-bg: rgba(15, 23, 42, 0.55);
+      --tw-card-border: rgba(56, 189, 248, 0.15);
+      --tw-accent: #38bdf8;
+      --tw-accent-rgb: 56, 189, 248;
+      --tw-accent-secondary: #818cf8;
+      --tw-text-primary: #f1f5f9;
+      --tw-text-secondary: #94a3b8;
+      --tw-text-muted: #64748b;
+      --tw-btn-bg: rgba(56, 189, 248, 0.12);
+      --tw-btn-border: rgba(56, 189, 248, 0.25);
+      --tw-btn-hover-bg: rgba(56, 189, 248, 0.22);
+      --tw-code-bg: rgba(2, 6, 23, 0.65);
+      --tw-dot-red: #ff5f57;
+      --tw-dot-yellow: #febc2e;
+      --tw-dot-green: #28c840;
+      --tw-success-color: #22c55e;
+      --tw-hl-keyword: #38bdf8;
+      --tw-hl-string: #a5f3fc;
+      --tw-hl-function: #c4b5fd;
+      --tw-hl-comment: #64748b;
+      --tw-hl-number: #fbbf24;
+      --tw-hl-tag: #38bdf8;
+      --tw-hl-attr: #c4b5fd;
+      --tw-hl-variable: #f0abfc;
+      --tw-hl-type: #34d399;
+      --tw-hl-property: #93c5fd;
+      --tw-hl-builtin: #fbbf24;
+    }
+
+    /* ── CYBER NOIR (only changes code window) ── */
+    [data-theme="cyber-noir"] {
+      --tw-bg-start: #0d1117;
+      --tw-bg-mid: #161b22;
+      --tw-bg-end: #0d1117;
+      --tw-card-bg: rgba(13, 17, 23, 0.6);
+      --tw-card-border: rgba(0, 255, 204, 0.15);
+      --tw-accent: #00ffcc;
+      --tw-accent-rgb: 0, 255, 204;
+      --tw-accent-secondary: #ff006e;
+      --tw-text-primary: #e6edf3;
+      --tw-text-secondary: #8b949e;
+      --tw-text-muted: #6e7681;
+      --tw-btn-bg: rgba(0, 255, 204, 0.08);
+      --tw-btn-border: rgba(0, 255, 204, 0.2);
+      --tw-btn-hover-bg: rgba(0, 255, 204, 0.18);
+      --tw-code-bg: rgba(1, 4, 9, 0.7);
+      --tw-dot-red: #ff006e;
+      --tw-dot-yellow: #ffd93d;
+      --tw-dot-green: #00ffcc;
+      --tw-success-color: #00ffcc;
+      --tw-hl-keyword: #00ffcc;
+      --tw-hl-string: #ff006e;
+      --tw-hl-function: #ffd93d;
+      --tw-hl-comment: #6e7681;
+      --tw-hl-number: #ff006e;
+      --tw-hl-tag: #00ffcc;
+      --tw-hl-attr: #ffd93d;
+      --tw-hl-variable: #ff79c6;
+      --tw-hl-type: #50fa7b;
+      --tw-hl-property: #8be9fd;
+      --tw-hl-builtin: #ffb86c;
+    }
+
+    /* ── SUNSET BLUSH (only changes code window) ── */
+    [data-theme="sunset-blush"] {
+      --tw-bg-start: #1a1423;
+      --tw-bg-mid: #2d1b36;
+      --tw-bg-end: #1a1423;
+      --tw-card-bg: rgba(26, 20, 35, 0.55);
+      --tw-card-border: rgba(255, 107, 107, 0.15);
+      --tw-accent: #ff6b6b;
+      --tw-accent-rgb: 255, 107, 107;
+      --tw-accent-secondary: #ffd93d;
+      --tw-text-primary: #fce4ec;
+      --tw-text-secondary: #c9a0b0;
+      --tw-text-muted: #8e6b7a;
+      --tw-btn-bg: rgba(255, 107, 107, 0.1);
+      --tw-btn-border: rgba(255, 107, 107, 0.2);
+      --tw-btn-hover-bg: rgba(255, 107, 107, 0.2);
+      --tw-code-bg: rgba(15, 10, 20, 0.65);
+      --tw-dot-red: #ff6b6b;
+      --tw-dot-yellow: #ffd93d;
+      --tw-dot-green: #81c784;
+      --tw-success-color: #81c784;
+      --tw-hl-keyword: #ff6b6b;
+      --tw-hl-string: #ffd93d;
+      --tw-hl-function: #ffab91;
+      --tw-hl-comment: #8e6b7a;
+      --tw-hl-number: #ffd93d;
+      --tw-hl-tag: #ff6b6b;
+      --tw-hl-attr: #f48fb1;
+      --tw-hl-variable: #ce93d8;
+      --tw-hl-type: #a5d6a7;
+      --tw-hl-property: #ef9a9a;
+      --tw-hl-builtin: #ffcc80;
+    }
+
+    /* ── CELESTIAL GOLD (only changes code window) ── */
+    [data-theme="celestial-gold"] {
+      --tw-bg-start: #1a1410;
+      --tw-bg-mid: #2a2018;
+      --tw-bg-end: #1a1410;
+      --tw-card-bg: rgba(26, 20, 16, 0.6);
+      --tw-card-border: rgba(255, 193, 7, 0.18);
+      --tw-accent: #ffc107;
+      --tw-accent-rgb: 255, 193, 7;
+      --tw-accent-secondary: #ff8f00;
+      --tw-text-primary: #fff8e1;
+      --tw-text-secondary: #d4c4a0;
+      --tw-text-muted: #8d7b5a;
+      --tw-btn-bg: rgba(255, 193, 7, 0.08);
+      --tw-btn-border: rgba(255, 193, 7, 0.2);
+      --tw-btn-hover-bg: rgba(255, 193, 7, 0.16);
+      --tw-code-bg: rgba(18, 14, 8, 0.7);
+      --tw-dot-red: #ef5350;
+      --tw-dot-yellow: #ffc107;
+      --tw-dot-green: #66bb6a;
+      --tw-success-color: #66bb6a;
+      --tw-hl-keyword: #ffc107;
+      --tw-hl-string: #ffab40;
+      --tw-hl-function: #ffe082;
+      --tw-hl-comment: #8d7b5a;
+      --tw-hl-number: #ff8f00;
+      --tw-hl-tag: #ffc107;
+      --tw-hl-attr: #ffe082;
+      --tw-hl-variable: #ffcc80;
+      --tw-hl-type: #c5e1a5;
+      --tw-hl-property: #fff59d;
+      --tw-hl-builtin: #ffab40;
+    }
+
+    /* ── ARCTIC FROST (only changes code window) ── */
+    [data-theme="arctic-frost"] {
+      --tw-bg-start: #0f172a;
+      --tw-bg-mid: #1e293b;
+      --tw-bg-end: #0f172a;
+      --tw-card-bg: rgba(15, 23, 42, 0.5);
+      --tw-card-border: rgba(248, 250, 252, 0.1);
+      --tw-accent: #38bdf8;
+      --tw-accent-rgb: 56, 189, 248;
+      --tw-accent-secondary: #f8fafc;
+      --tw-text-primary: #f8fafc;
+      --tw-text-secondary: #cbd5e1;
+      --tw-text-muted: #94a3b8;
+      --tw-btn-bg: rgba(248, 250, 252, 0.06);
+      --tw-btn-border: rgba(248, 250, 252, 0.12);
+      --tw-btn-hover-bg: rgba(248, 250, 252, 0.12);
+      --tw-code-bg: rgba(2, 6, 23, 0.6);
+      --tw-dot-red: #f87171;
+      --tw-dot-yellow: #fbbf24;
+      --tw-dot-green: #34d399;
+      --tw-success-color: #34d399;
+      --tw-hl-keyword: #38bdf8;
+      --tw-hl-string: #86efac;
+      --tw-hl-function: #f8fafc;
+      --tw-hl-comment: #94a3b8;
+      --tw-hl-number: #fbbf24;
+      --tw-hl-tag: #38bdf8;
+      --tw-hl-attr: #e2e8f0;
+      --tw-hl-variable: #c4b5fd;
+      --tw-hl-type: #5eead4;
+      --tw-hl-property: #93c5fd;
+      --tw-hl-builtin: #fde68a;
+    }
+
+    /* ==========================================================
+       BASE RESET & GLOBAL STYLES
+       ========================================================== */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      overflow-x: hidden;
+      color: var(--page-text);
+      /* Page background is CONSTANT — never changes with theme */
+    }
+
+    /* ==========================================================
+       ANIMATED GRADIENT BACKGROUND (PAGE — CONSTANT)
+       ========================================================== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background: linear-gradient(
+        135deg,
+        var(--page-bg-start) 0%,
+        var(--page-bg-mid) 40%,
+        var(--page-bg-end) 70%,
+        var(--page-bg-start) 100%
+      );
+      background-size: 400% 400%;
+      animation: gradientShift 20s ease infinite;
+    }
+
+    /* Decorative floating orb for depth */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -20%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(
+        circle,
+        rgba(var(--page-accent-rgb), 0.08) 0%,
+        transparent 70%
+      );
+      z-index: -1;
+      animation: orbFloat 15s ease-in-out infinite;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-40px, 30px) scale(1.05); }
+      66% { transform: translate(20px, -20px) scale(0.95); }
+    }
+
+    /* ==========================================================
+       HERO SECTION — Title + Subtitle (PAGE — CONSTANT)
+       ========================================================== */
+    .hero {
+      text-align: center;
+      margin-bottom: 2rem;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .hero-title {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      background: linear-gradient(
+        135deg,
+        #38bdf8 0%,
+        #818cf8 50%,
+        #38bdf8 100%
+      );
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: titleShimmer 6s ease infinite;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(0.85rem, 2vw, 1.05rem);
+      color: var(--page-text-sec);
+      margin-top: 0.5rem;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+
+    @keyframes titleShimmer {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==========================================================
+       MAIN EDITOR CARD — Glassmorphism floating panel
+       Uses --tw-* theme variables (change with theme selection)
+       ========================================================== */
+    .editor-card {
+      width: 620px;
+      max-width: 1200px;
+      min-width: 340px;
+      background: var(--tw-card-bg);
+      border: 1px solid var(--tw-card-border);
+      border-radius: 20px;
+      backdrop-filter: blur(24px) saturate(1.4);
+      -webkit-backdrop-filter: blur(24px) saturate(1.4);
+      box-shadow:
+        0 4px 6px rgba(0, 0, 0, 0.15),
+        0 24px 60px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      overflow: hidden;
+      animation: fadeInUp 0.8s ease-out 0.15s both;
+      position: relative;
+      transition:
+        background 0.5s ease,
+        border-color 0.5s ease,
+        box-shadow 0.5s ease;
+    }
+
+    /* ==========================================================
+       RESIZE HANDLE — Drag right edge to adjust card width
+       ========================================================== */
+    .resize-handle {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 8px;
+      height: 100%;
+      cursor: ew-resize;
+      z-index: 10;
+      background: transparent;
+      transition: background 0.2s ease;
+    }
+
+    .resize-handle:hover,
+    .resize-handle.dragging {
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(var(--tw-accent-rgb), 0.25)
+      );
+    }
+
+    /* Resize grip dots */
+    .resize-handle::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: 3px;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 32px;
+      border-left: 1.5px dotted rgba(var(--tw-accent-rgb), 0.35);
+      border-right: 1.5px dotted rgba(var(--tw-accent-rgb), 0.35);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .resize-handle:hover::after,
+    .resize-handle.dragging::after {
+      opacity: 1;
+    }
+
+    /* Prevent text selection while dragging */
+    body.resizing {
+      user-select: none;
+      -webkit-user-select: none;
+      cursor: ew-resize !important;
+    }
+
+    /* ==========================================================
+       TOOLBAR — Theme Selector + Language Selector
+       ========================================================== */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.85rem 1.25rem;
+      border-bottom: 1px solid var(--tw-card-border);
+      background: rgba(0, 0, 0, 0.15);
+      transition: border-color 0.5s ease;
+      flex-wrap: wrap;
+    }
+
+    .toolbar-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .toolbar-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--tw-text-muted);
+      font-weight: 600;
+      transition: color 0.4s ease;
+    }
+
+    /* ── Theme Selector (Dropdown) ── */
+    .theme-select-wrapper {
+      position: relative;
+    }
+
+    .theme-select {
+      appearance: none;
+      -webkit-appearance: none;
+      background: var(--tw-btn-bg);
+      border: 1px solid var(--tw-btn-border);
+      border-radius: 10px;
+      color: var(--tw-text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 0.45rem 2.2rem 0.45rem 0.85rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      outline: none;
+    }
+
+    .theme-select:hover {
+      background: var(--tw-btn-hover-bg);
+      border-color: rgba(var(--tw-accent-rgb), 0.4);
+      box-shadow: 0 0 12px rgba(var(--tw-accent-rgb), 0.1);
+    }
+
+    .theme-select:focus-visible {
+      box-shadow: 0 0 0 2px rgba(var(--tw-accent-rgb), 0.4);
+    }
+
+    .theme-select option {
+      background: #1e293b;
+      color: #f1f5f9;
+    }
+
+    .theme-select-wrapper::after {
+      content: '';
+      position: absolute;
+      right: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid var(--tw-accent);
+      pointer-events: none;
+      transition: border-color 0.4s ease;
+    }
+
+    /* ── Language Selector (Pill Buttons) ── */
+    .lang-pills {
+      display: flex;
+      gap: 0.3rem;
+      flex-wrap: wrap;
+    }
+
+    .lang-pill {
+      background: var(--tw-btn-bg);
+      border: 1px solid var(--tw-btn-border);
+      border-radius: 8px;
+      color: var(--tw-text-secondary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.38rem 0.7rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      outline: none;
+      letter-spacing: 0.02em;
+    }
+
+    .lang-pill:hover {
+      background: var(--tw-btn-hover-bg);
+      color: var(--tw-text-primary);
+      border-color: rgba(var(--tw-accent-rgb), 0.4);
+      box-shadow: 0 0 10px rgba(var(--tw-accent-rgb), 0.08);
+      transform: translateY(-1px);
+    }
+
+    .lang-pill:focus-visible {
+      box-shadow: 0 0 0 2px rgba(var(--tw-accent-rgb), 0.4);
+    }
+
+    .lang-pill.active {
+      background: rgba(var(--tw-accent-rgb), 0.18);
+      color: var(--tw-accent);
+      border-color: rgba(var(--tw-accent-rgb), 0.4);
+      box-shadow: 0 0 14px rgba(var(--tw-accent-rgb), 0.12);
+    }
+
+    /* ==========================================================
+       LINE NUMBER TOGGLE BUTTON
+       ========================================================== */
+    .line-num-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: var(--tw-btn-bg);
+      border: 1px solid var(--tw-btn-border);
+      border-radius: 8px;
+      color: var(--tw-text-secondary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.38rem 0.6rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      outline: none;
+      letter-spacing: 0.02em;
+      margin-left: auto;
+    }
+
+    .line-num-toggle:hover {
+      background: var(--tw-btn-hover-bg);
+      color: var(--tw-text-primary);
+      border-color: rgba(var(--tw-accent-rgb), 0.4);
+      box-shadow: 0 0 10px rgba(var(--tw-accent-rgb), 0.08);
+      transform: translateY(-1px);
+    }
+
+    .line-num-toggle:focus-visible {
+      box-shadow: 0 0 0 2px rgba(var(--tw-accent-rgb), 0.4);
+    }
+
+    .line-num-toggle.active {
+      background: rgba(var(--tw-accent-rgb), 0.18);
+      color: var(--tw-accent);
+      border-color: rgba(var(--tw-accent-rgb), 0.4);
+    }
+
+    .line-num-toggle .toggle-icon {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .line-num-toggle .toggle-label {
+      font-size: 0.68rem;
+    }
+
+    /* ==========================================================
+       CODE PREVIEW WINDOW — macOS-style code editor
+       ========================================================== */
+    .code-window {
+      position: relative;
+      overflow: hidden;
+      transition: background 0.5s ease;
+    }
+
+    /* macOS Window Dots */
+    .window-dots {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 0.85rem 1.25rem 0;
+    }
+
+    .window-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      transition: transform 0.2s ease, box-shadow 0.4s ease;
+    }
+
+    .window-dot.red {
+      background: var(--tw-dot-red);
+      box-shadow: 0 0 6px rgba(255, 95, 87, 0.3);
+      animation: dotPulse 4s ease-in-out infinite;
+    }
+    .window-dot.yellow {
+      background: var(--tw-dot-yellow);
+      box-shadow: 0 0 6px rgba(254, 188, 46, 0.3);
+      animation: dotPulse 4s ease-in-out infinite 0.5s;
+    }
+    .window-dot.green {
+      background: var(--tw-dot-green);
+      box-shadow: 0 0 6px rgba(40, 200, 64, 0.3);
+      animation: dotPulse 4s ease-in-out infinite 1s;
+    }
+
+    .window-dot:hover {
+      transform: scale(1.25);
+    }
+
+    @keyframes dotPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    /* File Name Label */
+    .window-filename {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--tw-text-muted);
+      margin-left: auto;
+      padding-right: 1.25rem;
+      transition: color 0.4s ease;
+    }
+
+    /* ==========================================================
+       CODE CONTAINER — Auto-height, word-wrapping
+       Height grows/shrinks with content. No fixed min-height.
+       ========================================================== */
+    .code-container {
+      position: relative;
+      margin: 0.5rem 0 0;
+      background: var(--tw-code-bg);
+      transition: background 0.5s ease;
+      /* No min-height — grows with content */
+    }
+
+    /* ==========================================================
+       CODE LINE-BY-LINE LAYOUT
+       Each logical line of code is rendered as a row (.code-line)
+       containing a line number cell (.ln) and a code cell (.lc).
+       This ensures perfect alignment — numbers never break apart,
+       and they always end on the last line of code.
+       ========================================================== */
+    .code-lines {
+      padding: 0.5rem 0;
+      min-height: 80px;
+    }
+
+    .code-line {
+      display: flex;
+      align-items: flex-start;
+      min-height: calc(0.82rem * 1.7); /* one line height */
+    }
+
+    /* Line number cell — one per row, never wraps */
+    .code-line .ln {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.7;
+      padding: 0 0.8rem 0 1rem;
+      color: var(--tw-text-muted);
+      text-align: right;
+      user-select: none;
+      opacity: 0.5;
+      flex-shrink: 0;
+      white-space: nowrap;
+      transition: width 0.3s ease, opacity 0.3s ease, padding 0.3s ease, color 0.4s ease;
+    }
+
+    /* Line number hidden state — collapse the column */
+    .code-lines.no-line-nums .ln {
+      width: 0;
+      min-width: 0;
+      padding: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+
+    /* Code cell — wraps long lines */
+    .code-line .lc {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.7;
+      padding-right: 1.25rem;
+      color: var(--tw-text-primary);
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+      word-break: break-all;
+      flex: 1;
+      min-width: 0;
+      transition: color 0.4s ease;
+    }
+
+    /* When line numbers hidden, code uses full width */
+    .code-lines.no-line-nums .lc {
+      padding-left: 1rem;
+    }
+
+    /* ==========================================================
+       TRANSPARENT TEXTAREA OVERLAY FOR LIVE EDITING
+       Also uses pre-wrap + overflow-wrap to match code-display.
+       Height auto-adjusts via JavaScript.
+       ========================================================== */
+    .code-input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      /* height is set by JS to match code-gutter */
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.7;
+      padding: 0.5rem 1.25rem 0.5rem 1rem;
+      color: transparent;
+      caret-color: var(--tw-accent);
+      background: transparent;
+      border: none;
+      outline: none;
+      resize: none;
+      /* KEY: wrap text so it stays inside the window */
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+      word-break: break-all;
+      overflow: hidden;
+      z-index: 2;
+      transition: caret-color 0.4s ease;
+    }
+
+    .code-input::selection {
+      background: rgba(var(--tw-accent-rgb), 0.25);
+    }
+
+    .code-input:focus {
+      box-shadow: inset 0 0 0 1px rgba(var(--tw-accent-rgb), 0.15);
+    }
+
+    /* ==========================================================
+       SYNTAX HIGHLIGHTING — Theme-aware colors via CSS variables
+       ========================================================== */
+    .lc .hljs-keyword,
+    .lc .hljs-selector-tag,
+    .lc .hljs-literal {
+      color: var(--tw-hl-keyword);
+    }
+
+    .lc .hljs-string,
+    .lc .hljs-addition,
+    .lc .hljs-template-variable,
+    .lc .hljs-template-tag {
+      color: var(--tw-hl-string);
+    }
+
+    .lc .hljs-title,
+    .lc .hljs-title\.function_,
+    .lc .hljs-section {
+      color: var(--tw-hl-function);
+    }
+
+    .lc .hljs-comment,
+    .lc .hljs-quote,
+    .lc .hljs-deletion {
+      color: var(--tw-hl-comment);
+      font-style: italic;
+    }
+
+    .lc .hljs-number,
+    .lc .hljs-meta {
+      color: var(--tw-hl-number);
+    }
+
+    .lc .hljs-tag {
+      color: var(--tw-hl-tag);
+    }
+
+    .lc .hljs-attr,
+    .lc .hljs-attribute {
+      color: var(--tw-hl-attr);
+    }
+
+    .lc .hljs-variable,
+    .lc .hljs-params {
+      color: var(--tw-hl-variable);
+    }
+
+    .lc .hljs-type,
+    .lc .hljs-built_in {
+      color: var(--tw-hl-type);
+    }
+
+    .lc .hljs-property,
+    .lc .hljs-symbol {
+      color: var(--tw-hl-property);
+    }
+
+    .lc .hljs-name {
+      color: var(--tw-hl-tag);
+    }
+
+    .lc .hljs-selector-class {
+      color: var(--tw-hl-function);
+    }
+
+    .lc .hljs-selector-id {
+      color: var(--tw-hl-string);
+    }
+
+    .lc .hljs-punctuation {
+      color: var(--tw-text-muted);
+    }
+
+    .lc .hljs-heading {
+      color: var(--tw-hl-keyword);
+      font-weight: 700;
+    }
+
+    .lc .hljs-link {
+      color: var(--tw-hl-string);
+    }
+
+    .lc .hljs-emphasis {
+      color: var(--tw-hl-variable);
+      font-style: italic;
+    }
+
+    .lc .hljs-strong {
+      color: var(--tw-hl-number);
+      font-weight: 700;
+    }
+
+    /* ==========================================================
+       BOTTOM ACTION AREA — COPY AS IMAGE Button
+       ========================================================== */
+    .action-bar {
+      padding: 1.25rem;
+      border-top: 1px solid var(--tw-card-border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      transition: border-color 0.5s ease;
+    }
+
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      width: 100%;
+      max-width: 340px;
+      padding: 0.85rem 1.5rem;
+      background: linear-gradient(
+        135deg,
+        rgba(var(--tw-accent-rgb), 0.2) 0%,
+        rgba(var(--tw-accent-rgb), 0.08) 100%
+      );
+      border: 1px solid rgba(var(--tw-accent-rgb), 0.3);
+      border-radius: 14px;
+      color: var(--tw-accent);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      outline: none;
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 0.02em;
+    }
+
+    .copy-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(var(--tw-accent-rgb), 0.15) 0%,
+        transparent 50%
+      );
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .copy-btn:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 4px 15px rgba(var(--tw-accent-rgb), 0.2),
+        0 0 30px rgba(var(--tw-accent-rgb), 0.06);
+      border-color: rgba(var(--tw-accent-rgb), 0.5);
+    }
+
+    .copy-btn:hover::before {
+      opacity: 1;
+    }
+
+    .copy-btn:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .copy-btn:focus-visible {
+      box-shadow: 0 0 0 3px rgba(var(--tw-accent-rgb), 0.3);
+    }
+
+    .copy-btn .btn-icon {
+      font-size: 1.1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .copy-btn:hover .btn-icon {
+      transform: scale(1.1);
+    }
+
+    /* Loading State */
+    .copy-btn.loading {
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    .copy-btn.loading .btn-icon {
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Success State */
+    .copy-btn.success {
+      background: rgba(34, 197, 94, 0.15);
+      border-color: rgba(34, 197, 94, 0.4);
+      color: var(--tw-success-color);
+      pointer-events: none;
+    }
+
+    .shortcut-hint {
+      font-size: 0.68rem;
+      color: var(--tw-text-muted);
+      letter-spacing: 0.03em;
+      transition: color 0.4s ease;
+    }
+
+    .shortcut-hint kbd {
+      display: inline-block;
+      padding: 0.1em 0.4em;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      background: rgba(var(--tw-accent-rgb), 0.08);
+      border: 1px solid rgba(var(--tw-accent-rgb), 0.15);
+      border-radius: 4px;
+      color: var(--tw-text-muted);
+    }
+
+    /* ==========================================================
+       FOOTER (PAGE — CONSTANT)
+       ========================================================== */
+    .footer {
+      margin-top: 1.5rem;
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--page-text-muted);
+      animation: fadeInUp 0.8s ease-out 0.3s both;
+    }
+
+    .footer span {
+      opacity: 0.6;
+    }
+
+    /* ==========================================================
+       RESPONSIVE DESIGN
+       ========================================================== */
+    @media (max-width: 640px) {
+      body {
+        padding: 1rem 0.75rem;
+      }
+
+      .hero {
+        margin-bottom: 1.25rem;
+      }
+
+      .editor-card {
+        border-radius: 16px;
+        min-width: 0;
+        width: 100% !important;
+      }
+
+      .resize-handle {
+        display: none;
+      }
+
+      .toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.6rem;
+        padding: 0.75rem 1rem;
+      }
+
+      .toolbar-group {
+        width: 100%;
+      }
+
+      .theme-select {
+        width: 100%;
+      }
+
+      .lang-pills {
+        width: 100%;
+      }
+
+      .lang-pill {
+        flex: 1;
+        text-align: center;
+        min-width: 0;
+        padding: 0.38rem 0.4rem;
+        font-size: 0.68rem;
+      }
+
+      .lc,
+      .code-input,
+      .ln {
+        font-size: 0.74rem;
+      }
+
+      .action-bar {
+        padding: 1rem;
+      }
+
+      .copy-btn {
+        max-width: 100%;
+        font-size: 0.85rem;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .lang-pill {
+        font-size: 0.62rem;
+        padding: 0.3rem 0.3rem;
+      }
+    }
+
+    /* ==========================================================
+       TOAST NOTIFICATION
+       ========================================================== */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #22c55e;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.7rem 1.4rem;
+      border-radius: 12px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.4s ease;
+      z-index: 100;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .toast.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       HERO SECTION (PAGE — CONSTANT, NOT affected by theme)
+       ============================================================ -->
+  <header class="hero">
+    <h1 class="hero-title">CODE CANVAS</h1>
+    <p class="hero-subtitle">Craft stunning code screenshots. Pick a theme, write code, export.</p>
+  </header>
+
+  <!-- ============================================================
+       MAIN EDITOR CARD (THEMED — changes when you pick a theme)
+       ============================================================ -->
+  <main class="editor-card" id="editorCard">
+    <!-- Resize Handle (drag right edge to adjust width) -->
+    <div class="resize-handle" id="resizeHandle" title="Drag to resize width"></div>
+
+    <!-- ── Toolbar: Theme + Language ── -->
+    <div class="toolbar">
+      <div class="toolbar-group">
+        <span class="toolbar-label">Theme</span>
+        <div class="theme-select-wrapper">
+          <select class="theme-select" id="themeSelect" aria-label="Select theme">
+            <option value="midnight-slate">Midnight Slate</option>
+            <option value="cyber-noir">Cyber Noir</option>
+            <option value="sunset-blush">Sunset Blush</option>
+            <option value="celestial-gold">Celestial Gold</option>
+            <option value="arctic-frost">Arctic Frost</option>
+          </select>
+        </div>
+      </div>
+      <div class="toolbar-group">
+        <span class="toolbar-label">Language</span>
+        <div class="lang-pills" id="langPills">
+          <button class="lang-pill active" data-lang="html">HTML</button>
+          <button class="lang-pill" data-lang="javascript">JS</button>
+          <button class="lang-pill" data-lang="markdown">MD</button>
+          <button class="lang-pill" data-lang="css">CSS</button>
+          <button class="lang-pill" data-lang="python">Python</button>
+        </div>
+      </div>
+      <button class="line-num-toggle" id="lineNumToggle" title="Toggle line numbers" aria-label="Toggle line numbers">
+        <span class="toggle-icon" id="toggleIcon">#</span>
+        <span class="toggle-label">Lines</span>
+      </button>
+    </div>
+
+    <!-- ── Code Preview Window (this is what gets captured as image) ── -->
+    <div class="code-window" id="codeWindow">
+      <!-- macOS Window Dots + Filename -->
+      <div class="window-dots">
+        <span class="window-dot red"></span>
+        <span class="window-dot yellow"></span>
+        <span class="window-dot green"></span>
+        <span class="window-filename" id="windowFilename">index.html</span>
+      </div>
+
+      <!-- Code Area: Line-by-line rendering + Input Overlay -->
+      <div class="code-container" id="codeContainer">
+        <div class="code-lines" id="codeLines">
+          <!-- JS renders .code-line rows here -->
+        </div>
+        <!-- Transparent textarea overlaid for live editing -->
+        <textarea
+          class="code-input"
+          id="codeInput"
+          spellcheck="false"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          aria-label="Code editor input"
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- ── Action Bar: Copy as Image ── -->
+    <div class="action-bar">
+      <button class="copy-btn" id="copyBtn" aria-label="Copy code as image to clipboard">
+        <span class="btn-icon" id="copyIcon">&#x1F4CB;</span>
+        <span id="copyText">Copy as Image</span>
+      </button>
+      <span class="shortcut-hint">
+        <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to copy
+      </span>
+    </div>
+  </main>
+
+  <!-- ============================================================
+       FOOTER (PAGE — CONSTANT)
+       ============================================================ -->
+  <footer class="footer">
+    <span>CODE CANVAS &mdash; Premium Code Snippets</span>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ============================================================
+       JAVASCRIPT — All logic inline
+       ========================================================== -->
+  <script>
+    /* ==========================================================
+       SAMPLE CODE — Default snippet for each supported language
+       ========================================================== */
+    const SAMPLE_CODE = {
+      html: `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0" />
+  <title>My Application</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-bar">
+      <a href="/" class="logo">Brand</a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="hero-section">
+    <h1>Welcome to the Future</h1>
+    <p>Build something amazing today.</p>
+    <button class="cta-btn">Get Started</button>
+  </main>
+  <script src="app.js"><\/script>
+</body>
+</html>`,
+
+      javascript: `// Task Manager — Modern ES6+ Patterns
+class TaskManager {
+  #tasks = [];
+
+  constructor(initialTasks = []) {
+    this.#tasks = initialTasks.map(this.#normalize);
+  }
+
+  #normalize(task) {
+    return {
+      id: crypto.randomUUID(),
+      title: task.title,
+      status: 'pending',
+      priority: task.priority ?? 'medium',
+      createdAt: new Date().toISOString(),
+    };
+  }
+
+  add(task) {
+    const normalized = this.#normalize(task);
+    this.#tasks.push(normalized);
+    return normalized;
+  }
+
+  complete(id) {
+    const task = this.#tasks.find(t => t.id === id);
+    if (task) task.status = 'completed';
+    return task;
+  }
+
+  get pending() {
+    return this.#tasks.filter(t => t.status === 'pending');
+  }
+
+  get summary() {
+    const total = this.#tasks.length;
+    const done = this.#tasks.filter(
+      t => t.status === 'completed').length;
+    return {
+      total, done,
+      progress: (done / total * 100).toFixed(1)
+    };
+  }
+}
+
+const manager = new TaskManager([
+  { title: 'Design system audit', priority: 'high' },
+  { title: 'API integration tests', priority: 'low' },
+]);
+
+console.log(manager.summary);`,
+
+      markdown: `# Project Documentation
+
+## Getting Started
+
+Welcome to the **Project Name** docs.
+This guide covers installation and usage.
+
+### Prerequisites
+
+- Node.js >= 18.0
+- npm or pnpm package manager
+- A modern web browser
+
+### Installation
+
+\`\`\`bash
+git clone https://github.com/user/project.git
+cd project
+npm install
+\`\`\`
+
+## Configuration
+
+| Option   | Type    | Default  | Description          |
+|----------|---------|----------|----------------------|
+| theme    | string  | dark     | UI color theme       |
+| port     | number  | 3000     | Dev server port      |
+| debug    | boolean | false    | Verbose logging      |
+
+## API Reference
+
+### createApp(config)
+
+Initializes the application.
+
+> **Note**: Must be called before other methods.
+
+---
+
+*Last updated: 2024*`,
+
+      css: `/* Modern Dashboard Layout */
+:root {
+  --color-primary: #6366f1;
+  --color-surface: #1e1b2e;
+  --color-text: #e2e8f0;
+  --radius: 16px;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar main"
+    "sidebar footer";
+  min-height: 100vh;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.dashboard-header {
+  grid-area: header;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 2rem;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid
+    rgba(255, 255, 255, 0.06);
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  transition: transform 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}`,
+
+      python: `# Data Pipeline — Type-safe Python
+from dataclasses import dataclass, field
+from typing import Optional
+from datetime import datetime
+import json
+
+
+@dataclass
+class Record:
+    """Represents a single data record."""
+    id: str
+    value: float
+    category: str
+    timestamp: datetime = field(
+        default_factory=datetime.now)
+    tags: list[str] = field(
+        default_factory=list)
+    validated: bool = False
+
+    def validate(self) -> bool:
+        self.validated = (
+            self.value > 0
+            and bool(self.category))
+        return self.validated
+
+    def to_dict(self) -> dict:
+        return {
+            "id": self.id,
+            "value": self.value,
+            "category": self.category,
+            "timestamp":
+              self.timestamp.isoformat(),
+            "tags": self.tags,
+            "validated": self.validated,
+        }
+
+
+class DataPipeline:
+    """Processes and transforms records."""
+
+    def __init__(self, source: str, *,
+                 batch_size: int = 100):
+        self.source = source
+        self.batch_size = batch_size
+        self._records: list[Record] = []
+        self._processed: int = 0
+
+    def ingest(self,
+               raw_data: list[dict]) -> None:
+        self._records = [
+            Record(
+              id=item["id"],
+              value=item["value"],
+              category=item["category"],
+              tags=item.get("tags", []),
+            )
+            for item in raw_data
+        ]
+
+    def process(self) -> list[dict]:
+        results = []
+        for record in self._records:
+            if record.validate():
+                results.append(
+                  record.to_dict())
+                self._processed += 1
+        return results
+
+    @property
+    def summary(self) -> dict:
+        return {
+            "source": self.source,
+            "total": len(self._records),
+            "processed": self._processed,
+        }
+
+
+pipeline = DataPipeline(
+  "api/v2/stream", batch_size=50)
+pipeline.ingest([
+    {"id": "001", "value": 42.5,
+     "category": "analytics"},
+    {"id": "002", "value": 18.0,
+     "category": "metrics",
+     "tags": ["live"]},
+])
+
+results = pipeline.process()
+print(json.dumps(pipeline.summary,
+                indent=2))`,
+    };
+
+    /* ==========================================================
+       FILENAME MAPPING — Display name per language
+       ========================================================== */
+    const FILENAMES = {
+      html: 'index.html',
+      javascript: 'app.js',
+      markdown: 'README.md',
+      css: 'styles.css',
+      python: 'main.py',
+    };
+
+    /* ==========================================================
+       STATE
+       ========================================================== */
+    let currentTheme = 'midnight-slate';
+    let currentLang = 'html';
+    let currentCode = SAMPLE_CODE.html;
+    let lineNumbersVisible = true;
+
+    /* ==========================================================
+       DOM REFERENCES
+       ========================================================== */
+    const themeSelect = document.getElementById('themeSelect');
+    const langPills = document.querySelectorAll('.lang-pill');
+    const codeInput = document.getElementById('codeInput');
+    const codeLines = document.getElementById('codeLines');
+    const windowFilename = document.getElementById('windowFilename');
+    const copyBtn = document.getElementById('copyBtn');
+    const copyIcon = document.getElementById('copyIcon');
+    const copyText = document.getElementById('copyText');
+    const codeContainer = document.getElementById('codeContainer');
+    const toast = document.getElementById('toast');
+    const lineNumToggle = document.getElementById('lineNumToggle');
+    const toggleIcon = document.getElementById('toggleIcon');
+
+    /* ==========================================================
+       THEME SWITCHING
+       Applies theme by setting data-theme attribute on <html>.
+       Only the code window vars (--tw-*) change.
+       Page-level vars (--page-*) stay constant.
+       ========================================================== */
+    function setTheme(theme) {
+      currentTheme = theme;
+      if (theme === 'midnight-slate') {
+        document.documentElement.removeAttribute('data-theme');
+      } else {
+        document.documentElement.setAttribute('data-theme', theme);
+      }
+      // Re-highlight to pick up new CSS variable colors
+      highlightCode();
+    }
+
+    themeSelect.addEventListener('change', (e) => {
+      setTheme(e.target.value);
+    });
+
+    /* ==========================================================
+       LANGUAGE SWITCHING
+       Updates active pill, loads sample code, updates filename.
+       ========================================================== */
+    function setLanguage(lang) {
+      currentLang = lang;
+      currentCode = SAMPLE_CODE[lang] || '';
+
+      // Update pill states
+      langPills.forEach((pill) => {
+        pill.classList.toggle('active', pill.dataset.lang === lang);
+      });
+
+      // Update filename display
+      windowFilename.textContent = FILENAMES[lang] || 'untitled';
+
+      // Load sample code into input
+      codeInput.value = currentCode;
+
+      // Apply syntax highlighting
+      highlightCode();
+    }
+
+    langPills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        setLanguage(pill.dataset.lang);
+      });
+    });
+
+    /* ==========================================================
+       SYNTAX HIGHLIGHTING + LINE-BY-LINE RENDERING
+       Highlight.js tokenizes the full code, then we split the
+       highlighted HTML into lines. Each line becomes a .code-line
+       row with its own line number (.ln) and code (.lc) cell.
+       This guarantees: numbers never break, always end on last line.
+       ========================================================== */
+    function highlightCode() {
+      const code = codeInput.value;
+      const result = hljs.highlight(code, { language: currentLang });
+      const highlightedHtml = result.value;
+
+      // Split highlighted HTML into individual lines
+      const rawLines = highlightedHtml.split('\n');
+      const totalLines = rawLines.length;
+      const lnWidth = (String(totalLines).length * 0.65 + 0.7) + 'rem';
+
+      // Build line-by-line HTML
+      let html = '';
+      for (let i = 0; i < rawLines.length; i++) {
+        const lineNum = i + 1;
+        const lineCode = rawLines[i] || ' ';
+        html += '<div class="code-line">';
+        html += '<span class="ln" style="width:' + lnWidth + '">' + lineNum + '</span>';
+        html += '<span class="lc">' + lineCode + '</span>';
+        html += '</div>';
+      }
+
+      codeLines.innerHTML = html;
+      syncTextareaHeight();
+    }
+
+    /* ==========================================================
+       LINE NUMBER TOGGLE
+       Show/hide line numbers with smooth animation.
+       ========================================================== */
+    lineNumToggle.addEventListener('click', () => {
+      lineNumbersVisible = !lineNumbersVisible;
+
+      if (lineNumbersVisible) {
+        codeLines.classList.remove('no-line-nums');
+        toggleIcon.textContent = '#';
+        lineNumToggle.classList.add('active');
+      } else {
+        codeLines.classList.add('no-line-nums');
+        toggleIcon.textContent = '#';
+        lineNumToggle.classList.remove('active');
+      }
+
+      syncTextareaHeight();
+    });
+
+    /* ==========================================================
+       AUTO-HEIGHT — Sync textarea height to code-gutter height
+       The code-gutter (line numbers + code display) determines
+       the natural height. The textarea overlay matches it.
+       ========================================================== */
+    function syncTextareaHeight() {
+      requestAnimationFrame(() => {
+        const contentHeight = codeLines.scrollHeight;
+        codeInput.style.height = contentHeight + 'px';
+      });
+    }
+
+    /* ==========================================================
+       LIVE EDITING — Sync textarea input to highlighted display
+       ========================================================== */
+    codeInput.addEventListener('input', () => {
+      currentCode = codeInput.value;
+      highlightCode();
+    });
+
+    /* ==========================================================
+       COPY AS IMAGE — Clipboard only, no download
+       Captures the code window at 2x resolution,
+       converts to PNG blob, and writes to clipboard.
+       ========================================================== */
+    async function copyAsImage() {
+      // Set loading state
+      copyBtn.classList.add('loading');
+      copyIcon.innerHTML = '&#x2699;';
+      copyText.textContent = 'Generating...';
+
+      try {
+        // Small delay for UI to update
+        await new Promise((r) => setTimeout(r, 80));
+
+        const codeWindow = document.getElementById('codeWindow');
+
+        // Capture at 2x for retina quality
+        const canvas = await html2canvas(codeWindow, {
+          scale: 2,
+          backgroundColor: null,
+          useCORS: true,
+          logging: false,
+          allowTaint: true,
+          // Hide the textarea overlay from capture
+          onclone: (clonedDoc) => {
+            const overlay = clonedDoc.getElementById('codeInput');
+            if (overlay) overlay.style.display = 'none';
+          },
+        });
+
+        // Convert canvas to PNG blob and copy to clipboard
+        const blob = await new Promise((resolve) =>
+          canvas.toBlob(resolve, 'image/png')
+        );
+
+        if (blob && navigator.clipboard && navigator.clipboard.write) {
+          await navigator.clipboard.write([
+            new ClipboardItem({ 'image/png': blob }),
+          ]);
+          showToast('Image copied to clipboard!');
+        } else {
+          // Fallback: if clipboard API not available, download as file
+          const link = document.createElement('a');
+          const ts = new Date().toISOString().slice(0, 19).replace(/[T:]/g, '-');
+          link.download = `code-canvas-${currentLang}-${ts}.png`;
+          link.href = canvas.toDataURL('image/png', 1.0);
+          link.click();
+          showToast('Image downloaded (clipboard not supported)');
+        }
+
+        // Set success state
+        copyBtn.classList.remove('loading');
+        copyBtn.classList.add('success');
+        copyIcon.innerHTML = '&#x2713;';
+        copyText.textContent = 'Copied!';
+
+        // Reset button after 2 seconds
+        setTimeout(() => {
+          copyBtn.classList.remove('success');
+          copyIcon.innerHTML = '&#x1F4CB;';
+          copyText.textContent = 'Copy as Image';
+        }, 2000);
+      } catch (err) {
+        console.error('Image generation failed:', err);
+        copyBtn.classList.remove('loading');
+        copyIcon.innerHTML = '&#x1F4CB;';
+        copyText.textContent = 'Copy as Image';
+        showToast('Copy failed. Please try again.');
+      }
+    }
+
+    copyBtn.addEventListener('click', copyAsImage);
+
+    /* ==========================================================
+       KEYBOARD SHORTCUT — Ctrl/Cmd + Enter to copy
+       ========================================================== */
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        e.preventDefault();
+        copyAsImage();
+      }
+    });
+
+    /* ==========================================================
+       TOAST NOTIFICATION
+       ========================================================== */
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('visible');
+      setTimeout(() => {
+        toast.classList.remove('visible');
+      }, 2500);
+    }
+
+    /* ==========================================================
+       RESIZE HANDLE — Drag to adjust editor card width
+       ========================================================== */
+    const resizeHandle = document.getElementById('resizeHandle');
+    const editorCard = document.getElementById('editorCard');
+    let isResizing = false;
+    let startX = 0;
+    let startWidth = 0;
+
+    resizeHandle.addEventListener('mousedown', (e) => {
+      isResizing = true;
+      startX = e.clientX;
+      startWidth = editorCard.offsetWidth;
+      document.body.classList.add('resizing');
+      resizeHandle.classList.add('dragging');
+      e.preventDefault(); // Prevent text selection
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isResizing) return;
+      const diff = e.clientX - startX;
+      const newWidth = Math.min(
+        Math.max(startWidth + diff, 360),
+        window.innerWidth - 32 // leave 16px padding on each side
+      );
+      editorCard.style.width = newWidth + 'px';
+      // Re-sync textarea height in case wrapping changed
+      syncTextareaHeight();
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (!isResizing) return;
+      isResizing = false;
+      document.body.classList.remove('resizing');
+      resizeHandle.classList.remove('dragging');
+    });
+
+    // Touch support for mobile resize
+    resizeHandle.addEventListener('touchstart', (e) => {
+      isResizing = true;
+      startX = e.touches[0].clientX;
+      startWidth = editorCard.offsetWidth;
+      document.body.classList.add('resizing');
+      resizeHandle.classList.add('dragging');
+      e.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener('touchmove', (e) => {
+      if (!isResizing) return;
+      const diff = e.touches[0].clientX - startX;
+      const newWidth = Math.min(
+        Math.max(startWidth + diff, 360),
+        window.innerWidth - 32
+      );
+      editorCard.style.width = newWidth + 'px';
+      syncTextareaHeight();
+    }, { passive: false });
+
+    document.addEventListener('touchend', () => {
+      if (!isResizing) return;
+      isResizing = false;
+      document.body.classList.remove('resizing');
+      resizeHandle.classList.remove('dragging');
+    });
+
+    /* ==========================================================
+       INITIALIZATION
+       ========================================================== */
+    function init() {
+      // Set initial theme (default = midnight-slate, no data-theme attr)
+      setTheme('midnight-slate');
+
+      // Set initial language and code
+      setLanguage('html');
+
+      // Line numbers visible by default
+      lineNumToggle.classList.add('active');
+
+      // Focus the code input
+      codeInput.focus();
+    }
+
+    init();
+  </script>
+</body>
+</html>
