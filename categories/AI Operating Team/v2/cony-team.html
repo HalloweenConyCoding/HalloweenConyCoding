@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CONY Team | Arcane Codex</title>
+  <meta name="description" content="Public-facing CONY hierarchy page with ME above CONY, core and domain leads, and public-safe dossiers.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="cony-team.css">
+</head>
+<body data-view="grid">
+
+  <!-- ═══ Vignette overlay ═══ -->
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- ═══ Animated Rune Circles ═══ -->
+  <div class="rune-circle rune-circle--1" aria-hidden="true">
+    <div class="rune-circle--inner"></div>
+    <div class="rune-circle--inner2"></div>
+  </div>
+  <div class="rune-circle rune-circle--2" aria-hidden="true">
+    <div class="rune-circle--inner"></div>
+    <div class="rune-circle--inner2"></div>
+  </div>
+  <div class="rune-circle rune-circle--3" aria-hidden="true">
+    <div class="rune-circle--inner"></div>
+    <div class="rune-circle--inner2"></div>
+  </div>
+
+  <!-- ═══ Magic Circle SVG Overlays ═══ -->
+  <div class="magic-circle-overlay magic-circle-overlay--1" aria-hidden="true">
+    <svg viewBox="0 0 200 200" fill="none">
+      <circle cx="100" cy="100" r="90" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+      <circle cx="100" cy="100" r="75" stroke="currentColor" stroke-width="0.5" opacity="0.3" stroke-dasharray="4 4"/>
+      <circle cx="100" cy="100" r="60" stroke="currentColor" stroke-width="0.3" opacity="0.2"/>
+      <path d="M100 10L100 190M10 100L190 100M30 30L170 170M170 30L30 170" stroke="currentColor" stroke-width="0.4" opacity="0.25"/>
+      <polygon points="100,25 115,85 175,100 115,115 100,175 85,115 25,100 85,85" fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.3"/>
+      <circle cx="100" cy="100" r="20" stroke="currentColor" stroke-width="1" opacity="0.35"/>
+      <circle cx="100" cy="100" r="5" fill="currentColor" opacity="0.2"/>
+    </svg>
+  </div>
+  <div class="magic-circle-overlay magic-circle-overlay--2" aria-hidden="true">
+    <svg viewBox="0 0 200 200" fill="none">
+      <circle cx="100" cy="100" r="85" stroke="currentColor" stroke-width="0.6" opacity="0.35"/>
+      <circle cx="100" cy="100" r="70" stroke="currentColor" stroke-width="0.4" opacity="0.25" stroke-dasharray="2 6"/>
+      <path d="M100 15L120 80L185 100L120 120L100 185L80 120L15 100L80 80Z" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+      <circle cx="100" cy="100" r="35" stroke="currentColor" stroke-width="0.8" opacity="0.3"/>
+      <circle cx="100" cy="100" r="8" fill="currentColor" opacity="0.15"/>
+    </svg>
+  </div>
+
+  <!-- ═══ Fog layers ═══ -->
+  <div class="fog-layer fog-layer--1" aria-hidden="true"></div>
+  <div class="fog-layer fog-layer--2" aria-hidden="true"></div>
+  <div class="fog-layer fog-layer--3" aria-hidden="true"></div>
+  <div class="fog-layer fog-layer--4" aria-hidden="true"></div>
+
+  <!-- ═══ Ambient candle-lit layer — ENHANCED with more embers and motes ═══ -->
+  <div class="ambient-glow" aria-hidden="true">
+    <span class="ember"></span>
+    <span class="ember"></span>
+    <span class="ember"></span>
+    <span class="ember"></span>
+    <span class="ember"></span>
+    <span class="ember"></span>
+    <span class="gold-mote"></span>
+    <span class="gold-mote"></span>
+    <span class="gold-mote"></span>
+    <span class="gold-mote"></span>
+    <span class="gold-mote"></span>
+    <span class="gold-mote"></span>
+    <!-- Extra embers — more visible particles -->
+    <span class="ember"></span>
+    <span class="ember"></span>
+    <span class="ember"></span>
+    <span class="ember"></span>
+    <!-- Extra gold motes — more visible magical particles -->
+    <span class="gold-mote"></span>
+    <span class="gold-mote"></span>
+    <span class="gold-mote"></span>
+    <span class="gold-mote"></span>
+  </div>
+
+  <!-- ═══ Floating rune symbols — MORE VISIBLE ═══ -->
+  <div class="rune-float" aria-hidden="true">&#x2726;</div>
+  <div class="rune-float" aria-hidden="true">&#x2727;</div>
+  <div class="rune-float" aria-hidden="true">&#x2736;</div>
+  <div class="rune-float" aria-hidden="true">&#x272A;</div>
+  <div class="rune-float" aria-hidden="true">&#x2742;</div>
+  <div class="rune-float" aria-hidden="true">&#x2726;</div>
+
+  <!-- ═══ Codex page border frame ═══ -->
+  <div class="codex-frame" aria-hidden="true">
+    <svg class="frame-corner frame-corner--tl" viewBox="0 0 100 100" fill="none"><path d="M0 0L36 0L36 4L4 4L4 36L0 36Z" fill="currentColor"/><path d="M0 0L22 0C12 12 12 12 0 22Z" fill="currentColor" opacity="0.5"/><path d="M8 8L32 8" stroke="currentColor" stroke-width="0.6" opacity="0.3"/><path d="M8 8L8 32" stroke="currentColor" stroke-width="0.6" opacity="0.3"/><circle cx="16" cy="16" r="4" stroke="currentColor" stroke-width="1" opacity="0.25"/><circle cx="16" cy="16" r="1.5" fill="currentColor" opacity="0.35"/><path d="M4 4L14 4L14 6L6 6L6 14L4 14Z" fill="currentColor" opacity="0.12"/></svg>
+    <svg class="frame-corner frame-corner--tr" viewBox="0 0 100 100" fill="none"><path d="M100 0L64 0L64 4L96 4L96 36L100 36Z" fill="currentColor"/><path d="M100 0L78 0C88 12 88 12 100 22Z" fill="currentColor" opacity="0.5"/><path d="M92 8L68 8" stroke="currentColor" stroke-width="0.6" opacity="0.3"/><path d="M92 8L92 32" stroke="currentColor" stroke-width="0.6" opacity="0.3"/><circle cx="84" cy="16" r="4" stroke="currentColor" stroke-width="1" opacity="0.25"/><circle cx="84" cy="16" r="1.5" fill="currentColor" opacity="0.35"/><path d="M96 4L86 4L86 6L94 6L94 14L96 14Z" fill="currentColor" opacity="0.12"/></svg>
+    <svg class="frame-corner frame-corner--bl" viewBox="0 0 100 100" fill="none"><path d="M0 100L36 100L36 96L4 96L4 64L0 64Z" fill="currentColor"/><path d="M0 100L22 100C12 88 12 88 0 78Z" fill="currentColor" opacity="0.5"/><path d="M8 92L32 92" stroke="currentColor" stroke-width="0.6" opacity="0.3"/><path d="M8 92L8 68" stroke="currentColor" stroke-width="0.6" opacity="0.3"/><circle cx="16" cy="84" r="4" stroke="currentColor" stroke-width="1" opacity="0.25"/><circle cx="16" cy="84" r="1.5" fill="currentColor" opacity="0.35"/><path d="M4 96L14 96L14 94L6 94L6 86L4 86Z" fill="currentColor" opacity="0.12"/></svg>
+    <svg class="frame-corner frame-corner--br" viewBox="0 0 100 100" fill="none"><path d="M100 100L64 100L64 96L96 96L96 64L100 64Z" fill="currentColor"/><path d="M100 100L78 100C88 88 88 88 100 78Z" fill="currentColor" opacity="0.5"/><path d="M92 92L68 92" stroke="currentColor" stroke-width="0.6" opacity="0.3"/><path d="M92 92L92 68" stroke="currentColor" stroke-width="0.6" opacity="0.3"/><circle cx="84" cy="84" r="4" stroke="currentColor" stroke-width="1" opacity="0.25"/><circle cx="84" cy="84" r="1.5" fill="currentColor" opacity="0.35"/><path d="M96 96L86 96L86 94L94 94L94 86L96 86Z" fill="currentColor" opacity="0.12"/></svg>
+  </div>
+
+  <header class="topbar" id="topbar">
+    <a class="brand" href="index.html" aria-label="Back to homepage">
+      <span class="brand-mark">CONY</span>
+      <span class="brand-label">Public Page</span>
+    </a>
+    <nav class="anchor-nav" aria-label="Page sections">
+      <a href="#hierarchy">Hierarchy</a>
+      <a href="#dossiers">Dossiers</a>
+      <a href="#public-rules">Public rules</a>
+    </nav>
+  </header>
+
+  <main class="page-shell">
+
+    <!-- ═══ HERO ═══ -->
+    <section class="hero-panel reveal" id="hero">
+      <!-- Ornamental SVG corners inside hero -->
+      <svg class="hero-ornament hero-ornament--tl" viewBox="0 0 120 120" fill="none"><path d="M0 0L50 0L50 3L3 3L3 50L0 50Z" fill="currentColor"/><path d="M0 0L28 0C14 14 14 14 0 28Z" fill="currentColor" opacity="0.4"/><path d="M8 8L40 8" stroke="currentColor" stroke-width="0.5" opacity="0.3"/><path d="M8 8L8 40" stroke="currentColor" stroke-width="0.5" opacity="0.3"/><circle cx="22" cy="22" r="8" stroke="currentColor" stroke-width="0.8" opacity="0.2"/><circle cx="22" cy="22" r="3" fill="currentColor" opacity="0.25"/><path d="M3 3L16 3L16 5L5 5L5 16L3 16Z" fill="currentColor" opacity="0.1"/></svg>
+      <svg class="hero-ornament hero-ornament--tr" viewBox="0 0 120 120" fill="none"><path d="M120 0L70 0L70 3L117 3L117 50L120 50Z" fill="currentColor"/><path d="M120 0L92 0C106 14 106 14 120 28Z" fill="currentColor" opacity="0.4"/><path d="M112 8L80 8" stroke="currentColor" stroke-width="0.5" opacity="0.3"/><path d="M112 8L112 40" stroke="currentColor" stroke-width="0.5" opacity="0.3"/><circle cx="98" cy="22" r="8" stroke="currentColor" stroke-width="0.8" opacity="0.2"/><circle cx="98" cy="22" r="3" fill="currentColor" opacity="0.25"/><path d="M117 3L104 3L104 5L115 5L115 16L117 16Z" fill="currentColor" opacity="0.1"/></svg>
+      <svg class="hero-ornament hero-ornament--bl" viewBox="0 0 120 120" fill="none"><path d="M0 120L50 120L50 117L3 117L3 70L0 70Z" fill="currentColor"/><path d="M0 120L28 120C14 106 14 106 0 92Z" fill="currentColor" opacity="0.4"/><path d="M8 112L40 112" stroke="currentColor" stroke-width="0.5" opacity="0.3"/><path d="M8 112L8 80" stroke="currentColor" stroke-width="0.5" opacity="0.3"/><circle cx="22" cy="98" r="8" stroke="currentColor" stroke-width="0.8" opacity="0.2"/><circle cx="22" cy="98" r="3" fill="currentColor" opacity="0.25"/><path d="M3 117L16 117L16 115L5 115L5 104L3 104Z" fill="currentColor" opacity="0.1"/></svg>
+      <svg class="hero-ornament hero-ornament--br" viewBox="0 0 120 120" fill="none"><path d="M120 120L70 120L70 117L117 117L117 70L120 70Z" fill="currentColor"/><path d="M120 120L92 120C106 106 106 106 120 92Z" fill="currentColor" opacity="0.4"/><path d="M112 112L80 112" stroke="currentColor" stroke-width="0.5" opacity="0.3"/><path d="M112 112L112 80" stroke="currentColor" stroke-width="0.5" opacity="0.3"/><circle cx="98" cy="98" r="8" stroke="currentColor" stroke-width="0.8" opacity="0.2"/><circle cx="98" cy="98" r="3" fill="currentColor" opacity="0.25"/><path d="M117 117L104 117L104 115L115 115L115 104L117 104Z" fill="currentColor" opacity="0.1"/></svg>
+
+      <div class="hero-rail">
+        <span class="me-marker">ME</span>
+        <span class="hero-note">minimal public layer</span>
+      </div>
+      <p class="hero-kicker">Portfolio world / team directory</p>
+      <h1 class="hero-title">CONY</h1>
+      <p class="hero-copy">
+        ME sits above CONY. Below that, the organization splits into a core lead row and a visibly independent WIN lane, while every description stays public-safe.
+      </p>
+      <div class="hero-actions">
+        <a class="primary-link" href="#hierarchy">View hierarchy</a>
+        <a class="secondary-link" href="#dossiers">Open dossiers</a>
+      </div>
+    </section>
+
+    <!-- ═══ Ornamental Divider ═══ -->
+    <div class="section-divider" aria-hidden="true">
+      <svg viewBox="0 0 600 50" fill="none" preserveAspectRatio="xMidYMid meet">
+        <line x1="0" y1="25" x2="220" y2="25" stroke="currentColor" stroke-width="0.8" opacity="0.25"/>
+        <line x1="380" y1="25" x2="600" y2="25" stroke="currentColor" stroke-width="0.8" opacity="0.25"/>
+        <path d="M230 25L255 12L280 25L255 38Z" stroke="currentColor" stroke-width="1" fill="currentColor" opacity="0.1"/>
+        <path d="M320 25L345 12L370 25L345 38Z" stroke="currentColor" stroke-width="1" fill="currentColor" opacity="0.1"/>
+        <circle cx="255" cy="25" r="3" fill="currentColor" opacity="0.4"/>
+        <circle cx="345" cy="25" r="3" fill="currentColor" opacity="0.4"/>
+        <circle cx="300" cy="25" r="5" fill="currentColor" opacity="0.5"/>
+        <circle cx="300" cy="25" r="9" stroke="currentColor" stroke-width="0.8" opacity="0.2"/>
+        <circle cx="300" cy="25" r="13" stroke="currentColor" stroke-width="0.4" opacity="0.1"/>
+        <line x1="280" y1="25" x2="320" y2="25" stroke="currentColor" stroke-width="0.6" opacity="0.3"/>
+      </svg>
+    </div>
+
+    <!-- ═══ HIERARCHY ═══ -->
+    <section class="content-section reveal" id="hierarchy" aria-labelledby="hierarchy-title">
+      <div class="section-heading">
+        <p class="section-label">01</p>
+        <h2 id="hierarchy-title">Hierarchy</h2>
+      </div>
+      <p class="section-copy">
+        The visible structure keeps one clean chain: ME above CONY, then the core leads, then the domain leads. WIN stays inside the org but reads as its own lane.
+      </p>
+      <div class="hierarchy-stage" id="hierarchy-root" aria-label="Hierarchy tree"></div>
+    </section>
+
+    <!-- ═══ DOSSIERS (with view toggle) ═══ -->
+    <section class="content-section reveal" id="dossiers" aria-labelledby="dossiers-title">
+      <div class="section-heading">
+        <p class="section-label">02</p>
+        <h2 id="dossiers-title">Agent dossiers</h2>
+      </div>
+      <p class="section-copy">
+        Every visible node gets the same public-safe dossier fields: display name, role ID, reports-to, group, level, scope, non-scope, operating rule, and independence flag.
+      </p>
+
+      <div class="legend-row">
+        <span class="legend-lab">Pipeline</span>
+        <span class="chip"><span class="dot dot-top"></span>Top</span>
+        <span class="chip"><span class="dot dot-core"></span>Core</span>
+        <span class="chip"><span class="dot dot-domain"></span>Domain</span>
+        <div class="view-toggle" role="tablist" aria-label="View mode">
+          <button id="btn-grid" aria-pressed="true">Codex grid</button>
+          <button id="btn-flow" aria-pressed="false">Pipeline flow</button>
+        </div>
+      </div>
+
+      <div class="codex-grid" id="codex-grid" aria-label="Agent codex cards"></div>
+
+      <div class="hierarchy-flow" id="hierarchy-flow" aria-label="Production pipeline"></div>
+    </section>
+
+    <!-- ═══ PUBLIC RULES ═══ -->
+    <section class="content-section reveal" id="public-rules" aria-labelledby="public-rules-title">
+      <div class="section-heading">
+        <p class="section-label">03</p>
+        <h2 id="public-rules-title">Public rules</h2>
+      </div>
+      <div class="rules-grid">
+        <article class="info-card reveal reveal-delay-1">
+          <h3>Scope boundary</h3>
+          <p>Only public-facing roles, relationships, and descriptions appear here.</p>
+        </article>
+        <article class="info-card reveal reveal-delay-2">
+          <h3>Independence lane</h3>
+          <p>WIN is structurally included, but the card treatment makes the lane read as separate.</p>
+        </article>
+        <article class="info-card reveal reveal-delay-3">
+          <h3>Copy safety</h3>
+          <p>No private details are exposed on the page.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ═══ Footer Seal ═══ -->
+    <div class="footer-seal" aria-hidden="true">
+      <svg viewBox="0 0 60 60" fill="none">
+        <circle cx="30" cy="30" r="27" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+        <circle cx="30" cy="30" r="22" stroke="currentColor" stroke-width="0.5" opacity="0.2"/>
+        <path d="M30 14L30 46M14 30L46 30" stroke="currentColor" stroke-width="0.6" opacity="0.2"/>
+        <circle cx="30" cy="30" r="4" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+        <circle cx="30" cy="30" r="1.5" fill="currentColor" opacity="0.5"/>
+      </svg>
+    </div>
+
+  </main>
+
+  <script src="cony-team.js"></script>
+</body>
+</html>
