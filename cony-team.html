@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CONY Team | Public Page</title>
+  <meta name="description" content="Public-facing CONY hierarchy page with ME above CONY, core and domain leads, and public-safe dossiers.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="mainpage_component/cony-team.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="Back to homepage">
+      <span class="brand-mark">CONY</span>
+      <span class="brand-label">Public Page</span>
+    </a>
+    <nav class="anchor-nav" aria-label="Page sections">
+      <a href="#hierarchy">Hierarchy</a>
+      <a href="#dossiers">Dossiers</a>
+      <a href="#public-rules">Public rules</a>
+    </nav>
+  </header>
+
+  <main class="page-shell">
+    <section class="hero-panel surface-frame" id="hero">
+      <div class="hero-rail">
+        <span class="me-marker">ME</span>
+        <span class="hero-note">minimal public layer</span>
+      </div>
+      <p class="hero-kicker">Portfolio world / team directory</p>
+      <h1 class="hero-title">CONY</h1>
+      <p class="hero-copy">
+        ME sits above CONY. Below that, the organization splits into a core lead row and a visibly independent WIN lane, while every description stays public-safe.
+      </p>
+      <div class="hero-actions">
+        <a class="primary-link" href="#hierarchy">View hierarchy</a>
+        <a class="secondary-link" href="#dossiers">Open dossiers</a>
+      </div>
+    </section>
+
+    <section class="content-section surface-frame" id="hierarchy" aria-labelledby="hierarchy-title">
+      <div class="section-heading">
+        <p class="section-label">01</p>
+        <h2 id="hierarchy-title">Hierarchy</h2>
+      </div>
+      <p class="section-copy">
+        The visible structure keeps one clean chain: ME above CONY, then the core leads, then the domain leads. WIN stays inside the org but reads as its own lane.
+      </p>
+      <div class="hierarchy-stage" id="hierarchy-root" aria-label="Hierarchy tree"></div>
+    </section>
+
+    <section class="content-section surface-frame" id="dossiers" aria-labelledby="dossiers-title">
+      <div class="section-heading">
+        <p class="section-label">02</p>
+        <h2 id="dossiers-title">Agent dossiers</h2>
+      </div>
+      <p class="section-copy">
+        Every visible node gets the same public-safe dossier fields: display name, role ID, reports-to, group, level, scope, non-scope, operating rule, and independence flag.
+      </p>
+      <div class="dossier-grid" id="dossier-grid"></div>
+    </section>
+
+    <section class="content-section surface-frame" id="public-rules" aria-labelledby="public-rules-title">
+      <div class="section-heading">
+        <p class="section-label">03</p>
+        <h2 id="public-rules-title">Public rules</h2>
+      </div>
+      <div class="rules-grid">
+        <article class="info-card panel-tile">
+          <h3>Scope boundary</h3>
+          <p>Only public-facing roles, relationships, and descriptions appear here.</p>
+        </article>
+        <article class="info-card panel-tile">
+          <h3>Independence lane</h3>
+          <p>WIN is structurally included, but the card treatment makes the lane read as separate.</p>
+        </article>
+        <article class="info-card panel-tile">
+          <h3>Copy safety</h3>
+          <p>No private details are exposed on the page.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script src="mainpage_component/cony-team.js"></script>
+</body>
+</html>
