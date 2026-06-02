@@ -34,79 +34,248 @@
     {
       id: 'wise',
       display_name: 'WISE',
-      role_id: 'VAULT_KEEPER',
+      role_id: 'WISE',
       reports_to: 'cony',
       group: 'core',
       level: 2,
       pipeline: 'core',
-      scope: 'Keeps the public story consistent and preserves visible context.',
-      non_scope: 'Keeps confidential notes and raw history out of view.',
-      operating_rule: 'Retain what is useful and omit what is private.',
+      scope: 'Keeps memory, routing context, and knowledge organization aligned.',
+      non_scope: 'Does not do direct implementation or public-facing design work.',
+      operating_rule: 'Preserve context without widening the public surface.',
       independence_flag: false
     },
     {
-      id: 'forge',
-      display_name: 'FORGE',
-      role_id: 'BUILDER',
+      id: 'orin',
+      display_name: 'ORIN',
+      role_id: 'ORIN',
       reports_to: 'cony',
       group: 'core',
       level: 2,
       pipeline: 'core',
-      scope: 'Turns the approved public brief into working page structure.',
-      non_scope: 'Avoids widening scope beyond the approved public page.',
-      operating_rule: 'Build only what the page needs right now.',
+      scope: 'Builds repo, code, documentation, and file changes safely.',
+      non_scope: 'Does not act as the final approver or domain lead.',
+      operating_rule: 'Implement the smallest correct change set.',
       independence_flag: false
     },
     {
-      id: 'lens',
-      display_name: 'LENS',
-      role_id: 'REVIEW',
+      id: 'argus',
+      display_name: 'ARGUS',
+      role_id: 'ARGUS',
       reports_to: 'cony',
       group: 'core',
       level: 2,
       pipeline: 'core',
-      scope: 'Checks readability, balance, and hierarchy before release.',
-      non_scope: 'Avoids hidden operational detail.',
-      operating_rule: 'Inspect the page for clarity and visual drift.',
+      scope: 'Prepares commit review packages and checks changed files.',
+      non_scope: 'Does not replace final human review.',
+      operating_rule: 'Keep review evidence concise and actionable.',
       independence_flag: false
     },
     {
-      id: 'void',
-      display_name: 'VOID',
-      role_id: 'RISK_CHECK',
+      id: 'thales',
+      display_name: 'THALES',
+      role_id: 'THALES',
       reports_to: 'cony',
       group: 'core',
       level: 2,
       pipeline: 'core',
-      scope: 'Looks for weak assumptions and exposed seams in the public page.',
-      non_scope: 'Avoids private troubleshooting and escalation detail.',
-      operating_rule: 'Pressure-test the page and leave the copy safe.',
+      scope: 'Reads primary or provided sources and extracts evidence.',
+      non_scope: 'Does not invent facts or conclusions beyond the source.',
+      operating_rule: 'Anchor claims in the available evidence.',
+      independence_flag: false
+    },
+    {
+      id: 'vera',
+      display_name: 'VERA',
+      role_id: 'VERA',
+      reports_to: 'cony',
+      group: 'core',
+      level: 2,
+      pipeline: 'core',
+      scope: 'Verifies claims, dates, figures, and source alignment.',
+      non_scope: 'Does not replace source extraction or critique.',
+      operating_rule: 'Check facts before any conclusion is repeated.',
+      independence_flag: false
+    },
+    {
+      id: 'nyx',
+      display_name: 'NYX',
+      role_id: 'NYX',
+      reports_to: 'cony',
+      group: 'core',
+      level: 2,
+      pipeline: 'core',
+      scope: 'Finds contradictions, weak assumptions, and failure modes.',
+      non_scope: 'Does not block work without actionable findings.',
+      operating_rule: 'Pressure-test the plan and surface risks clearly.',
       independence_flag: false
     },
     {
       id: 'win',
       display_name: 'WIN',
-      role_id: 'INDEPENDENT_DOMAIN',
+      role_id: 'WIN',
       reports_to: 'cony',
       group: 'domain',
       level: 2,
       pipeline: 'independent',
-      scope: 'Represents a separate public lane while staying inside the org chart.',
-      non_scope: 'Keeps the lane separate from the core row.',
-      operating_rule: 'Remain visible, but keep the lane independent.',
+      scope: 'Handles investment research only, with no trading execution.',
+      non_scope: 'Does not connect to broker activity or production action.',
+      operating_rule: 'Keep research separate from action.',
       independence_flag: true
     },
     {
-      id: 'telecom',
-      display_name: 'TELECOM',
-      role_id: 'DOMAIN_LEAD',
+      id: 'nexus',
+      display_name: 'NEXUS',
+      role_id: 'NEXUS',
       reports_to: 'cony',
       group: 'domain',
       level: 2,
       pipeline: 'domain',
-      scope: 'Carries a narrow public domain perspective for the team story.',
-      non_scope: 'Keeps the domain view focused on the public page.',
-      operating_rule: 'Keep the domain surface narrow and readable.',
+      scope: 'Leads telecom planning, AIS conventions, QGIS, KPI, and MML work.',
+      non_scope: 'Does not guess unsafe network commands or production values.',
+      operating_rule: 'Route telecom work into the right specialist lane.',
+      independence_flag: false
+    },
+    {
+      id: 'muse',
+      display_name: 'MUSE',
+      role_id: 'MUSE',
+      reports_to: 'cony',
+      group: 'domain',
+      level: 2,
+      pipeline: 'domain',
+      scope: 'Leads public page, UX/UI, styling, and interaction work.',
+      non_scope: 'Does not override safe page identity or private details.',
+      operating_rule: 'Preserve page identity while improving presentation.',
+      independence_flag: false
+    },
+    {
+      id: 'marconi',
+      display_name: 'MARCONI',
+      role_id: 'MARCONI',
+      reports_to: 'nexus',
+      group: 'subagent',
+      level: 3,
+      pipeline: 'domain',
+      scope: 'Handles 2G/3G/4G/5G, band, system, and cell-code logic.',
+      non_scope: 'Does not invent config values or naming rules.',
+      operating_rule: 'Keep RAT logic precise and traceable.',
+      independence_flag: false
+    },
+    {
+      id: 'regis',
+      display_name: 'REGIS',
+      role_id: 'REGIS',
+      reports_to: 'nexus',
+      group: 'subagent',
+      level: 3,
+      pipeline: 'domain',
+      scope: 'Handles AIS naming/config conventions and scenario values.',
+      non_scope: 'Does not replace telecom validation or MML generation.',
+      operating_rule: 'Protect naming conventions first.',
+      independence_flag: false
+    },
+    {
+      id: 'terra',
+      display_name: 'TERRA',
+      role_id: 'TERRA',
+      reports_to: 'nexus',
+      group: 'subagent',
+      level: 3,
+      pipeline: 'domain',
+      scope: 'Handles QGIS planning, geometry, and cell pie wedges.',
+      non_scope: 'Does not blur geometry or map styling logic.',
+      operating_rule: 'Keep map tooling geometrically correct.',
+      independence_flag: false
+    },
+    {
+      id: 'prism',
+      display_name: 'PRISM',
+      role_id: 'PRISM',
+      reports_to: 'nexus',
+      group: 'subagent',
+      level: 3,
+      pipeline: 'domain',
+      scope: 'Handles PRB, CELL_RANGE, throughput, and weekly KPI trends.',
+      non_scope: 'Does not guess missing data joins or metrics.',
+      operating_rule: 'Keep KPI interpretation accurate.',
+      independence_flag: false
+    },
+    {
+      id: 'delta',
+      display_name: 'DELTA',
+      role_id: 'DELTA',
+      reports_to: 'nexus',
+      group: 'subagent',
+      level: 3,
+      pipeline: 'domain',
+      scope: 'Handles Excel/Power Query MML generation and tilt/power commands.',
+      non_scope: 'Does not invent missing telecom inputs.',
+      operating_rule: 'Generate telecom commands safely.',
+      independence_flag: false
+    },
+    {
+      id: 'talos',
+      display_name: 'TALOS',
+      role_id: 'TALOS',
+      reports_to: 'nexus',
+      group: 'subagent',
+      level: 3,
+      pipeline: 'domain',
+      scope: 'Handles Python/pandas automation and telecom tooling implementation.',
+      non_scope: 'Does not replace domain validation or human approval.',
+      operating_rule: 'Build safe, traceable telecom tools.',
+      independence_flag: false
+    },
+    {
+      id: 'vivd',
+      display_name: 'VIVD',
+      role_id: 'VIVD',
+      reports_to: 'muse',
+      group: 'subagent',
+      level: 3,
+      pipeline: 'domain',
+      scope: 'Sets overall brand and visual direction.',
+      non_scope: 'Does not override layout details that belong elsewhere.',
+      operating_rule: 'Keep the visual identity coherent.',
+      independence_flag: false
+    },
+    {
+      id: 'nova',
+      display_name: 'NOVA',
+      role_id: 'NOVA',
+      reports_to: 'muse',
+      group: 'subagent',
+      level: 3,
+      pipeline: 'domain',
+      scope: 'Handles page layout, hierarchy, components, and readability.',
+      non_scope: 'Does not rewrite page logic or motion systems.',
+      operating_rule: 'Keep layouts clear and balanced.',
+      independence_flag: false
+    },
+    {
+      id: 'axiom',
+      display_name: 'AXIOM',
+      role_id: 'AXIOM',
+      reports_to: 'muse',
+      group: 'subagent',
+      level: 3,
+      pipeline: 'domain',
+      scope: 'Handles page logic, calculations, and input/output behavior.',
+      non_scope: 'Does not take over visual composition.',
+      operating_rule: 'Keep behavior technically correct.',
+      independence_flag: false
+    },
+    {
+      id: 'rhythm',
+      display_name: 'RHYTHM',
+      role_id: 'RHYTHM',
+      reports_to: 'muse',
+      group: 'subagent',
+      level: 3,
+      pipeline: 'domain',
+      scope: 'Handles GSAP, parallax, scrub, hover, and microinteraction flow.',
+      non_scope: 'Does not introduce motion that hides content.',
+      operating_rule: 'Use motion to clarify, not distract.',
       independence_flag: false
     }
   ]);
@@ -154,7 +323,7 @@
       <circle cx="30" cy="17" r="2" fill="currentColor" opacity="0.7"/>
     </svg>`,
 
-    forge: `<svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    orin: `<svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="30" cy="30" r="27" stroke="currentColor" stroke-width="1.2" opacity="0.6"/>
       <rect x="19" y="17" width="22" height="9" rx="2" stroke="currentColor" stroke-width="1.5"/>
       <line x1="30" y1="26" x2="30" y2="47" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
@@ -164,7 +333,7 @@
       <line x1="41" y1="22" x2="48" y2="22" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
     </svg>`,
 
-    lens: `<svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    muse: `<svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="30" cy="30" r="27" stroke="currentColor" stroke-width="1.2" opacity="0.6"/>
       <circle cx="26" cy="26" r="11" stroke="currentColor" stroke-width="1.5"/>
       <line x1="34" y1="34" x2="47" y2="47" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
@@ -172,7 +341,7 @@
       <circle cx="26" cy="26" r="1.5" fill="currentColor"/>
     </svg>`,
 
-    void: `<svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    nyx: `<svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="30" cy="30" r="27" stroke="currentColor" stroke-width="1.2" opacity="0.6"/>
       <path d="M30 11L43 18L43 34Q43 45 30 50Q17 45 17 34L17 18Z" stroke="currentColor" stroke-width="1.5"/>
       <path d="M30 19L27 28L33 30L29 42" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -184,7 +353,7 @@
       <path d="M40 18L41 21L44 21L42 23L43 26L40 24L37 26L38 23L36 21L39 21Z" fill="currentColor" opacity="0.7"/>
     </svg>`,
 
-    telecom: `<svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    nexus: `<svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="30" cy="30" r="27" stroke="currentColor" stroke-width="1.2" opacity="0.6"/>
       <line x1="30" y1="16" x2="30" y2="44" stroke="currentColor" stroke-width="2"/>
       <line x1="22" y1="44" x2="38" y2="44" stroke="currentColor" stroke-width="1.5"/>
@@ -194,6 +363,22 @@
       <path d="M42 15Q50 25 42 35" stroke="currentColor" stroke-width="1" opacity="0.5"/>
     </svg>`
   };
+
+  Object.assign(SIGILS, {
+    argus: SIGILS.muse,
+    thales: SIGILS.wise,
+    vera: SIGILS.muse,
+    marconi: SIGILS.nexus,
+    regis: SIGILS.wise,
+    terra: SIGILS.nexus,
+    prism: SIGILS.muse,
+    delta: SIGILS.orin,
+    talos: SIGILS.orin,
+    vivd: SIGILS.wise,
+    nova: SIGILS.muse,
+    axiom: SIGILS.muse,
+    rhythm: SIGILS.nyx
+  });
 
   /* ═══════════════════════════════════════════════════════════════
      PIPELINE COLORS
@@ -518,15 +703,27 @@
     [
       {
         label: 'Core leads',
-        note: 'Shared execution lane',
-        names: ['wise', 'forge', 'lens', 'void'],
+        note: 'memory, build, review, fact, critique',
+        names: ['wise', 'orin', 'argus', 'thales', 'vera', 'nyx'],
         independent: false
       },
       {
         label: 'Domain leads',
-        note: 'WIN stays visible but separate',
-        names: ['win', 'telecom'],
+        note: 'WIN, NEXUS, MUSE',
+        names: ['win', 'nexus', 'muse'],
         independent: true
+      },
+      {
+        label: 'NEXUS subagents',
+        note: 'telecom specialists',
+        names: ['marconi', 'regis', 'terra', 'prism', 'delta', 'talos'],
+        independent: false
+      },
+      {
+        label: 'MUSE subagents',
+        note: 'design specialists',
+        names: ['vivd', 'nova', 'axiom', 'rhythm'],
+        independent: false
       }
     ].forEach((group) => {
       const panel = createEl(
@@ -574,8 +771,10 @@
 
     const lanes = [
       { label: 'Top', note: 'command chain', ids: ['me', 'cony'], rowClass: 'lane-top' },
-      { label: 'Core leads', note: 'shared execution lane', ids: ['wise', 'forge', 'lens', 'void'], rowClass: 'lane-core' },
-      { label: 'Domain leads', note: 'WIN stays visible but separate', ids: ['win', 'telecom'], rowClass: 'lane-domain', isInfinite: true }
+      { label: 'Core leads', note: 'memory, build, review, fact, critique', ids: ['wise', 'orin', 'argus', 'thales', 'vera', 'nyx'], rowClass: 'lane-core' },
+      { label: 'Domain leads', note: 'WIN, NEXUS, MUSE', ids: ['win', 'nexus', 'muse'], rowClass: 'lane-domain', isInfinite: true },
+      { label: 'NEXUS subagents', note: 'telecom specialists', ids: ['marconi', 'regis', 'terra', 'prism', 'delta', 'talos'], rowClass: 'lane-core' },
+      { label: 'MUSE subagents', note: 'design specialists', ids: ['vivd', 'nova', 'axiom', 'rhythm'], rowClass: 'lane-core' }
     ];
 
     lanes.forEach((lane) => {
