@@ -156,6 +156,7 @@
     <div class="nav-links" id="navLinks">
       <a href="#library" class="nav-link active" data-section="library">Library</a>
       <a href="#celestial" class="nav-link" data-section="celestial">Archive</a>
+      <a href="#ai-team" class="nav-link" data-section="ai-team">AI Team</a>
       <a href="#uncharted" class="nav-link" data-section="uncharted">Uncharted</a>
     </div>
   </nav>
@@ -317,19 +318,6 @@
               <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </a>
           </div>
-          <div class="cel-card featured reveal reveal-delay-4">
-            <div class="cel-card-header">
-              <h3 class="cel-card-title">AI Operating Team v2</h3>
-              <span class="cel-card-status active">● OPEN</span>
-            </div>
-            <p class="cel-card-desc">
-              A public-facing AI operating team page with renamed agents, explicit domain subagents, and a simple route into the CONY archive.
-            </p>
-            <a href="categories/AI Operating Team/v2-new-agent-name/cony-team.html" target="_blank" rel="noopener noreferrer" class="cel-card-link">
-              Open AI Operating Team
-              <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </a>
-          </div>
         </div>
 
         <!-- Dormant Projects -->
@@ -355,7 +343,36 @@
     </section>
 
     <!-- ─────────────────────────────────────────────────────────
-         SECTION 3: THE UNCHARTED REALM (MUTED)
+         SECTION 3: AI OPERATING TEAM
+         ───────────────────────────────────────────────────────── -->
+    <section id="ai-team" class="section ai-team-section" aria-label="AI Operating Team">
+      <div class="ai-team-inner">
+        <div class="ai-team-title reveal">
+          <div class="section-label" style="color: var(--cel-brass);">The Operating Atlas</div>
+          <h2>AI Operating Team</h2>
+          <p>
+            A standalone team atlas for the CONY operating structure, placed beside the project archive as its own category.
+          </p>
+        </div>
+
+        <div class="ai-team-card reveal reveal-delay-1">
+          <div class="ai-team-card-copy">
+            <span class="cel-card-status active">● OPEN</span>
+            <h3>CONY Operating Team</h3>
+            <p>
+              Explore the current scroll-reactive team page with agent portraits, hierarchy cards, role details, and the Base44-guided visual direction.
+            </p>
+          </div>
+          <a href="categories/AI Operating Team/v4_base44_0_converted_by_codex/index.html" target="_blank" rel="noopener noreferrer" class="cel-card-link ai-team-link">
+            Open AI Operating Team
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────────────────────────────
+         SECTION 4: THE UNCHARTED REALM (MUTED)
          ───────────────────────────────────────────────────────── -->
     <section id="uncharted" class="section" aria-label="Entertainment — The Uncharted Realm">
       <div class="uncharted-inner">
@@ -563,6 +580,7 @@
     const sectionColors = {
       library:   'nav--library',
       celestial: 'nav--celestial',
+      'ai-team': 'nav--celestial',
       uncharted: 'nav--uncharted'
     };
 

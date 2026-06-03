@@ -401,26 +401,16 @@
      ═══════════════════════════════════════════════════════════════ */
 
   const PORTRAIT_PATHS = (nodeId) => [
-    `portrait-${nodeId}.png`,
-    `portraits/${nodeId}.png`
+    `../Agent Portraits/${nodeId}.png`,
+    `../Agent Portraits/old_png/${nodeId}.png`
   ];
 
-  /* Try loading a portrait with multiple paths and retry */
-  const tryLoadPortrait = (paths, onSuccess, onAllFail, retryCount = 0) => {
+  const ENABLE_PORTRAITS = true;
+
+  /* Try loading a portrait with multiple paths */
+  const tryLoadPortrait = (paths, onSuccess, onAllFail) => {
     if (paths.length === 0) {
-      if (retryCount < 2) {
-        /* Retry up to 2 times with a delay */
-        setTimeout(() => {
-          tryLoadPortrait(
-            PORTRAIT_PATHS(paths._nodeId || ''),
-            onSuccess,
-            onAllFail,
-            retryCount + 1
-          );
-        }, 500 * (retryCount + 1));
-      } else {
-        if (onAllFail) onAllFail();
-      }
+      if (onAllFail) onAllFail();
       return;
     }
 
@@ -430,12 +420,12 @@
 
     const img = new Image();
     img.onload = () => {
-      onSuccess(currentPath);
+      onSuccess(encodeURI(currentPath));
     };
     img.onerror = () => {
-      tryLoadPortrait(remainingPaths, onSuccess, onAllFail, retryCount);
+      tryLoadPortrait(remainingPaths, onSuccess, onAllFail);
     };
-    img.src = currentPath;
+    img.src = encodeURI(currentPath);
   };
 
   /* ═══════════════════════════════════════════════════════════════
@@ -459,47 +449,6 @@
     const field = createEl('dl', 'node-field');
     field.append(createEl('dt', null, label), createEl('dd', null, String(value)));
     return field;
-  };
-
-  /* ═══════════════════════════════════════════════════════════════
-     MAGICAL FLIP PARTICLE BURST
-     ═══════════════════════════════════════════════════════════════ */
-
-  const createFlipBurst = (card) => {
-    const container = createEl('div', 'flip-particles');
-    const rect = card.getBoundingClientRect();
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const numParticles = 12;
-
-    for (let i = 0; i < numParticles; i++) {
-      const particle = createEl('span', 'flip-particle');
-      const angle = (Math.PI * 2 / numParticles) * i + (Math.random() - 0.5) * 0.5;
-      const distance = 40 + Math.random() * 60;
-      const px = Math.cos(angle) * distance;
-      const py = Math.sin(angle) * distance;
-      particle.style.left = centerX + 'px';
-      particle.style.top = centerY + 'px';
-      particle.style.setProperty('--px', px + 'px');
-      particle.style.setProperty('--py', py + 'px');
-      particle.style.animationDelay = (Math.random() * 0.15) + 's';
-      particle.style.width = (3 + Math.random() * 4) + 'px';
-      particle.style.height = particle.style.width;
-
-      /* Some particles use violet for independent cards */
-      if (card.dataset.pipeline === 'independent' && Math.random() > 0.5) {
-        particle.style.background = '#a78bfa';
-        particle.style.boxShadow = '0 0 8px #8b5cf6, 0 0 16px rgba(139, 92, 246, 0.3)';
-      }
-
-      container.append(particle);
-    }
-
-    card.append(container);
-    /* Remove particles after animation */
-    setTimeout(() => {
-      container.remove();
-    }, 1200);
   };
 
   /* ═══════════════════════════════════════════════════════════════
@@ -756,22 +705,11 @@
       const toggleCard = () => {
         const isFlipped = card.classList.toggle('flipped');
         card.setAttribute('aria-pressed', isFlipped ? 'true' : 'false');
-
-        /* Add magical burst effect */
-        card.classList.add('flipping');
-        createFlipBurst(card);
-        setTimeout(() => {
-          card.classList.remove('flipping');
-        }, 600);
       };
 
-      const front = card.querySelector('.front');
       const backClose = card.querySelector('.back-close');
       const backScroll = card.querySelector('.back-scroll');
 
-      if (front) {
-        front.addEventListener('click', toggleCard);
-      }
       if (backClose) {
         backClose.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -779,10 +717,6 @@
         });
       }
       if (backScroll) {
-        backScroll.addEventListener('click', (e) => {
-          e.stopPropagation();
-        });
-
         backScroll.addEventListener('wheel', (e) => {
           if (backScroll.scrollHeight <= backScroll.clientHeight) return;
           e.preventDefault();
@@ -790,6 +724,12 @@
           backScroll.scrollTop += e.deltaY;
         }, { passive: false });
       }
+
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.back-close')) return;
+        if (e.target.closest('a, button, input, textarea, select, label')) return;
+        toggleCard();
+      });
 
       card.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -862,6 +802,10 @@
   let topbarTicking = false;
 
   const updateTopbar = () => {
+    const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    const scrollProgress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
+    document.documentElement.style.setProperty('--scroll-progress', scrollProgress.toFixed(4));
+
     if (window.scrollY > 10) {
       topbar.classList.add('scrolled');
     } else {
@@ -876,6 +820,7 @@
       topbarTicking = true;
     }
   }, { passive: true });
+  requestAnimationFrame(updateTopbar);
 
   /* ═══════════════════════════════════════════════════════════════
      INIT
@@ -883,16 +828,15 @@
 
   buildHierarchy();
 
-  /* Load portraits immediately — no waiting for requestAnimationFrame */
-  loadPortraits();
+  /* Load portraits only when the image set is available */
+  if (ENABLE_PORTRAITS) {
+    loadPortraits();
+  }
 
   requestAnimationFrame(() => {
     initFlipCards();
     initRevealAnimations();
   });
-
-  /* Also retry portrait loading after a short delay in case images weren't ready */
-  setTimeout(loadPortraits, 1000);
 
   window.addEventListener('hashchange', syncActiveFromViewport);
   window.addEventListener('load', syncActiveFromViewport, { once: true });

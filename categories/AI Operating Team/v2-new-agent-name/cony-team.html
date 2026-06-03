@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Operating Team v2 | Arcane Codex</title>
-  <meta name="description" content="Public-facing AI operating team v2 page with ME above CONY, renamed leads, domain subagents, and public-safe dossiers.">
+  <title>CONY Operating Team | Arcane Codex</title>
+  <meta name="description" content="Share-safe CONY operating team page with ME above CONY, renamed leads, domain subagents, and sealed dossiers.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="cony-team.css">
@@ -101,12 +101,10 @@
   <header class="topbar" id="topbar">
     <a class="brand" href="index.html" aria-label="Back to homepage">
       <span class="brand-mark">CONY</span>
-      <span class="brand-label">Public Page</span>
+      <span class="brand-label">Team Atlas</span>
     </a>
     <nav class="anchor-nav" aria-label="Page sections">
-      <a href="#hierarchy">Hierarchy</a>
-      <a href="#dossiers">Dossiers</a>
-      <a href="#public-rules">Public rules</a>
+      <a href="#hierarchy">Team structure</a>
     </nav>
   </header>
 
@@ -122,16 +120,16 @@
 
       <div class="hero-rail">
         <span class="me-marker">ME</span>
-        <span class="hero-note">minimal public layer</span>
+        <span class="hero-note">lightweight overview layer</span>
       </div>
-      <p class="hero-kicker">Portfolio world / team directory</p>
-      <h1 class="hero-title">AI Operating Team v2</h1>
+      <p class="hero-kicker">Team atlas / role map</p>
+      <h1 class="hero-title hero-title--compact">CONY Operating Team</h1>
       <p class="hero-copy">
-        ME sits above CONY. Below that, the organization splits into core, execution, review, and domain lanes, with the renamed subagents shown explicitly and every description kept public-safe.
+        CONY leads the visible structure. Below that, the organization splits into core, execution, review, and domain lanes, with the renamed subagents shown explicitly and every description kept share-safe.
       </p>
       <div class="hero-actions">
         <a class="primary-link" href="#hierarchy">View hierarchy</a>
-        <a class="secondary-link" href="#dossiers">Open dossiers</a>
+        <a class="secondary-link" href="#hierarchy">Open cards</a>
       </div>
     </section>
 
@@ -154,61 +152,13 @@
     <!-- ═══ HIERARCHY ═══ -->
     <section class="content-section reveal" id="hierarchy" aria-labelledby="hierarchy-title">
       <div class="section-heading">
-        <p class="section-label">01</p>
+        <p class="section-label section-label--symbol" aria-hidden="true">◈</p>
         <h2 id="hierarchy-title">Team structure</h2>
       </div>
       <p class="section-copy">
-        The visible structure keeps one clean chain: ME above CONY, then the core, execution, and review leads, followed by the domain leads and their subagents.
+        The visible structure keeps one clean chain: ME above CONY, then the core, execution, and review leads, followed by the domain leads and their subagents. Each card flips to show the full role details.
       </p>
       <div class="hierarchy-stage" id="hierarchy-root" aria-label="Hierarchy tree"></div>
-    </section>
-
-    <!-- ═══ DOSSIERS (with view toggle) ═══ -->
-    <section class="content-section reveal" id="dossiers" aria-labelledby="dossiers-title">
-      <div class="section-heading">
-        <p class="section-label">02</p>
-        <h2 id="dossiers-title">Agent dossiers</h2>
-      </div>
-      <p class="section-copy">
-        Every visible node gets the same public-safe dossier fields: display name, role ID, reports-to, group, level, scope, non-scope, operating rule, and independence flag.
-      </p>
-
-      <div class="legend-row">
-        <span class="legend-lab">Pipeline</span>
-        <span class="chip"><span class="dot dot-top"></span>Top</span>
-        <span class="chip"><span class="dot dot-core"></span>Core</span>
-        <span class="chip"><span class="dot dot-domain"></span>Domain</span>
-        <div class="view-toggle" role="tablist" aria-label="View mode">
-          <button id="btn-grid" aria-pressed="true">Codex grid</button>
-          <button id="btn-flow" aria-pressed="false">Pipeline flow</button>
-        </div>
-      </div>
-
-      <div class="codex-grid" id="codex-grid" aria-label="Agent codex cards"></div>
-
-      <div class="hierarchy-flow" id="hierarchy-flow" aria-label="Production pipeline"></div>
-    </section>
-
-    <!-- ═══ PUBLIC RULES ═══ -->
-    <section class="content-section reveal" id="public-rules" aria-labelledby="public-rules-title">
-      <div class="section-heading">
-        <p class="section-label">03</p>
-        <h2 id="public-rules-title">Public rules</h2>
-      </div>
-      <div class="rules-grid">
-        <article class="info-card reveal reveal-delay-1">
-          <h3>Scope boundary</h3>
-          <p>Only public-facing roles, relationships, and descriptions appear here.</p>
-        </article>
-        <article class="info-card reveal reveal-delay-2">
-          <h3>Independence lane</h3>
-          <p>WIN is structurally included, but the card treatment makes the lane read as separate.</p>
-        </article>
-        <article class="info-card reveal reveal-delay-3">
-          <h3>Copy safety</h3>
-          <p>No private details are exposed on the page.</p>
-        </article>
-      </div>
     </section>
 
     <!-- ═══ Footer Seal ═══ -->
