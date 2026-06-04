@@ -136,6 +136,19 @@
       independence_flag: false
     },
     {
+      id: 'pylon',
+      display_name: 'PYLON',
+      role_id: 'PYLON',
+      reports_to: 'nexus',
+      group: 'subagent',
+      level: 3,
+      pipeline: 'domain',
+      scope: 'Stewards the Antenna Master Editor route, product rules, and stewardship decisions.',
+      non_scope: 'Does not replace implementation, deployment, or human approval.',
+      operating_rule: 'Keep product stewardship separate from execution.',
+      independence_flag: false
+    },
+    {
       id: 'muse',
       display_name: 'MUSE',
       role_id: 'MUSE',
@@ -618,7 +631,7 @@
       {
         label: 'NEXUS subagents',
         note: 'telecom specialists',
-        names: ['marconi', 'regis', 'terra', 'prism', 'delta', 'talos'],
+        names: ['pylon', 'marconi', 'regis', 'terra', 'prism', 'delta', 'talos'],
         independent: false
       },
       {
