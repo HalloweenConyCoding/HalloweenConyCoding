@@ -22,6 +22,7 @@
     { id: 'talos', display_name: 'TALOS', role_id: 'TALOS', reports_to: 'nexus', group: 'subagent', level: 3, pipeline: 'domain', scope: 'Handles Python/pandas automation and telecom tooling implementation.', non_scope: 'Does not replace domain validation or human approval.', operating_rule: 'Build safe, traceable telecom tools.', independence_flag: false },
     { id: 'vivid', display_name: 'VIVID', role_id: 'VIVID', reports_to: 'muse', group: 'subagent', level: 3, pipeline: 'domain', scope: 'Sets overall brand and visual direction.', non_scope: 'Does not override layout details that belong elsewhere.', operating_rule: 'Keep the visual identity coherent.', independence_flag: false },
     { id: 'nova', display_name: 'NOVA', role_id: 'NOVA', reports_to: 'muse', group: 'subagent', level: 3, pipeline: 'domain', scope: 'Handles page layout, hierarchy, components, and readability.', non_scope: 'Does not rewrite page logic or motion systems.', operating_rule: 'Keep layouts clear and balanced.', independence_flag: false },
+    { id: 'spectra', display_name: 'SPECTRA', role_id: 'SPECTRA', reports_to: 'muse', group: 'subagent', level: 3, pipeline: 'domain', scope: 'Handles live UI preview, visible-state inspection, and mapping visual feedback to the exact page surface.', non_scope: 'Does not replace implementation, brand direction, layout ownership, or protected page logic.', operating_rule: 'Inspect the visible UI before changing it.', independence_flag: false },
     { id: 'axiom', display_name: 'AXIOM', role_id: 'AXIOM', reports_to: 'muse', group: 'subagent', level: 3, pipeline: 'domain', scope: 'Handles page logic, calculations, and input/output behavior.', non_scope: 'Does not take over visual composition.', operating_rule: 'Keep behavior technically correct.', independence_flag: false },
     { id: 'rhythm', display_name: 'RHYTHM', role_id: 'RHYTHM', reports_to: 'muse', group: 'subagent', level: 3, pipeline: 'domain', scope: 'Handles parallax, hover states, scroll flow, and microinteraction rhythm.', non_scope: 'Does not introduce motion that hides content.', operating_rule: 'Use motion to clarify, not distract.', independence_flag: false }
   ]);
@@ -47,6 +48,7 @@
     talos: 'Automation',
     vivid: 'Brand Design',
     nova: 'Layout Design',
+    spectra: 'Visual Preview',
     axiom: 'Page Logic',
     rhythm: 'Motion Design'
   });
@@ -57,7 +59,7 @@
     { id: 'core-leads', label: 'Core Leads', note: 'memory · build · review · fact · critique', names: ['wise', 'orin', 'argus', 'thales', 'vera', 'nyx'], accentColor: '#1a9b7a' },
     { id: 'domain-leads', label: 'Domain Leads', note: 'WIN · NEXUS · MUSE', names: ['win', 'nexus', 'muse'], accentColor: '#c8923a' },
     { id: 'nexus-subagents', label: 'NEXUS Subagents', note: 'telecom specialists', names: ['pylon', 'marconi', 'regis', 'terra', 'prism', 'delta', 'talos'], accentColor: '#c8923a', indent: true },
-    { id: 'muse-subagents', label: 'MUSE Subagents', note: 'design specialists', names: ['vivid', 'nova', 'axiom', 'rhythm'], accentColor: '#c8923a', indent: true }
+    { id: 'muse-subagents', label: 'MUSE Subagents', note: 'design specialists', names: ['vivid', 'nova', 'spectra', 'axiom', 'rhythm'], accentColor: '#c8923a', indent: true }
   ];
 
   const PORTRAIT_PATHS = Object.freeze(Object.fromEntries(
@@ -86,7 +88,7 @@
     nexus: '<svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="27" stroke="currentColor" stroke-width="1.2" opacity="0.6"/><line x1="30" y1="16" x2="30" y2="44" stroke="currentColor" stroke-width="2"/><path d="M38 19Q43 25 38 31" stroke="currentColor" stroke-width="1.2" opacity="0.7"/></svg>'
   };
 
-  Object.entries({ argus: 'muse', thales: 'wise', vera: 'muse', marconi: 'nexus', regis: 'wise', terra: 'nexus', prism: 'muse', delta: 'orin', talos: 'orin', vivid: 'wise', nova: 'muse', axiom: 'muse', rhythm: 'nyx' }).forEach(([id, source]) => {
+  Object.entries({ argus: 'muse', thales: 'wise', vera: 'muse', marconi: 'nexus', regis: 'wise', terra: 'nexus', prism: 'muse', delta: 'orin', talos: 'orin', vivid: 'wise', nova: 'muse', spectra: 'muse', axiom: 'muse', rhythm: 'nyx' }).forEach(([id, source]) => {
     SIGILS[id] = SIGILS[source];
   });
 
