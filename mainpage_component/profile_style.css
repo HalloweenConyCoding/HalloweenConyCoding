@@ -659,6 +659,10 @@ img {
   z-index: 1;
 }
 
+body.smooth-mode .content-wrapper {
+  isolation: isolate;
+}
+
 /* ── Navigation ───────────────────────────────────────────── */
 .nav {
   position: fixed;
@@ -813,12 +817,235 @@ img {
   stroke-linecap: round;
 }
 
+
+/* ── Directional theme transitions (desktop) ──────────────────
+   On desktop, GSAP drives the library→celestial reveal with a clip-path
+   wipe (set inline), and the per-section accent veils below slide in from
+   their own direction. The mobile path keeps the simple opacity crossfade
+   handled by index.html's inline scroll handler. */
+body.smooth-mode .atmosphere-celestial {
+  transition: none;
+  will-change: clip-path;
+}
+
+/* Per-section accent veils — full-screen tints that slip in directionally.
+   They live inside the fixed .atmosphere layer and are clipped/animated by JS. */
+.theme-veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 1;
+  will-change: clip-path;
+}
+
+/* AI Operating Team — cool teal "blueprint" accent, wipes down from the top. */
+.veil-aiteam {
+  z-index: 3;
+  background:
+    radial-gradient(circle at 28% 22%, rgba(32, 178, 170, 0.20), transparent 42%),
+    radial-gradient(circle at 78% 72%, rgba(201, 168, 76, 0.12), transparent 46%),
+    linear-gradient(90deg, rgba(32, 178, 170, 0.05) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(32, 178, 170, 0.05) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(5, 11, 20, 0.62), rgba(10, 20, 34, 0.74));
+  background-size: auto, auto, 54px 54px, 54px 54px, auto;
+}
+
+/* Uncharted — muted slate haze, wipes in from the left. */
+.veil-uncharted {
+  z-index: 4;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 42%, rgba(139, 148, 158, 0.14), transparent 60%),
+    linear-gradient(180deg, rgba(14, 17, 23, 0.78), rgba(22, 27, 34, 0.86));
+}
+
+.star-field,
+.dust-field {
+  content-visibility: auto;
+}
+/* ── Chapter Rail ─────────────────────────────────────────── */
+.chapter-rail {
+  display: none;
+  position: fixed;
+  top: 50%;
+  right: clamp(12px, 2vw, 28px);
+  transform: translateY(-50%);
+  z-index: 95;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
+  padding: 18px 14px 18px 22px;
+  border: 1px solid rgba(212, 168, 85, 0.18);
+  border-radius: 22px;
+  background: rgba(253, 246, 227, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 18px 42px rgba(26, 58, 92, 0.12);
+}
+
+body.motion-ready .chapter-rail {
+  display: flex;
+}
+
+.chapter-progress {
+  position: absolute;
+  top: 18px;
+  bottom: 18px;
+  left: 12px;
+  width: 2px;
+  border-radius: 999px;
+  background: rgba(212, 168, 85, 0.16);
+  overflow: hidden;
+}
+
+.chapter-progress-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: top center;
+  transform: scaleY(0);
+  background: linear-gradient(180deg, var(--lib-golden-bright) 0%, var(--lib-teal) 55%, rgba(139, 148, 158, 0.85) 100%);
+}
+
+.chapter-dot {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 30px;
+  gap: 2px;
+  min-width: 118px;
+  padding-right: 14px;
+  opacity: 0.55;
+  transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+
+.chapter-dot::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  right: -13px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 168, 85, 0.55);
+  background: rgba(253, 246, 227, 0.85);
+  box-shadow: 0 0 0 4px rgba(212, 168, 85, 0.08);
+  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chapter-dot:hover,
+.chapter-dot:focus-visible,
+.chapter-dot.active {
+  opacity: 1;
+  transform: translateX(4px);
+}
+
+.chapter-dot:hover::before,
+.chapter-dot:focus-visible::before,
+.chapter-dot.active::before {
+  transform: scale(1.1);
+  background: var(--lib-golden);
+  border-color: var(--lib-golden-bright);
+  box-shadow: 0 0 0 6px rgba(212, 168, 85, 0.12);
+}
+
+.chapter-dot-index {
+  grid-column: 2;
+  grid-row: 1;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  color: var(--lib-golden);
+  text-align: right;
+}
+
+.chapter-dot-label {
+  grid-column: 1;
+  grid-row: 1;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+  color: var(--lib-text-sec);
+  text-align: right;
+}
+
+body.chapter-mode-dark .chapter-rail {
+  background: rgba(3, 8, 16, 0.55);
+  border-color: rgba(201, 168, 76, 0.18);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
+}
+
+body.chapter-mode-dark .chapter-dot::before {
+  border-color: rgba(201, 168, 76, 0.55);
+  background: rgba(7, 16, 24, 0.92);
+  box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.08);
+}
+
+body.chapter-mode-dark .chapter-dot:hover::before,
+body.chapter-mode-dark .chapter-dot:focus-visible::before,
+body.chapter-mode-dark .chapter-dot.active::before {
+  background: var(--cel-brass);
+  border-color: var(--cel-brass-bright);
+  box-shadow: 0 0 0 6px rgba(201, 168, 76, 0.12);
+}
+
+body.chapter-mode-dark .chapter-dot-index {
+  color: var(--cel-brass);
+}
+
+body.chapter-mode-dark .chapter-dot-label {
+  color: var(--cel-text-sec);
+}
+
 /* ── Section Common ───────────────────────────────────────── */
 .section {
   min-height: 100vh;
   padding: var(--section-pad) clamp(16px, 5vw, 80px);
   padding-top: calc(var(--nav-height) + var(--section-pad));
   position: relative;
+  isolation: isolate;
+}
+
+body.smooth-mode .section {
+  min-height: 100vh;
+  overflow: visible;
+}
+
+body.smooth-mode .section::after {
+  content: '';
+  position: absolute;
+  left: clamp(16px, 5vw, 80px);
+  right: clamp(16px, 5vw, 80px);
+  bottom: 28px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 168, 85, 0.22), transparent);
+  opacity: 0.6;
+}
+
+body.smooth-mode #celestial::after,
+body.smooth-mode #ai-team::after {
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.24), transparent);
+}
+
+body.smooth-mode #uncharted::after {
+  background: linear-gradient(90deg, transparent, rgba(139, 148, 158, 0.24), transparent);
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  inset: var(--nav-height) clamp(12px, 3vw, 42px) auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, currentColor, transparent);
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.motion-ready .section {
+  min-height: 100svh;
+}
+
+.chapter-stage {
+  transform-origin: 50% 50%;
+  will-change: transform, opacity, filter;
 }
 
 .section-label {
@@ -1335,6 +1562,14 @@ img {
   stroke-width: 2;
 }
 
+.cel-card-link:focus-visible,
+.nav-link:focus-visible,
+.social-link:focus-visible,
+.chapter-dot:focus-visible {
+  outline: 3px solid rgba(32, 178, 170, 0.75);
+  outline-offset: 4px;
+}
+
 /* Dormant cards */
 .dormant-grid {
   display: grid;
@@ -1425,6 +1660,21 @@ img {
   overflow: hidden;
 }
 
+.ai-team-section::after {
+  content: '';
+  position: absolute;
+  inset: 12% clamp(18px, 5vw, 90px);
+  z-index: -1;
+  border: 1px solid rgba(32, 178, 170, 0.12);
+  background:
+    linear-gradient(90deg, rgba(32, 178, 170, 0.08) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(32, 178, 170, 0.06) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(ellipse at center, black 0%, transparent 72%);
+  opacity: 0.65;
+  pointer-events: none;
+}
+
 .ai-team-card::before {
   content: '';
   position: absolute;
@@ -1476,7 +1726,6 @@ img {
   margin: 0 auto;
   text-align: center;
   min-height: 50vh;
-  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -1559,16 +1808,34 @@ img {
 
 /* ── Scroll-reveal Animations ─────────────────────────────── */
 .reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  filter: blur(4px);
-  transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
+  opacity: 1;
+  transform: none;
+  filter: none;
 }
 
-.reveal.visible {
+/* CSS reveal system runs on the mobile/non-smooth path only. On desktop
+   (.smooth-mode) GSAP owns every entrance, so this stays out of its way. */
+body.motion-ready:not(.smooth-mode) .reveal {
+  opacity: 0;
+  transform: translateY(38px) scale(0.985);
+  filter: blur(6px);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.9s ease;
+}
+
+body.motion-ready:not(.smooth-mode) .reveal.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
   filter: blur(0);
+}
+
+/* On desktop GSAP animates these per-frame; any CSS transition (incl. the
+   .reveal-delay-* transition-delay) intercepts and stalls those updates. */
+body.smooth-mode .reveal,
+body.smooth-mode .reveal[class*="reveal-delay"] {
+  transition: none;
 }
 
 .reveal-delay-1 { transition-delay: 0.1s; }
@@ -1576,6 +1843,10 @@ img {
 .reveal-delay-3 { transition-delay: 0.3s; }
 .reveal-delay-4 { transition-delay: 0.4s; }
 .reveal-delay-5 { transition-delay: 0.5s; }
+
+body.smooth-mode .section-chapter-shell {
+  will-change: transform, opacity;
+}
 
 /* ── Responsive ───────────────────────────────────────────── */
 @media (max-width: 768px) {
@@ -1619,6 +1890,83 @@ img {
 
   .nav-toggle {
     display: block;
+  }
+
+  body.motion-ready .chapter-rail {
+  display: flex;
+}
+
+.chapter-progress {
+    top: auto;
+    bottom: 8px;
+    left: 14px;
+    right: 14px;
+    width: auto;
+    height: 2px;
+  }
+
+  .chapter-progress-fill {
+    transform-origin: left center;
+    transform: scaleX(0);
+  }
+
+  .chapter-dot {
+    min-width: 0;
+    padding-left: 0;
+    padding-top: 12px;
+  }
+
+  .chapter-dot::before {
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+  }
+
+  .chapter-dot:hover,
+  .chapter-dot:focus-visible,
+  .chapter-dot.active {
+    transform: translateY(-2px);
+  }
+
+  .chapter-dot-index {
+    font-size: 0.55rem;
+    text-align: center;
+  }
+
+  .chapter-dot-label {
+    display: none;
+  }
+
+  .chapter-rail {
+    left: 12px;
+    right: 12px;
+    top: auto;
+    bottom: 12px;
+    flex-direction: row;
+    transform: none;
+    justify-content: space-between;
+    padding: 8px;
+    border: 1px solid rgba(201, 168, 76, 0.16);
+    border-radius: 999px;
+    background: rgba(3, 8, 16, 0.62);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .chapter-rail::before,
+  .chapter-dot-label {
+    display: none;
+  }
+
+  .chapter-dot {
+    display: block;
+    min-height: 28px;
+  }
+
+  .chapter-dot-index {
+    width: 28px;
+    height: 28px;
+    font-size: 0.54rem;
   }
 
   .skills-grid {
@@ -1706,6 +2054,12 @@ img {
   .cel-card-header {
     flex-direction: column;
   }
+
+  .chapter-rail {
+    left: 12px;
+    right: 12px;
+    justify-content: space-between;
+  }
 }
 
 /* ── Utility ──────────────────────────────────────────────── */
@@ -1743,4 +2097,25 @@ img {
 ::selection {
   background: rgba(212, 168, 85, 0.25);
   color: var(--lib-navy);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
 }

@@ -1,0 +1,326 @@
+{
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\v1-ancient-magic\\cony-team.js": {
+    "mtime": 1780335115.518411,
+    "hash": "3b7075a055be3170f40885b36aee6bdf"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\v2-new-agent-name\\cony-team.js": {
+    "mtime": 1780418509.8962216,
+    "hash": "4e2afe4d6b09967dd737368f1b2769da"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\v3_base44_codex\\cony-team.js": {
+    "mtime": 1780592517.2745345,
+    "hash": "adab18dde080c198565b3f4e29e32540"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\v4_base44_0\\AgentCard.jsx": {
+    "mtime": 1780476794.0890253,
+    "hash": "e25037ca45659096f758d04c42c98ff4"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\v4_base44_0\\App.jsx": {
+    "mtime": 1780477228.7611158,
+    "hash": "b7288653d8caf0694688e23c924f14b5"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\v4_base44_0\\BlueprintSection.jsx": {
+    "mtime": 1780476807.6356075,
+    "hash": "986271c64a4d501c9546af817437d4fb"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\v4_base44_0\\ConyTopbar.jsx": {
+    "mtime": 1780476821.3066902,
+    "hash": "3116c2cbfee58b1e351171976f40a79e"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\v4_base44_0\\HeroSection.jsx": {
+    "mtime": 1780476836.44911,
+    "hash": "87a25121ec1047279577feeff1ea9221"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\v4_base44_0\\HierarchySection.jsx": {
+    "mtime": 1780476860.280631,
+    "hash": "84fce77128f05cff55166f23782b3704"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\v4_base44_0\\main.jsx": {
+    "mtime": 1780477078.7781723,
+    "hash": "cec12ca8c87a1e5767a0026ad33636cc"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\v4_base44_0\\nodeData.jsx": {
+    "mtime": 1780476872.9139557,
+    "hash": "16239d59ca26cdd997d54df904dfc661"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\v4_base44_0\\ParticleField.jsx": {
+    "mtime": 1780476888.0230947,
+    "hash": "a400333d85db4686a8a9e6aa194620e2"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\v4_base44_0\\RuneBackground.jsx": {
+    "mtime": 1780476905.0204785,
+    "hash": "90890cefbd5eb0ec52c3fc34eb071ed9"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\v4_base44_0_converted_by_codex\\main.js": {
+    "mtime": 1780728953.0391037,
+    "hash": "e151d3901e644386b017c376ac666fd9"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\profile_motion.js": {
+    "mtime": 1781889531.192403,
+    "hash": "aac8586e3ff3ef18a43b256ca71ee979"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\CSSRulePlugin.min.js": {
+    "mtime": 1781274559.4776132,
+    "hash": "8a8b9782d4a629ea881e572ddd39b646"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\CustomBounce.min.js": {
+    "mtime": 1781274559.4776132,
+    "hash": "3f2f127a6dcb904e5b3dae7d4bc76422"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\CustomEase.min.js": {
+    "mtime": 1781274559.4837558,
+    "hash": "1c980671d576a8b0f98b007b4d9b72ce"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\CustomWiggle.min.js": {
+    "mtime": 1781274559.4845417,
+    "hash": "7d25834df019f1cc32f9eb11bfcb196a"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\Draggable.min.js": {
+    "mtime": 1781274559.4845417,
+    "hash": "33d0785ae136b144f1e37887d5466523"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\DrawSVGPlugin.min.js": {
+    "mtime": 1781274559.4845417,
+    "hash": "78d6ace4d77ab5d4f515c02a6ef05a9d"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\EaselPlugin.min.js": {
+    "mtime": 1781274559.4845417,
+    "hash": "0f337c5f4439498f2972cd7a41dd8b53"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\EasePack.min.js": {
+    "mtime": 1781274559.4845417,
+    "hash": "42f41a60e60f2c274b86f7812f713da5"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\Flip.min.js": {
+    "mtime": 1781274559.4845417,
+    "hash": "394a6ac85f1b71968855400fd2ea7b9e"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\gsap.min.js": {
+    "mtime": 1781274559.4914534,
+    "hash": "ca5f3b302741c4edcb42f3b6b1b95f4e"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\GSDevTools.min.js": {
+    "mtime": 1781274559.4845417,
+    "hash": "32c84bc6deee43243d3bf55319936962"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\InertiaPlugin.min.js": {
+    "mtime": 1781274559.4845417,
+    "hash": "af0a30091548cf9714eacf27d0f91650"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\MorphSVGPlugin.min.js": {
+    "mtime": 1781274559.4845417,
+    "hash": "442f0d1195ba5755486afffa655b1d67"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\MotionPathHelper.min.js": {
+    "mtime": 1781274559.4845417,
+    "hash": "3563a7a51d7fb22c36f90876320214f3"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\MotionPathPlugin.min.js": {
+    "mtime": 1781274559.4905753,
+    "hash": "5d8515eba6d42de064f29d15141a46dd"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\Observer.min.js": {
+    "mtime": 1781274559.4905753,
+    "hash": "46cdbf9b390a76b57ca90225b9d1da89"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\Physics2DPlugin.min.js": {
+    "mtime": 1781274559.4914534,
+    "hash": "28428ec2b146a78390f9783f200909aa"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\PhysicsPropsPlugin.min.js": {
+    "mtime": 1781274559.4914534,
+    "hash": "dd5c95a8cdc69e164f2f460482fc6f16"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\PixiPlugin.min.js": {
+    "mtime": 1781274559.4914534,
+    "hash": "1f3030991174952226ee721924997b03"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\ScrambleTextPlugin.min.js": {
+    "mtime": 1781274559.4914534,
+    "hash": "1e2ddc5fc250f4ea3f4c1d9633d7e000"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\ScrollSmoother.min.js": {
+    "mtime": 1781274559.4914534,
+    "hash": "75af8b604ce1b6117f9d51eb8c220984"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\ScrollToPlugin.min.js": {
+    "mtime": 1781274559.4914534,
+    "hash": "ac4ca9cd2ac11a9685b435ad7f184fc3"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\ScrollTrigger.min.js": {
+    "mtime": 1781274559.4914534,
+    "hash": "73a8d7ab83c061859cefddcd7f69120e"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\SplitText.min.js": {
+    "mtime": 1781274559.4914534,
+    "hash": "d47024ca5c9bfe7a1947fc12b8295cfe"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\TextPlugin.min.js": {
+    "mtime": 1781274559.4914534,
+    "hash": "c75e5d21dcb77674594eff196daac434"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\index.html": {
+    "mtime": 1781887943.9262207,
+    "hash": "561c323f6bd08353b17bac4a6cbd5dd8"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\PROJECT.md": {
+    "mtime": 1781889531.2025464,
+    "hash": "fac9fe2937cb8421ad107acffcf17b85"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\README.md": {
+    "mtime": 1777740323.653675,
+    "hash": "9cc7998dbe0ab5d288100396cf1eea2c"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\v1-ancient-magic\\index.html": {
+    "mtime": 1780335111.515107,
+    "hash": "2e110b486da1ae787a6224cc97e583cb"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\v2-new-agent-name\\cony-team.html": {
+    "mtime": 1780416561.8527298,
+    "hash": "4dd937fa3fa9ddd56bbeef0ffc273243"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\v3_base44_codex\\cony-team.css.txt": {
+    "mtime": 1780473173.676237,
+    "hash": "c246a73e679de8783bbba6e750dccac0"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\v3_base44_codex\\cony-team.html": {
+    "mtime": 1780472029.823466,
+    "hash": "71f15a3bf481d28d5e4782259e041d9f"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\v3_base44_codex\\cony-team.js.txt": {
+    "mtime": 1780472077.7759445,
+    "hash": "e8837829fe7c38ef78d369a0f693f5fa"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\v4_base44_0\\index.html": {
+    "mtime": 1780477043.8870716,
+    "hash": "7b67e26ad9660ac52f68f0287608a788"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\v4_base44_0_converted_by_codex\\index.html": {
+    "mtime": 1780480827.122445,
+    "hash": "c7002c82fcaddf508f8ee3461c35ec23"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\projects\\code-snippet\\CodeSnippet.html": {
+    "mtime": 1779894205.0798762,
+    "hash": "414343b71f19733741f5006c1333ef00"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\projects\\radio-planning-tools\\index.html": {
+    "mtime": 1780335100.3616881,
+    "hash": "975e0881f91ff153e637fd0adbf6ce5a"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\argus.png": {
+    "mtime": 1780466070.8558369,
+    "hash": "1d4c832b1bb5ce50b48649c55b217b0c"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\axiom.png": {
+    "mtime": 1780467055.4009006,
+    "hash": "096d88b298805ad37f8c5df32f978a98"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\cony.png": {
+    "mtime": 1780467357.7069767,
+    "hash": "167cdb02dc51e284abdece8fe5efa71b"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\delta.png": {
+    "mtime": 1780467062.5470524,
+    "hash": "2b50b86bfb9538a39d5af34031639ac4"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\marconi.png": {
+    "mtime": 1780466077.617561,
+    "hash": "c6ee36844b592e387c5a762cad8a7a5d"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\me.png": {
+    "mtime": 1780467381.8284204,
+    "hash": "3ccdef7a3d0e243ab7dcf00f090b4e84"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\muse.png": {
+    "mtime": 1780466072.9552236,
+    "hash": "1b312f4c9a099cb36eaee16596ea3490"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\nexus.png": {
+    "mtime": 1780466074.5679963,
+    "hash": "b01f27ef9c6dfb444ad075778d973b90"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\nova.png": {
+    "mtime": 1780467056.2029114,
+    "hash": "3c2a472cc06dd09447975db5c60e1a54"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\nyx.png": {
+    "mtime": 1780466073.7907052,
+    "hash": "303dbc2ff14ac9b33eb23d38fda2e86e"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\orin.png": {
+    "mtime": 1780466063.3313472,
+    "hash": "530740433a88b41be81e9cb0983ab725"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\prism.png": {
+    "mtime": 1780467053.6304572,
+    "hash": "1ec15f217c95a9c349e318c43d5a3667"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\pylon.png": {
+    "mtime": 1780595139.6963472,
+    "hash": "f5c30e90f713d592d15e8d2cfba8e2ce"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\regis.png": {
+    "mtime": 1780731482.372779,
+    "hash": "0b8161767f51b62c297bc937af146568"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\rhythm.png": {
+    "mtime": 1780467060.9976027,
+    "hash": "1101bec351bc3ad7099aedd577d892e2"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\spectra.png": {
+    "mtime": 1780729933.6031022,
+    "hash": "b65a06b984d527d7421ce8e25126aa55"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\talos.png": {
+    "mtime": 1780467061.7311566,
+    "hash": "5ce3af06b16bcdfc1b5459c9098d445d"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\telco.png": {
+    "mtime": 1780467379.4580362,
+    "hash": "efc1cd4d3eb9e89d0d9304276068ef20"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\terra.png": {
+    "mtime": 1780466075.338197,
+    "hash": "e3288e5b965c8d230c6838ea1cef78f7"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\thales.png": {
+    "mtime": 1780466072.2814593,
+    "hash": "5fbe5d6701051dba9e6bb9980aad0438"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\vera.png": {
+    "mtime": 1780466076.130123,
+    "hash": "54d71aae936fbda479efffc567074f01"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\vivid.png": {
+    "mtime": 1780467056.9343646,
+    "hash": "43b0787842d043f26101f59c64b075c0"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\win.png": {
+    "mtime": 1780468225.6678183,
+    "hash": "02e863e0b3109cb7c8f29bce016dedce"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\wise.png": {
+    "mtime": 1780467362.0990329,
+    "hash": "36806d979216568210162f28fc49340f"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\old_png\\forge.png": {
+    "mtime": 1780467366.9331052,
+    "hash": "391d9e94952f47e02862bc59a0be2f9e"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\old_png\\lens.png": {
+    "mtime": 1780467371.5778413,
+    "hash": "411aae3e69a807f3958997e78364d104"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\old_png\\void.png": {
+    "mtime": 1780467375.2706225,
+    "hash": "1e8c1aaa9992467d02d6cd18655a7149"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\cosmic_bg.png": {
+    "mtime": 1779819920.493418,
+    "hash": "72940b7039fe7e12f138b95664cc143b"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\library_bg.png": {
+    "mtime": 1779819925.3526568,
+    "hash": "a63cbc428b17634e6cbb869bf6f7bf63"
+  }
+}
