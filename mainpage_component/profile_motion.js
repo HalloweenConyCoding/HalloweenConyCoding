@@ -155,13 +155,16 @@
       /* ── Directional theme transitions ──────────────────────────────
          Each new theme slips in from its own direction as you reach it. */
 
-      // Library → Celestial: the dark sky wipes in from the RIGHT.
+      // Library → Celestial: the dark sky crossfades in (dusk → night).
+      // Opacity is GPU-composited, so it stays smooth; a full-screen clip-path
+      // wipe repainted the whole heavy atmosphere layer every frame and stuttered.
       var atmosCel = document.getElementById('atmosCel');
       if (atmosCel) {
-        gsap.set(atmosCel, { opacity: 1, clipPath: 'inset(0 0 0 100%)' });
+        gsap.set(atmosCel, { clearProps: 'clipPath' });
+        gsap.set(atmosCel, { opacity: 0 });
         gsap.to(atmosCel, {
-          clipPath: 'inset(0 0 0 0%)', ease: 'none',
-          scrollTrigger: { trigger: '#celestial', start: 'top 92%', end: 'top 35%', scrub: 0.6 }
+          opacity: 1, ease: 'power1.inOut',
+          scrollTrigger: { trigger: '#celestial', start: 'top 90%', end: 'top 38%', scrub: 0.6 }
         });
       }
 
@@ -185,18 +188,12 @@
         });
       }
 
-      /* ── Decorative parallax (depth, never hides content) ──────────── */
+      /* ── Decorative parallax (depth, never hides content) ──────────────
+         The library clock + sunbeams are heavy to paint (blur + large
+         box-shadow); scrubbing a transform on them every frame caused the
+         section-1 scroll jank, so they now stay put and only the celestial
+         orbital system (cheap) keeps its parallax. */
       if (smoother) { smoother.effects('#orbitalSystem', { speed: 0.9 }); }
-      var clock = document.getElementById('clockGrand');
-      if (clock) {
-        gsap.to(clock, { yPercent: 18, ease: 'none',
-          scrollTrigger: { trigger: '#library', start: 'top top', end: 'bottom top', scrub: true } });
-      }
-      var sun = document.getElementById('sunbeams');
-      if (sun) {
-        gsap.to(sun, { yPercent: 12, ease: 'none',
-          scrollTrigger: { trigger: '#library', start: 'top top', end: 'bottom top', scrub: true } });
-      }
 
       /* ── LIBRARY (tall): hero rises, cards swing in from alternating sides ── */
       var lib = document.getElementById('library');

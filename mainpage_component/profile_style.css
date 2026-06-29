@@ -24,7 +24,7 @@
   --lib-text: #1A3A5C;
   --lib-text-sec: #3D5A80;
   --lib-text-dim: #6B7D94;
-  --lib-card-bg: rgba(255, 255, 255, 0.85);
+  --lib-card-bg: rgba(255, 255, 255, 0.93);
   --lib-card-border: rgba(212, 168, 85, 0.25);
   --lib-card-shadow: 0 4px 20px rgba(92, 61, 30, 0.08);
   --lib-glass: rgba(255, 248, 225, 0.7);
@@ -39,7 +39,7 @@
   --cel-text: #E8DFC8;
   --cel-text-sec: #9CA3AF;
   --cel-text-dim: #6B7280;
-  --cel-card-bg: rgba(12, 21, 36, 0.75);
+  --cel-card-bg: rgba(12, 21, 36, 0.9);
   --cel-card-border: rgba(201, 168, 76, 0.2);
   --cel-card-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
   --cel-glass: rgba(7, 16, 24, 0.6);
@@ -134,8 +134,7 @@ img {
   background-image: url('library_bg.png');
   background-size: cover;
   background-position: center;
-  opacity: 0.08;
-  mix-blend-mode: soft-light;
+  opacity: 0.06;
 }
 
 /* Subtle warm noise overlay */
@@ -333,8 +332,7 @@ img {
   border: 3px solid rgba(212, 168, 85, 0.2);
   background: radial-gradient(circle at 50% 40%, rgba(255, 248, 225, 0.15) 0%, rgba(253, 246, 227, 0.05) 50%, transparent 80%);
   box-shadow:
-    0 0 60px rgba(255, 228, 160, 0.15),
-    0 0 120px rgba(255, 228, 160, 0.05),
+    0 0 50px rgba(255, 228, 160, 0.15),
     inset 0 0 40px rgba(255, 228, 160, 0.08);
 }
 
@@ -496,7 +494,7 @@ img {
     rgba(255, 228, 160, 0.04) 65%,
     rgba(255, 228, 160, 0) 100%
   );
-  filter: blur(30px);
+  filter: blur(14px);
 }
 
 .sunbeam.main::after {
@@ -510,7 +508,7 @@ img {
     rgba(255, 228, 160, 0.05) 65%,
     rgba(255, 228, 160, 0) 100%
   );
-  filter: blur(40px);
+  filter: blur(18px);
 }
 
 .sunbeam.scatter {
@@ -825,7 +823,13 @@ body.smooth-mode .content-wrapper {
    handled by index.html's inline scroll handler. */
 body.smooth-mode .atmosphere-celestial {
   transition: none;
-  will-change: clip-path;
+  will-change: opacity;
+}
+
+/* In smooth-mode GSAP writes the clock's parallax transform every scrub frame;
+   the inline 0.1s transition would smear/lag against it, so disable it here. */
+body.smooth-mode .clock-grand {
+  transition: none;
 }
 
 /* Per-section accent veils — full-screen tints that slip in directionally.
@@ -1134,8 +1138,6 @@ body.smooth-mode #uncharted::after {
   border-radius: 16px;
   padding: clamp(24px, 4vw, 36px);
   box-shadow: var(--lib-card-shadow);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   margin-bottom: 28px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -1205,6 +1207,19 @@ body.smooth-mode #uncharted::after {
 .bio-text .teal {
   color: var(--lib-teal);
   font-weight: 500;
+}
+
+/* ── ASCII glitch ripple on the story copy ─────────────────────────────
+   The vengeance_ui ripple is built for single-line labels (it forces
+   display:inline-block + white-space:pre). Body paragraphs must keep
+   wrapping, so override to inline + pre-wrap, and keep normal selection. */
+.bio-text .ascii-glitch-ripple {
+  display: inline;
+  cursor: text;
+  user-select: text;
+}
+.bio-text .ascii-glitch-ripple.is-ascii-glitching {
+  white-space: pre-wrap;
 }
 
 /* Skills Bookshelf */
@@ -1418,8 +1433,6 @@ body.smooth-mode #uncharted::after {
   border-radius: 16px;
   padding: clamp(24px, 4vw, 36px);
   box-shadow: var(--cel-card-shadow);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -1654,8 +1667,6 @@ body.smooth-mode #uncharted::after {
   border-radius: 18px;
   padding: clamp(24px, 4vw, 42px);
   box-shadow: var(--cel-card-shadow), 0 0 48px rgba(201, 168, 76, 0.06);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
 }
