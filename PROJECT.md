@@ -44,6 +44,11 @@ Upgrade the homepage from plain vertical scrolling into a GSAP-powered chapter e
 
 ## Recent Work Log
 Newest first.
+- 2026-07-04 - Added Task Planner public demo:
+  - Changed: Added a `Task Planner` DEMO card between Radio Planning Tools and CodeSnippet, created `categories/projects/task-planner/`, copied the real Tasks and Calendar pages into the demo bundle, and replaced workspace-file persistence with memory-only seeded demo data (`Task 1` through `Task 6`, `Event 1` through `Event 6` with category tags).
+  - Validation: JavaScript syntax checks passed, HTTP smoke returned 200 for demo home/tasks/calendar, browser automation confirmed task edit/reset, task drag/reset, calendar event edit/reset, seeded event/task labels, zero console errors, and no mobile horizontal overflow on the Tasks page.
+  - Next: After the public demo is accepted, create the downloadable local ZIP package with empty/sample `data/workspace-data.js`.
+
 - 2026-06-20 - Applied Claude Opus 4.8 GSAP diagnosis fixes:
   - Changed: Re-enabled pinned chapter mode by replacing the impossible height guard, removed duplicate nav handling from `profile_motion.js`, taught inline nav to use ScrollTrigger positions, isolated `updateAtmosphere()` from chapter mode, restored smooth-scroll fallback, gated the rail on chapter mode, and made reveal content safe/visible while GSAP animates components.
   - Validation: `node --check` passed; browser smoke confirmed desktop `chapter-mode-active` with 4 pinned sections, chapter rail visible only in chapter mode, nav/chapter-dot jumps target ScrollTrigger positions, mobile has 0 pins and hidden rail, reduced motion has 0 pins and no hidden reveal content. Browser console still reports blocked Google Fonts due restricted network; this is pre-existing external font loading, not a GSAP runtime error.

@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendar — DEMO</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.css">
+  <style>
+    /* ── Semantic z-index scale ───────────────────── */
+    :root {
+      --z-cal-grid:      1;
+      --z-cal-quickadd:  5;
+      --z-cal-dropind:   6;
+      --z-cal-overlay:   40;
+      --z-cal-popover:   50;
+    }
+
+    /* ── Layout ─────────────────────────────────── */
+    /* Fill the viewport exactly via flex (no magic header-height number) so the
+       page never scrolls; the grid fits and day cells scroll internally. */
+    .cal-page {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .cal-page .page-header {
+      position: static;
+      flex: 0 0 auto;
+    }
+
+    .calendar-layout {
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 0;
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+
+    .cal-main {
+      padding: 20px 24px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    /* ── Nav ─────────────────────────────────────── */
+    .cal-nav {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+      flex: 0 0 auto;
+    }
+
+    .cal-month-label {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.04em;
+      min-width: 180px;
+      text-align: center;
+    }
+
+    .cal-nav-btn {
+      width: 30px; height: 30px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-2);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.1s ease;
+      font-size: 14px;
+    }
+    .cal-nav-btn:hover {
+      background: var(--surface-2);
+      color: var(--text);
+      border-color: var(--border-2);
+    }
+    .cal-nav-btn:active { transform: scale(0.92); }
+    .cal-nav-btn:focus-visible { outline: 2px solid var(--text-2); outline-offset: 2px; }
+
+    /* ── Delegated press feedback (any calendar button) ──── */
+    .cal-pressable { transition: transform 0.1s ease; }
+    .cal-pressable.is-pressed { transform: scale(0.94); }
+
+    /* ── View toggle (Month | Week | Agenda) ───────── */
+    .cal-view-toggle {
+      margin-left: auto;
+      display: inline-flex;
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--surface);
+    }
+    /* Sliding active indicator — animated by JS (gsap or transition fallback) */
+    .cal-view-indicator {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0;
+      background: var(--surface-3);
+      border-radius: calc(var(--radius) - 1px);
+      pointer-events: none;
+      z-index: 0;
+      transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .cal-view-btn {
+      position: relative;
+      z-index: 1;
+      border: none;
+      background: transparent;
+      color: var(--text-3);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      cursor: pointer;
+      transition: color 0.15s, transform 0.1s ease;
+      border-right: 1px solid var(--border);
+    }
+    .cal-view-btn:last-child { border-right: none; }
+    .cal-view-btn:hover { color: var(--text-2); }
+    .cal-view-btn.active { color: var(--text); }
+    .cal-view-btn:active { transform: scale(0.94); }
+    .cal-view-btn:focus-visible {
+      outline: 2px solid var(--text-2);
+      outline-offset: -2px;
+    }
+
+    /* ── Weekday headers ─────────────────────────── */
+    .cal-weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      margin-bottom: 4px;
+      flex: 0 0 auto;
+    }
+
+    .cal-weekday {
+      text-align: center;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-3);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 0;
+    }
+
+    /* ── View host (grid / week / agenda share this flex region) ── */
+    .cal-view-host {
+      flex: 1 1 auto;
+      min-height: 0;
+      position: relative;
+      z-index: var(--z-cal-grid);
+    }
+
+    /* ── Calendar grid ───────────────────────────── */
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      height: 100%;
+    }
+
+    /* ── Cell base — flat, quiet ──────────────────── */
+    .cal-cell {
+      border-radius: 7px;
+      padding: 5px 6px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      min-height: 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      transition: border-color 0.16s, background 0.16s, transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .cal-cell:hover {
+      background: var(--surface-2);
+      border-color: var(--border-2);
+      transform: translateY(-2px) scale(1.012);
+    }
+
+    /* Accent ring child used for the date-select feedback pop (transform-only, no layout shift) */
+    .cal-cell-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 7px;
+      border: 1.5px solid var(--accent, var(--text));
+      pointer-events: none;
+      opacity: 0;
+      z-index: var(--z-cal-quickadd);
+    }
+
+    /* ── Other month ─────────────────────────────── */
+    .cal-cell.other-month {
+      background: #121212;
+      border-color: #202020;
+      opacity: 0.55;
+    }
+    .cal-cell.other-month .cal-day-num { color: var(--text-3); }
+
+    /* ── Today — accent ring + accent day number ──── */
+    .cal-cell.today {
+      border-color: var(--text-2);
+    }
+    .cal-cell.today .cal-day-num {
+      color: #111;
+      background: var(--text);
+      width: 19px; height: 19px;
+      border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+
+    /* ── Selected — brighter border + tinted bg ───── */
+    .cal-cell.selected {
+      border-color: var(--text);
+      background: var(--surface-3);
+    }
+
+    /* ── Drag-over drop indicator ─────────────────── */
+    .cal-cell.drop-target {
+      border-color: var(--accent);
+      background: var(--surface-3);
+      z-index: var(--z-cal-dropind);
+      animation: cal-drop-pulse 0.9s ease-in-out infinite;
+    }
+    @keyframes cal-drop-pulse {
+      0%, 100% { box-shadow: inset 0 0 0 1px var(--accent), 0 0 0 0 color-mix(in srgb, var(--accent) 35%, transparent); }
+      50%      { box-shadow: inset 0 0 0 2px var(--accent), 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent); }
+    }
+
+    /* ── Day number row ──────────────────────────── */
+    .cal-day-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex: 0 0 auto;
+    }
+    .cal-day-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-2);
+    }
+
+    /* Quick-add "+" — shown on hover, top-right */
+    .cal-quick-add {
+      width: 18px; height: 18px;
+      border-radius: 4px;
+      border: 1px solid var(--border-2);
+      background: var(--surface-2);
+      color: var(--text-2);
+      font-size: 13px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0;
+      transform: scale(0.6);
+      transition: opacity 0.16s, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.14s, color 0.14s, border-color 0.14s;
+      z-index: var(--z-cal-quickadd);
+    }
+    .cal-cell:hover .cal-quick-add,
+    .cal-quick-add:focus-visible { opacity: 1; transform: scale(1); }
+    .cal-quick-add:hover {
+      background: var(--surface-3);
+      color: var(--text);
+      border-color: var(--text-2);
+    }
+    .cal-quick-add:active { transform: scale(0.86); }
+    .cal-quick-add:focus-visible { outline: 2px solid var(--text-2); outline-offset: 1px; }
+
+    /* ── Event / task chip area ──────────────────── */
+    .cal-cell-events {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      flex: 1 1 auto;
+      min-height: 0;
+      /* The grid never scrolls — a day with more events than fit scrolls inside
+         its own cell instead. */
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    /* Chips keep their height (don't compress) so overflow scrolls the cell.
+       Needed because the chips set overflow:hidden, which would otherwise let a
+       flex item shrink to a zero automatic minimum. */
+    .cal-cell-events > * { flex-shrink: 0; }
+
+    /* Tag-colored event chip — legible, scannable */
+    .cal-chip {
+      font-size: 10px;
+      line-height: 1.25;
+      border-radius: 4px;
+      padding: 2px 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+      border-left: 3px solid var(--chip-color, var(--cal-tag-note));
+      background: color-mix(in srgb, var(--chip-color, var(--cal-tag-note)) 16%, var(--surface));
+      color: color-mix(in srgb, var(--chip-color, var(--cal-tag-note)) 55%, var(--text));
+      transition: background 0.14s, transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.18s ease;
+      will-change: transform;
+    }
+    .cal-chip:hover {
+      background: color-mix(in srgb, var(--chip-color, var(--cal-tag-note)) 28%, var(--surface));
+      transform: translateY(-1px) scale(1.02);
+      box-shadow: 0 3px 12px color-mix(in srgb, var(--chip-color, var(--cal-tag-note)) 40%, transparent);
+    }
+    .cal-chip:focus-visible { outline: 2px solid var(--text-2); outline-offset: 1px; }
+    .cal-chip[draggable="true"] { cursor: grab; }
+    .cal-chip[draggable="true"]:active { cursor: grabbing; }
+    .cal-chip.dragging {
+      opacity: 0.55;
+      transform: scale(1.06) rotate(-2deg);
+      box-shadow: 0 6px 18px color-mix(in srgb, var(--chip-color, var(--cal-tag-note)) 50%, transparent);
+    }
+    .cal-chip-time {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      opacity: 0.85;
+      margin-right: 3px;
+    }
+
+    .cal-chip[data-tag="work"]     { --chip-color: var(--cal-tag-work); }
+    .cal-chip[data-tag="exercise"] { --chip-color: var(--cal-tag-exercise); }
+    .cal-chip[data-tag="site"]     { --chip-color: var(--cal-tag-site); }
+    .cal-chip[data-tag="deadline"] { --chip-color: var(--cal-tag-deadline); }
+    .cal-chip[data-tag="personal"] { --chip-color: var(--cal-tag-personal); }
+    .cal-chip[data-tag="note"]     { --chip-color: var(--cal-tag-note); }
+
+    /* Due-task pill — visually distinct: hollow, leading check glyph */
+    .cal-task-pill {
+      font-size: 10px;
+      line-height: 1.25;
+      border-radius: 999px;
+      padding: 1px 7px 1px 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      background: transparent;
+      border: 1px dashed var(--border-2);
+      color: var(--text-3);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: default;
+    }
+    /* Leading status glyph instead of a one-size-fits-all check: a hollow circle
+       for waiting, a half-filled circle for in-progress, a check for done — so an
+       unfinished task reads at a glance without opening it. */
+    .cal-task-pill::before {
+      content: '\25CB';            /* default: waiting (○) */
+      font-size: 9px;
+      color: var(--text-3);
+      flex: 0 0 auto;
+      line-height: 1;
+    }
+    .cal-task-pill[data-status="todo"]::before     { content: '\25CB'; color: var(--text-3); }   /* ○ waiting */
+    .cal-task-pill[data-status="progress"]::before { content: '\25D0'; color: #d0934e; }          /* ◐ on process */
+    .cal-task-pill[data-status="done"]::before     { content: '\2713'; color: #6faf78; }          /* ✓ done */
+    .cal-task-pill[data-status="progress"] { border-color: rgba(208, 147, 78, 0.4); color: var(--text-2); }
+    .cal-task-pill[data-status="done"] { opacity: 0.72; }
+
+    .cal-agenda-check[data-status="todo"]     { color: var(--text-3); }
+    .cal-agenda-check[data-status="progress"] { color: #d0934e; }
+    .cal-agenda-check[data-status="done"]     { color: #6faf78; }
+
+    .cal-more-chip {
+      font-size: 9px;
+      color: var(--text-3);
+      padding: 0 4px;
+      cursor: pointer;
+      align-self: flex-start;
+    }
+    .cal-more-chip { transition: color 0.14s, transform 0.1s ease; }
+    .cal-more-chip:hover { color: var(--text-2); text-decoration: underline; }
+    .cal-more-chip:active { transform: scale(0.92); }
+    .cal-more-chip:focus-visible { outline: 2px solid var(--text-2); outline-offset: 1px; }
+
+    /* ── Week view ───────────────────────────────── */
+    .cal-week {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      height: 100%;
+    }
+    .cal-week-col {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      background: var(--surface);
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .cal-week-col.today { border-color: var(--text-2); }
+    .cal-week-col.selected { border-color: var(--text); background: var(--surface-2); }
+    .cal-week-col-head {
+      flex: 0 0 auto;
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      background: var(--surface-2);
+    }
+    .cal-week-col-dow {
+      font-size: 9px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-3);
+    }
+    .cal-week-col-num {
+      font-family: var(--font-mono); font-size: 14px; color: var(--text);
+    }
+    .cal-week-col-body {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .cal-week-col-add {
+      flex: 0 0 auto;
+      border: 1px dashed var(--border-2);
+      border-radius: 5px;
+      background: transparent;
+      color: var(--text-3);
+      font-size: 11px;
+      padding: 3px;
+      cursor: pointer;
+      margin-top: auto;
+      transition: color 0.14s, border-color 0.14s, transform 0.1s ease;
+    }
+    .cal-week-col-add:hover { color: var(--text-2); border-color: var(--text-3); }
+    .cal-week-col-add:active { transform: scale(0.96); }
+    .cal-week-col-add:focus-visible { outline: 2px solid var(--text-2); outline-offset: 1px; }
+
+    /* ── Agenda view ─────────────────────────────── */
+    .cal-agenda {
+      height: 100%;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .cal-agenda-group { margin-bottom: 16px; }
+    .cal-agenda-date {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-2);
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 8px;
+      position: sticky;
+      top: 0;
+      background: var(--bg, #0d0d0d);
+    }
+    .cal-agenda-date.is-today { color: var(--text); }
+    .cal-agenda-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      margin-bottom: 5px;
+      cursor: pointer;
+      position: relative;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .cal-agenda-row:hover { border-color: var(--border-2); background: var(--surface-2); }
+    .cal-agenda-row.is-task { cursor: default; border-style: dashed; }
+    .cal-agenda-accent {
+      width: 4px; align-self: stretch; border-radius: 3px;
+      background: var(--u-color, var(--chip-color, var(--cal-tag-note)));
+      flex: 0 0 auto;
+    }
+    .cal-agenda-row[data-tag="work"]     { --chip-color: var(--cal-tag-work); }
+    .cal-agenda-row[data-tag="exercise"] { --chip-color: var(--cal-tag-exercise); }
+    .cal-agenda-row[data-tag="site"]     { --chip-color: var(--cal-tag-site); }
+    .cal-agenda-row[data-tag="deadline"] { --chip-color: var(--cal-tag-deadline); }
+    .cal-agenda-row[data-tag="personal"] { --chip-color: var(--cal-tag-personal); }
+    .cal-agenda-row[data-tag="note"]     { --chip-color: var(--cal-tag-note); }
+    .cal-agenda-time {
+      font-family: var(--font-mono); font-size: 11px; color: var(--text-3);
+      min-width: 44px; flex: 0 0 auto;
+    }
+    .cal-agenda-title { color: var(--text); font-size: 13px; min-width: 0; flex: 1 1 auto;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .cal-agenda-tag {
+      font-size: 9px; text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--text-3); flex: 0 0 auto;
+    }
+    .cal-agenda-check { color: var(--text-2); flex: 0 0 auto; font-size: 11px; }
+    .cal-agenda-empty { color: var(--text-3); font-size: 12px; padding: 20px 0; }
+
+    /* ── Sidebar (Upcoming) ──────────────────────── */
+    .cal-sidebar {
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: var(--surface);
+    }
+    .cal-sidebar-header {
+      padding: 18px 16px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .cal-sidebar-title {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    .cal-selected-date {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 4px;
+      font-family: var(--font-mono);
+    }
+    .cal-upcoming {
+      flex: 1 1 auto;
+      padding: 14px 16px;
+      overflow-y: auto;
+    }
+    .cal-upcoming-title {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 10px;
+    }
+    .cal-upcoming-item {
+      position: relative;
+      display: flex;
+      gap: 10px;
+      padding: 8px 9px;
+      margin-bottom: 4px;
+      border-bottom: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      --spot-radius: 130px;
+      /* Color wash fading left→right off the urgency hue, echoing the kanban
+         column headers on the Tasks page. */
+      background: linear-gradient(90deg,
+        color-mix(in srgb, var(--u-color, var(--text-2)) 34%, transparent) 0%,
+        color-mix(in srgb, var(--u-color, var(--text-2)) 12%, transparent) 52%,
+        transparent 92%);
+      transition: filter 0.15s ease;
+    }
+    .cal-upcoming-item:hover { filter: brightness(1.18); }
+    .cal-upcoming-item:last-child { border-bottom: none; }
+    .cal-upcoming-item:hover .cal-upcoming-text span:last-child { color: var(--text); }
+    .cal-upcoming-day {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--u-color, var(--text-2));
+      min-width: 28px;
+      line-height: 1;
+    }
+    .cal-upcoming-day span {
+      display: block;
+      font-size: 9px;
+      color: var(--text-3);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .cal-upcoming-text {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--text-2);
+      line-height: 1.4;
+      min-width: 0;
+    }
+    .cal-upcoming-text span:last-child {
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .cal-tag-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      flex: 0 0 auto; background: var(--cal-tag-note);
+    }
+    .cal-tag-dot.tag-work     { background: var(--cal-tag-work); }
+    .cal-tag-dot.tag-exercise { background: var(--cal-tag-exercise); }
+    .cal-tag-dot.tag-site     { background: var(--cal-tag-site); }
+    .cal-tag-dot.tag-deadline { background: var(--cal-tag-deadline); }
+    .cal-tag-dot.tag-personal { background: var(--cal-tag-personal); }
+    .cal-tag-dot.tag-note     { background: var(--cal-tag-note); }
+    /* In the Upcoming list, sync the leading dot to the row's urgency color so it
+       reads with the left→right gradient + day number instead of clashing. */
+    .cal-upcoming-item .cal-tag-dot { background: var(--u-color, var(--cal-tag-note)); }
+    .cal-empty-state { color: var(--text-3); font-size: 11px; line-height: 1.4; }
+
+    /* ── Day popover (quick-add / edit) ──────────── */
+    .cal-popover-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: var(--z-cal-overlay);
+      background: rgba(0, 0, 0, 0.42);
+      -webkit-backdrop-filter: blur(2.5px);
+      backdrop-filter: blur(2.5px);
+      opacity: 0;
+    }
+    .cal-popover {
+      position: fixed;
+      z-index: var(--z-cal-popover);
+      width: min(440px, calc(100vw - 32px));
+      background: var(--surface-2);
+      border: 1px solid var(--border-2);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.55);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      will-change: transform, opacity;
+    }
+    .cal-popover .btn { transition: background 0.14s, border-color 0.14s, color 0.14s, transform 0.1s ease; }
+    .cal-popover .btn:active { transform: scale(0.94); }
+    .cal-popover .btn:focus-visible { outline: 2px solid var(--text-2); outline-offset: 2px; }
+    .cal-popover-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+    .cal-popover-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .cal-popover-date {
+      font-size: 11px;
+      color: var(--text-2);
+      font-family: var(--font-mono);
+    }
+    .cal-popover label {
+      display: block;
+      font-size: 10px;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+    .cal-popover .input,
+    .cal-popover textarea.input { width: 100%; }
+    .cal-popover textarea.input {
+      min-height: 54px;
+      resize: vertical;
+      font-family: inherit;
+    }
+    .cal-popover-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    /* Custom themed time picker (24h, bounded scroll columns) */
+    .cal-timepicker { position: relative; }
+    /* Wraps a trigger + its dropdown panel so the panel anchors directly under the
+       trigger (not the whole grid cell, which can be stretched tall). */
+    .cal-picker-control { position: relative; }
+    .cal-timepicker-trigger {
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+      width: 100%; cursor: pointer; text-align: left;
+    }
+    .cal-timepicker-trigger .cal-time-display { color: var(--text); font-family: var(--font-mono); }
+    .cal-timepicker-trigger.is-empty .cal-time-display { color: var(--text-3); font-family: inherit; }
+    .cal-time-clear {
+      border: none; background: transparent; color: var(--text-3);
+      cursor: pointer; font-size: 14px; line-height: 1; padding: 0 2px; flex: 0 0 auto;
+    }
+    .cal-time-clear:hover { color: var(--text); }
+    .cal-timepicker-panel {
+      position: absolute; top: calc(100% + 4px); left: 0;
+      z-index: 60; display: flex; gap: 4px; align-items: stretch;
+      background: var(--surface-2); border: 1px solid var(--border-2);
+      border-radius: var(--radius); padding: 6px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+    }
+    .cal-timepicker-panel[hidden] { display: none; }
+    .cal-timecol {
+      display: flex; flex-direction: column; gap: 2px;
+      max-height: 168px; overflow-y: auto; width: 54px;
+    }
+    .cal-timecol-sep {
+      display: flex; align-items: center; color: var(--text-3);
+      font-family: var(--font-mono); padding: 0 1px;
+    }
+    .cal-time-opt {
+      border: none; background: transparent; color: var(--text-2);
+      font-family: var(--font-mono); font-size: 12px; padding: 5px 0;
+      border-radius: 4px; cursor: pointer; text-align: center; transition: background 0.12s, color 0.12s;
+    }
+    .cal-time-opt:hover { background: var(--surface-3); color: var(--text); }
+    .cal-time-opt.is-selected { background: var(--accent); color: #0d0d0d; font-weight: 600; }
+
+    /* Custom themed date picker (month grid, no native white control) */
+    .cal-datepicker { position: relative; }
+    .cal-datepicker-trigger {
+      display: flex; align-items: center; width: 100%; cursor: pointer; text-align: left;
+    }
+    .cal-datepicker-trigger .cal-date-display { color: var(--text); font-family: var(--font-mono); }
+    .cal-datepicker-trigger.is-empty .cal-date-display { color: var(--text-3); font-family: inherit; }
+    .cal-datepicker-panel {
+      position: absolute; top: calc(100% + 4px); left: 0; z-index: 60;
+      width: 236px; background: var(--surface-2); border: 1px solid var(--border-2);
+      border-radius: var(--radius); padding: 10px; box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+    }
+    .cal-datepicker-panel[hidden] { display: none; }
+    .cal-dp-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .cal-dp-title { font-size: 12px; color: var(--text); font-weight: 600; letter-spacing: 0.04em; }
+    .cal-dp-nav {
+      width: 24px; height: 24px; border: 1px solid var(--border); background: var(--surface);
+      color: var(--text-2); border-radius: 4px; cursor: pointer; line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cal-dp-nav:hover { color: var(--text); border-color: var(--border-2); background: var(--surface-3); }
+    .cal-dp-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 4px; }
+    .cal-dp-weekdays span { text-align: center; font-size: 9px; color: var(--text-3); text-transform: uppercase; }
+    .cal-dp-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+    .cal-dp-day {
+      border: none; background: transparent; color: var(--text-2);
+      font-family: var(--font-mono); font-size: 11px; padding: 5px 0;
+      border-radius: 4px; cursor: pointer; text-align: center; transition: background 0.12s, color 0.12s;
+    }
+    .cal-dp-day:hover { background: var(--surface-3); color: var(--text); }
+    .cal-dp-day.is-other { color: var(--text-3); opacity: 0.5; }
+    .cal-dp-day.is-today { border: 1px solid var(--border-2); }
+    .cal-dp-day.is-selected { background: var(--accent); color: #0d0d0d; font-weight: 600; }
+
+    /* Fixed tag chooser */
+    .cal-tag-chooser { display: flex; flex-wrap: wrap; gap: 5px; }
+    .cal-tag-chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 8px; border-radius: 999px;
+      border: 1px solid var(--border); background: var(--surface-2);
+      color: var(--text-2); font-size: 11px; cursor: pointer; line-height: 1.4;
+      font-family: var(--font-body);
+      transition: border-color 0.14s, color 0.14s, background 0.14s;
+    }
+    .cal-tag-chip:hover { color: var(--text); border-color: var(--border-2); }
+    .cal-tag-chip-dot {
+      width: 8px; height: 8px; border-radius: 50%; flex: 0 0 auto;
+      background: var(--chip-color, var(--cal-tag-note));
+    }
+    .cal-tag-chip.is-selected {
+      color: var(--text);
+      border-color: var(--chip-color, var(--text-2));
+      background: color-mix(in srgb, var(--chip-color, var(--text-2)) 18%, var(--surface-2));
+    }
+    .cal-popover-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .cal-popover-actions .btn { flex: 1 1 auto; }
+    .cal-popover-actions .cal-delete-btn {
+      flex: 0 0 auto;
+      color: #c89090;
+      border-color: rgba(180,90,90,0.3);
+    }
+    .cal-popover-actions .cal-delete-btn:hover {
+      background: rgba(180,90,90,0.12);
+      border-color: rgba(180,90,90,0.5);
+    }
+    .cal-popover .input:focus-visible,
+    .cal-popover textarea.input:focus-visible {
+      outline: 2px solid var(--text-2);
+      outline-offset: 0;
+    }
+
+    /* ── Reduced motion ──────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      .cal-cell, .cal-chip, .cal-quick-add, .cal-agenda-row,
+      .cal-view-btn, .cal-nav-btn, .cal-more-chip, .cal-week-col-add,
+      .cal-view-indicator, .cal-popover .btn, .cal-pressable { transition: none; }
+      .cal-cell:hover,
+      .cal-chip:hover,
+      .cal-chip.dragging,
+      .cal-cell:hover .cal-quick-add,
+      .cal-nav-btn:active, .cal-view-btn:active, .cal-quick-add:active,
+      .cal-more-chip:active, .cal-week-col-add:active,
+      .cal-popover .btn:active, .cal-pressable.is-pressed { transform: none; }
+      .cal-cell:hover .cal-quick-add { transform: scale(1); }
+      .cal-cell.drop-target { animation: none; box-shadow: inset 0 0 0 1px var(--accent); }
+      .cal-popover-overlay { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+<div id="page-curtain"></div>
+
+<div class="app-shell">
+  <!-- Sidebar injected by nav.js -->
+  <main class="main-content cal-page">
+    <div class="page-header">
+      <div>
+        <div class="page-title" data-ascii-glitch>Calendar</div>
+        <div class="page-subtitle" id="cal-header-sub">Loading...</div>
+      </div>
+      <div class="header-actions">
+        <span class="save-status" id="save-status" aria-live="polite">
+          <span class="save-status-dot"></span>
+          <span class="save-status-label">Demo - resets on refresh</span>
+        </span>
+        <button class="btn btn-ghost" id="cal-today-btn">Today</button>
+      </div>
+    </div>
+
+    <div class="calendar-layout">
+      <!-- Main view region -->
+      <div class="cal-main" id="cal-main">
+        <div class="cal-nav">
+          <button class="cal-nav-btn" id="cal-prev">&#8592;</button>
+          <div class="cal-month-label" id="cal-month-label">—</div>
+          <button class="cal-nav-btn" id="cal-next">&#8594;</button>
+          <div class="cal-view-toggle" role="tablist" aria-label="Calendar view">
+            <span class="cal-view-indicator" id="cal-view-indicator" aria-hidden="true"></span>
+            <button class="cal-view-btn active" data-view="month" role="tab" aria-selected="true">Month</button>
+            <button class="cal-view-btn" data-view="week" role="tab" aria-selected="false">Week</button>
+            <button class="cal-view-btn" data-view="agenda" role="tab" aria-selected="false">Agenda</button>
+          </div>
+        </div>
+
+        <!-- Weekday header (month + week views) -->
+        <div class="cal-weekdays" id="cal-weekdays">
+          <div class="cal-weekday">Sun</div>
+          <div class="cal-weekday">Mon</div>
+          <div class="cal-weekday">Tue</div>
+          <div class="cal-weekday">Wed</div>
+          <div class="cal-weekday">Thu</div>
+          <div class="cal-weekday">Fri</div>
+          <div class="cal-weekday">Sat</div>
+        </div>
+
+        <!-- View host: grid / week / agenda render here -->
+        <div class="cal-view-host" id="cal-view-host">
+          <div class="cal-grid" id="cal-grid"></div>
+        </div>
+      </div>
+
+      <!-- Sidebar: selected date + upcoming -->
+      <div class="cal-sidebar">
+        <div class="cal-sidebar-header">
+          <div class="cal-sidebar-title">Selected</div>
+          <div class="cal-selected-date" id="cal-selected-label">—</div>
+        </div>
+        <div class="cal-upcoming">
+          <div class="cal-upcoming-title">Upcoming</div>
+          <div id="cal-upcoming-list"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="gsap/gsap.min.js"></script>
+<script src="gsap/CustomEase.min.js"></script>
+
+<script src="nav.js"></script>
+<script src="demo-persistence.js"></script>
+<script src="assets/js/core/ui.js"></script>
+<script src="spotlight.js"></script>
+<script src="calendar.js"></script>
+
+<script src="vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.js"></script>
+</body>
+</html>

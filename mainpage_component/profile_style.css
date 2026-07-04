@@ -1501,6 +1501,12 @@ body.smooth-mode #uncharted::after {
   border: 1px solid rgba(32, 178, 170, 0.25);
 }
 
+.cel-card-status.demo {
+  background: rgba(201, 168, 76, 0.14);
+  color: var(--cel-brass-bright);
+  border: 1px solid rgba(201, 168, 76, 0.28);
+}
+
 .cel-card-status.dormant {
   background: rgba(139, 148, 158, 0.1);
   color: var(--unc-text-dim);

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tasks — DEMO</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.css">
+  <style>
+    /* Fill the viewport exactly via flex (no magic header-height number) so the
+       page never scrolls; the columns' card lists scroll internally instead. */
+    .tasks-page {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .tasks-page .page-header {
+      position: static;
+      flex: 0 0 auto;
+    }
+
+    .tasks-board {
+      flex: 1 1 auto;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: minmax(0, 1fr);
+      gap: 16px;
+      padding: 24px;
+      overflow: hidden;
+    }
+
+    .kanban-col {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    .kanban-col-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    #col-todo .kanban-col-header {
+      background: linear-gradient(90deg, rgba(64, 82, 96, 0.62) 0%, rgba(20, 24, 28, 0.74) 56%, #0a0a0a 100%);
+    }
+
+    #col-progress .kanban-col-header {
+      background: linear-gradient(90deg, rgba(105, 54, 79, 0.64) 0%, rgba(31, 18, 26, 0.78) 56%, #0a0a0a 100%);
+    }
+
+    #col-done .kanban-col-header {
+      background: linear-gradient(90deg, rgba(49, 91, 64, 0.62) 0%, rgba(18, 29, 22, 0.76) 56%, #0a0a0a 100%);
+    }
+
+    .kanban-col-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.2px;
+      font-weight: 600;
+      color: var(--text-2);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .kanban-count {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      background: var(--surface-3);
+      border: 1px solid var(--border);
+      color: var(--text-3);
+      padding: 1px 6px;
+      border-radius: 20px;
+    }
+
+    .kanban-col-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+    }
+
+    .dot-todo     { background: #9aabb7; }
+    .dot-progress { background: #d58aaa; }
+    .dot-done     { background: #74ad7f; }
+
+    .kanban-cards {
+      flex: 1;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow-y: auto;
+      min-height: 0;
+    }
+
+    /* Drop zone highlight */
+    .kanban-cards.drag-over {
+      background: rgba(255,255,255,0.02);
+      border-radius: var(--radius);
+    }
+
+    .task-card {
+      position: relative;
+      flex-shrink: 0;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+      cursor: grab;
+      transition: border-color 0.15s, box-shadow 0.15s, transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+      user-select: none;
+    }
+
+    /* Tint each card to match its category colour (To Do = blue-grey,
+       In Progress = pink, Done = green) to mirror the column dots/headers. */
+    #cards-todo .task-card {
+      background: rgba(64, 82, 96, 0.18);
+      border-color: rgba(154, 171, 183, 0.22);
+    }
+    #cards-progress .task-card {
+      background: rgba(105, 54, 79, 0.20);
+      border-color: rgba(213, 138, 170, 0.22);
+    }
+    #cards-done .task-card {
+      background: rgba(49, 91, 64, 0.18);
+      border-color: rgba(116, 173, 127, 0.22);
+    }
+
+    .task-card:hover {
+      border-color: var(--border-2);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+      transform: translateY(-2px);
+    }
+
+    .task-card.dragging {
+      opacity: 0.4;
+      cursor: grabbing;
+    }
+
+    .task-card.done-card .task-title {
+      text-decoration: line-through;
+      color: var(--text-3);
+    }
+
+    .task-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .task-title {
+      font-size: 14.4px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.4;
+      flex: 1;
+    }
+
+    .task-detail {
+      margin-bottom: 8px;
+      color: var(--text-3);
+      font-size: 13.2px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .task-delete {
+      width: 18px; height: 18px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 3px;
+      color: var(--text-3);
+      cursor: pointer;
+      font-size: 14.4px;
+      flex-shrink: 0;
+      transition: all 0.15s;
+      border: none;
+      background: transparent;
+    }
+    .task-delete:hover { color: #c07070; background: rgba(180,60,60,0.1); }
+
+    .task-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .task-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 22px;
+      padding: 3px 10px;
+      line-height: 1;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .badge-dot {
+      align-self: center;
+      flex-shrink: 0;
+    }
+
+    .task-meta .badge {
+      gap: 0;
+      padding-inline: 10px;
+    }
+
+    .task-meta .badge-dot {
+      display: none;
+    }
+
+    .task-due {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-3);
+    }
+
+    /* Add task form */
+    .add-task-form {
+      padding: 10px;
+      border-top: 1px solid var(--border);
+      display: none;
+    }
+
+    .add-task-form.open { display: block; }
+
+    .add-task-form .input { margin-bottom: 8px; }
+
+    .add-task-actions {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .add-btn {
+      width: 100%;
+      padding: 8px;
+      background: transparent;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      color: var(--text-3);
+      font-size: 13.2px;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin: 8px 0 0;
+    }
+
+    .add-btn:hover { border-color: var(--border-2); color: var(--text-2); background: var(--surface-2); }
+
+    .priority-select {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+
+    .priority-opt {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      min-height: 28px;
+      padding: 5px 8px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-3);
+      font-size: 12px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+      font-family: var(--font-body);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .priority-opt.selected-high { background: rgba(180,60,60,0.15); color: #c07070; border-color: rgba(180,60,60,0.3); }
+    .priority-opt.selected-med  { background: rgba(160,120,40,0.15); color: #b89050; border-color: rgba(160,120,40,0.3); }
+    .priority-opt.selected-low  { background: rgba(60,100,60,0.15);  color: #70a070; border-color: rgba(60,100,60,0.3); }
+
+    .task-card-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .task-edit {
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-3);
+      font-size: 10.8px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .task-edit:hover {
+      color: var(--text);
+      border-color: var(--border-2);
+      background: var(--surface-3);
+    }
+
+    .task-modal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .task-detail-input {
+      min-height: 120px;
+      resize: vertical;
+      line-height: 1.55;
+    }
+
+    .task-modal-priority {
+      display: flex;
+      gap: 6px;
+    }
+
+    @media (max-width: 980px) {
+      .task-modal-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+<div id="page-curtain"></div>
+<div class="app-shell">
+  <main class="main-content tasks-page">
+    <div class="page-header">
+      <div>
+        <div class="page-title" data-ascii-glitch>Tasks</div>
+        <div class="page-subtitle" id="tasks-subtitle">Kanban Board</div>
+      </div>
+      <div class="header-actions">
+        <span class="save-status" id="save-status" aria-live="polite">
+          <span class="save-status-dot"></span>
+          <span class="save-status-label">Demo - resets on refresh</span>
+        </span>
+        <span class="text-dim text-xs text-mono" id="task-count-display">— tasks</span>
+      </div>
+    </div>
+
+    <div class="tasks-board">
+      <!-- To Do -->
+      <div class="kanban-col" id="col-todo">
+        <div class="kanban-col-header">
+          <div class="kanban-col-title">
+            <div class="kanban-col-dot dot-todo"></div>
+            To Do
+            <span class="kanban-count" id="count-todo">0</span>
+          </div>
+        </div>
+        <div class="kanban-cards" id="cards-todo" data-col="todo"></div>
+        <button class="add-btn" onclick="openAddForm('todo')">+ Add task</button>
+        <div class="add-task-form" id="form-todo">
+          <input class="input" type="text" id="input-todo" placeholder="Task title...">
+          <div class="priority-select" id="priority-todo">
+            <button class="priority-opt" data-p="high" onclick="selectPriority('todo','high',this)">High</button>
+            <button class="priority-opt" data-p="med"  onclick="selectPriority('todo','med',this)">Med</button>
+            <button class="priority-opt" data-p="low"  onclick="selectPriority('todo','low',this)">Low</button>
+          </div>
+          <input class="input" type="date" id="due-todo">
+          <div class="add-task-actions">
+            <button class="btn btn-primary" style="flex:1;" onclick="addTask('todo')">Add</button>
+            <button class="btn btn-ghost" onclick="closeAddForm('todo')">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- In Progress -->
+      <div class="kanban-col" id="col-progress">
+        <div class="kanban-col-header">
+          <div class="kanban-col-title">
+            <div class="kanban-col-dot dot-progress"></div>
+            In Progress
+            <span class="kanban-count" id="count-progress">0</span>
+          </div>
+        </div>
+        <div class="kanban-cards" id="cards-progress" data-col="progress"></div>
+        <button class="add-btn" onclick="openAddForm('progress')">+ Add task</button>
+        <div class="add-task-form" id="form-progress">
+          <input class="input" type="text" id="input-progress" placeholder="Task title...">
+          <div class="priority-select" id="priority-progress">
+            <button class="priority-opt" data-p="high" onclick="selectPriority('progress','high',this)">High</button>
+            <button class="priority-opt" data-p="med"  onclick="selectPriority('progress','med',this)">Med</button>
+            <button class="priority-opt" data-p="low"  onclick="selectPriority('progress','low',this)">Low</button>
+          </div>
+          <input class="input" type="date" id="due-progress">
+          <div class="add-task-actions">
+            <button class="btn btn-primary" style="flex:1;" onclick="addTask('progress')">Add</button>
+            <button class="btn btn-ghost" onclick="closeAddForm('progress')">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Done -->
+      <div class="kanban-col" id="col-done">
+        <div class="kanban-col-header">
+          <div class="kanban-col-title">
+            <div class="kanban-col-dot dot-done"></div>
+            Done
+            <span class="kanban-count" id="count-done">0</span>
+          </div>
+        </div>
+        <div class="kanban-cards" id="cards-done" data-col="done"></div>
+        <button class="add-btn" onclick="openAddForm('done')">+ Add task</button>
+        <div class="add-task-form" id="form-done">
+          <input class="input" type="text" id="input-done" placeholder="Task title...">
+          <div class="priority-select" id="priority-done">
+            <button class="priority-opt" data-p="high" onclick="selectPriority('done','high',this)">High</button>
+            <button class="priority-opt" data-p="med"  onclick="selectPriority('done','med',this)">Med</button>
+            <button class="priority-opt" data-p="low"  onclick="selectPriority('done','low',this)">Low</button>
+          </div>
+          <input class="input" type="date" id="due-done">
+          <div class="add-task-actions">
+            <button class="btn btn-primary" style="flex:1;" onclick="addTask('done')">Add</button>
+            <button class="btn btn-ghost" onclick="closeAddForm('done')">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="modal-overlay" id="task-edit-modal">
+  <div class="modal" style="width:min(520px, calc(100vw - 32px));">
+    <div class="modal-header">
+      <div class="modal-title">Edit Task</div>
+      <button class="modal-close" id="task-edit-close">x</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Title</label>
+      <input class="input" type="text" id="task-edit-title" placeholder="Task title...">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Detail</label>
+      <textarea class="input task-detail-input" id="task-edit-detail" placeholder="Add more context, links, or notes..."></textarea>
+    </div>
+    <div class="task-modal-grid">
+      <div class="form-group">
+        <label class="form-label">Status</label>
+        <select class="input" id="task-edit-col">
+          <option value="todo">To Do</option>
+          <option value="progress">In Progress</option>
+          <option value="done">Done</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Due Date</label>
+        <input class="input" type="date" id="task-edit-due">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Priority</label>
+      <div class="task-modal-priority" id="task-edit-priority">
+        <button class="priority-opt" type="button" data-p="high">High</button>
+        <button class="priority-opt" type="button" data-p="med">Med</button>
+        <button class="priority-opt" type="button" data-p="low">Low</button>
+      </div>
+    </div>
+    <div style="display:flex; gap:8px; margin-top:18px;">
+      <button class="btn btn-primary" style="flex:1;" id="task-edit-save">Save Task</button>
+      <button class="btn btn-ghost" id="task-edit-cancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="gsap/gsap.min.js"></script>
+<script src="gsap/CustomEase.min.js"></script>
+<script src="gsap/Draggable.min.js"></script>
+<script src="nav.js"></script>
+<script src="demo-persistence.js"></script>
+<script src="assets/js/core/ui.js"></script>
+<script src="spotlight.js"></script>
+<script src="tasks.js"></script>
+<script src="vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.js"></script>
+</body>
+</html>
