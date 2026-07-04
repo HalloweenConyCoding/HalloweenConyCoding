@@ -55,9 +55,49 @@
     "mtime": 1780728953.0391037,
     "hash": "e151d3901e644386b017c376ac666fd9"
   },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\projects\\task-planner\\calendar.js": {
+    "mtime": 1783095711.5712962,
+    "hash": "e49f8d5c6592a7beb8104b4d4bd50b38"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\projects\\task-planner\\demo-persistence.js": {
+    "mtime": 1783151952.115448,
+    "hash": "c0a5d3487cf3b0be002f423b5b96e1cf"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\projects\\task-planner\\nav.js": {
+    "mtime": 1783151999.8068702,
+    "hash": "a074ca7697ff65c85a6f409ee77d055d"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\projects\\task-planner\\spotlight.js": {
+    "mtime": 1782227888.7697945,
+    "hash": "da8ba048c012ab42e3fb771adafe9bb8"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\projects\\task-planner\\tasks.js": {
+    "mtime": 1783095711.7444851,
+    "hash": "827c5494ffc2a70a7e5a38f46eca7957"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\projects\\task-planner\\assets\\js\\core\\ui.js": {
+    "mtime": 1783151999.8068702,
+    "hash": "1f344fee75d47dbb66a853126a135a7c"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\projects\\task-planner\\gsap\\CustomEase.min.js": {
+    "mtime": 1781274559.4837558,
+    "hash": "1c980671d576a8b0f98b007b4d9b72ce"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\projects\\task-planner\\gsap\\Draggable.min.js": {
+    "mtime": 1781274559.4845417,
+    "hash": "33d0785ae136b144f1e37887d5466523"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\projects\\task-planner\\gsap\\gsap.min.js": {
+    "mtime": 1781274559.4914534,
+    "hash": "ca5f3b302741c4edcb42f3b6b1b95f4e"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\projects\\task-planner\\vengeance_ui\\ascii_glitch_ripple\\ascii-glitch-ripple.js": {
+    "mtime": 1782572700.0311193,
+    "hash": "2f033e0718c29fa38930435288bdae3f"
+  },
   "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\profile_motion.js": {
-    "mtime": 1781889531.192403,
-    "hash": "aac8586e3ff3ef18a43b256ca71ee979"
+    "mtime": 1782578439.2242422,
+    "hash": "9eccda544a21c84f0481d684520cf823"
   },
   "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\gsap\\CSSRulePlugin.min.js": {
     "mtime": 1781274559.4776132,
@@ -159,13 +199,21 @@
     "mtime": 1781274559.4914534,
     "hash": "c75e5d21dcb77674594eff196daac434"
   },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\vengeance_ui\\ascii_glitch_ripple\\ascii-glitch-ripple.js": {
+    "mtime": 1782572700.0311193,
+    "hash": "2f033e0718c29fa38930435288bdae3f"
+  },
   "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\index.html": {
-    "mtime": 1781887943.9262207,
-    "hash": "561c323f6bd08353b17bac4a6cbd5dd8"
+    "mtime": 1783151848.1222544,
+    "hash": "da8e23bb6809c84089a12c6f6871edca"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\problem_and_sol.md": {
+    "mtime": 1781940310.0273206,
+    "hash": "6d2b9dc4b6c9ef0f888ecacf974a49dc"
   },
   "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\PROJECT.md": {
-    "mtime": 1781889531.2025464,
-    "hash": "fac9fe2937cb8421ad107acffcf17b85"
+    "mtime": 1783152268.1291945,
+    "hash": "cba45098e39da83a7091ff97bd4c0b55"
   },
   "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\README.md": {
     "mtime": 1777740323.653675,
@@ -206,6 +254,26 @@
   "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\projects\\radio-planning-tools\\index.html": {
     "mtime": 1780335100.3616881,
     "hash": "975e0881f91ff153e637fd0adbf6ce5a"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\projects\\task-planner\\calendar.html": {
+    "mtime": 1783152219.7751446,
+    "hash": "9a1f3ca2c4adb9e15cf625e692aec7b6"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\projects\\task-planner\\index.html": {
+    "mtime": 1783151952.115448,
+    "hash": "248235986ee61296debf5874559f115c"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\projects\\task-planner\\tasks.html": {
+    "mtime": 1783152219.7751446,
+    "hash": "18560bde28946fa88ad633f6103b9238"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\docs\\superpowers\\plans\\2026-07-04-task-planner-demo-page.md": {
+    "mtime": 1783150001.5697749,
+    "hash": "042850e76f472a7129db6fccadf8d0bc"
+  },
+  "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\mainpage_component\\vengeance_ui\\ascii_glitch_ripple\\ascii-glitch-ripple.js.txt": {
+    "mtime": 1782572292.908382,
+    "hash": "2f033e0718c29fa38930435288bdae3f"
   },
   "C:\\Beer\\Programming\\Personal_Project\\HalloweenConyCoding\\categories\\AI Operating Team\\Agent Portraits\\argus.png": {
     "mtime": 1780466070.8558369,

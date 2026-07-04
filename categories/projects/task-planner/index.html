@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Planner Demo - HalloweenConyCoding</title>
+  <meta name="description" content="Interactive public demo for the local-first Task Planner.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .demo-home {
+      min-height: 100vh;
+      padding: clamp(28px, 6vw, 64px);
+      background:
+        radial-gradient(circle at 16% 14%, rgba(32, 178, 170, 0.12), transparent 30%),
+        radial-gradient(circle at 82% 18%, rgba(201, 168, 76, 0.14), transparent 28%),
+        var(--bg);
+      color: var(--text);
+    }
+    .demo-home-inner { max-width: 1080px; margin: 0 auto; }
+    .demo-top { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 54px; }
+    .demo-back, .demo-pill { font-family: var(--font-mono); font-size: 12px; color: var(--text-2); text-decoration: none; }
+    .demo-pill { border: 1px solid var(--border); border-radius: 999px; padding: 7px 11px; color: var(--accent, #e2c66d); }
+    .demo-hero { max-width: 760px; margin-bottom: 34px; }
+    .demo-kicker { margin: 0 0 12px; font-family: var(--font-mono); font-size: 12px; color: var(--accent, #e2c66d); letter-spacing: 0.08em; }
+    .demo-title { margin: 0; font-size: clamp(42px, 9vw, 86px); line-height: 0.95; letter-spacing: -0.025em; }
+    .demo-copy { margin: 22px 0 0; max-width: 64ch; color: var(--text-2); line-height: 1.75; }
+    .demo-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .demo-card { display: block; min-height: 220px; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); padding: 22px; text-decoration: none; color: inherit; box-shadow: 0 18px 60px rgba(0,0,0,0.28); transition: transform 0.18s ease, border-color 0.18s ease; }
+    .demo-card:hover { border-color: var(--border-2); transform: translateY(-2px); }
+    .demo-card h2 { margin: 0 0 10px; font-size: 26px; }
+    .demo-card p { margin: 0; color: var(--text-2); line-height: 1.6; }
+    .demo-note { margin-top: 18px; color: var(--text-3); font-size: 13px; line-height: 1.6; }
+    @media (max-width: 760px) {
+      .demo-grid { grid-template-columns: 1fr; }
+      .demo-top { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <main class="demo-home">
+    <div class="demo-home-inner">
+      <nav class="demo-top" aria-label="Task Planner demo navigation">
+        <a class="demo-back" href="../../../index.html">← Back to HalloweenConyCoding</a>
+        <span class="demo-pill">◆ DEMO - session only</span>
+      </nav>
+
+      <section class="demo-hero">
+        <p class="demo-kicker">INTERACTIVE PUBLIC PREVIEW</p>
+        <h1 class="demo-title">Task Planner</h1>
+        <p class="demo-copy">
+          Try the Tasks and Calendar pages with demo data. You can add, edit, click, and move items, but this public demo does not save anything. Refreshing or closing the page resets the demo.
+        </p>
+      </section>
+
+      <section class="demo-grid" aria-label="Task Planner demo pages">
+        <a class="demo-card spotlight-card" href="tasks.html">
+          <h2>Tasks</h2>
+          <p>Kanban-style task board with add, edit, priority, due date, delete, and drag-to-move behavior.</p>
+        </a>
+        <a class="demo-card spotlight-card" href="calendar.html">
+          <h2>Calendar</h2>
+          <p>Month, week, and agenda views with clickable dates, event editing, and task due-date visibility.</p>
+        </a>
+      </section>
+
+      <p class="demo-note">
+        The later ZIP version will add local workspace-file saving. This demo intentionally keeps state in memory only.
+      </p>
+    </div>
+  </main>
+  <script src="spotlight.js"></script>
+</body>
+</html>
