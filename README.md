@@ -4,6 +4,12 @@
   <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=1000&color=22D3EE&center=true&vCenter=true&width=900&lines=Telecom+Engineer+%7C+4G%2F5G+Network+Planning+%26+Optimization;Python+Developer+%7C+Automation+%26+Data+Tools;Data+Visualization+%7C+QGIS+%7C+Power+BI+%7C+TIBCO;Turning+Complex+Network+Data+into+Actionable+Insights"/>
 </p>
 
+<p align="center">
+  <a href="https://halloweenconycoding.github.io/HalloweenConyCoding/">
+    <img src="https://img.shields.io/badge/PORTFOLIO-Open%20Project-7c3aed?style=for-the-badge&logo=githubpages&logoColor=ffffff&labelColor=1e1b4b"/>
+  </a>
+</p>
+
 ---
 
 ### 🚀 About Me

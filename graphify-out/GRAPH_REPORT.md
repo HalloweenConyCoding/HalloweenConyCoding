@@ -1,7 +1,7 @@
-# Graph Report - HalloweenConyCoding  (2026-07-04)
+# Graph Report - HalloweenConyCoding  (2026-08-26)
 
 ## Corpus Check
-- 55 files · ~2,833,156 words
+- 55 files · ~2,833,157 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `c6c76fe8`
+- Built from commit: `c7cfea65`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -229,11 +229,11 @@ Nodes (6): clone(), demoData, result(), sections, startedAt, writeSection()
 
 ### Community 34 - "Community 34"
 Cohesion: 0.29
-Nodes (7): code:powershell (New-Item -ItemType Directory -Force -Path "C:\Beer\Programmi), code:text (All three target folders exist.), code:powershell ($src = "C:\Beer\Programming\Personal_Project\Cony-Workspace\), code:text (The copied tasks.html and calendar.html still resemble the r), code:powershell (Get-ChildItem "C:\Beer\Programming\Personal_Project\Hallowee), code:text (Output includes tasks.html, tasks.js, calendar.html, calenda), Task 2: Copy The Real Demo Page Bundle
+Nodes (7): code:html (<script src="data/workspace-data.js"></script>), code:html (<script src="demo-persistence.js"></script>), code:html (<span class="save-status-label">Demo - resets on refresh</sp), code:javascript (const pages = [), code:powershell (rg -n "data/workspace-data|persistence\.js|showOpenFilePicke), code:text (No matches, except comments if deliberately added to explain), Task 4: Rewire Copied Pages For Demo Mode
 
 ### Community 35 - "Community 35"
 Cohesion: 0.29
-Nodes (7): code:html (<script src="data/workspace-data.js"></script>), code:html (<script src="demo-persistence.js"></script>), code:html (<span class="save-status-label">Demo - resets on refresh</sp), code:javascript (const pages = [), code:powershell (rg -n "data/workspace-data|persistence\.js|showOpenFilePicke), code:text (No matches, except comments if deliberately added to explain), Task 4: Rewire Copied Pages For Demo Mode
+Nodes (7): code:powershell (New-Item -ItemType Directory -Force -Path "C:\Beer\Programmi), code:text (All three target folders exist.), code:powershell ($src = "C:\Beer\Programming\Personal_Project\Cony-Workspace\), code:text (The copied tasks.html and calendar.html still resemble the r), code:powershell (Get-ChildItem "C:\Beer\Programming\Personal_Project\Hallowee), code:text (Output includes tasks.html, tasks.js, calendar.html, calenda), Task 2: Copy The Real Demo Page Bundle
 
 ### Community 36 - "Community 36"
 Cohesion: 0.33
