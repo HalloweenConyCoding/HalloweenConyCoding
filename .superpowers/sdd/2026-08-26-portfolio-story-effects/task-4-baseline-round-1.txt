@@ -1,0 +1,72 @@
+Task 4 fix round 1 baseline captured before any further work
+Captured: 2026-08-27
+Repository: C:\Beer\Programming\Personal_Project\HalloweenConyCoding
+
+--- git status --short ---
+ M PROJECT.md
+ M graphify-out/GRAPH_REPORT.md
+ M graphify-out/graph.html
+ M graphify-out/graph.json
+ M graphify-out/manifest.json
+ M index.html
+ M mainpage_component/profile_style.css
+?? .superpowers/
+?? docs/superpowers/plans/2026-08-26-portfolio-story-effects.md
+?? graphify-out/cache/ast/2f6e850c03b9e117a7b30ef6c324d51fd24c525a7612885d383577b025ba1bbc.json
+?? graphify-out/cache/ast/8c8936b419fbab67632841cbae26a4ed3c093802de7e2a79b3aacffa5ef52189.json
+?? graphify-out/cache/ast/b17a4e12a2e8df0025b87f34a1d662c77ecc3fd0724964dabf52101703e7ee79.json
+?? graphify-out/cache/ast/c9824ee3dd2171b06271f1d613f90d8496c15c4ad5e96b588e4d91ddcfe531fd.json
+?? library/
+
+--- git diff --name-only ---
+PROJECT.md
+graphify-out/GRAPH_REPORT.md
+graphify-out/graph.html
+graphify-out/graph.json
+graphify-out/manifest.json
+index.html
+mainpage_component/profile_style.css
+
+--- git diff -- PROJECT.md index.html mainpage_component/profile_style.css ---
+diff --git a/PROJECT.md b/PROJECT.md
+@@ -44,6 +44,10 @@ Upgrade the homepage from plain vertical scrolling into a GSAP-powered chapter e
+ ## Recent Work Log
+ Newest first.
++- 2026-08-27 - Completed portfolio story/effect handoff validation:
++  - Changed: Recorded the four-paragraph My Story refresh with semantic emphasis, the AIS green-to-white gradient, the retained local vanilla ShinyText library, `CHATCHON` at 6.4 seconds, the hero role line at 3.2 seconds, root-only ASCII ripple removal with task-planner subpage preservation, and the validation/no-commit/no-push state.
++  - Validation: Static checks, ShinyText syntax, Graphify update, browser smoke, and reduced-motion browser smoke completed for the Task 4 handoff.
++  - Next: Human review; no commit or push was made.
+ - 2026-07-04 - Added Task Planner public demo:
+diff --git a/index.html b/index.html
+@@ -6,7 +6,7 @@
+-  <link rel="stylesheet" href="mainpage_component/vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.css">
++  <link rel="stylesheet" href="library/text/shiny_text/shiny_text.css">
+@@ -206,9 +206,9 @@
+-          <h1 class="hero-name" data-ascii-glitch>CHATCHON</h1>
++          <h1 class="hero-name" data-shiny-text data-shiny-color="#173b59" data-shiny-color-shine="#ffffff" data-shiny-speed="6.4" data-shiny-spread="110" data-shiny-direction="left">CHATCHON</h1>
+           <p class="hero-handle">@HalloweenConyCoding</p>
+-          <p class="hero-tagline">Telecommunication Analyst &bull; Radio Planner &bull; Developer</p>
++          <p class="hero-tagline" data-shiny-text data-shiny-color="#55718c" data-shiny-color-shine="#ffffff" data-shiny-speed="3.2" data-shiny-spread="110" data-shiny-direction="left">Telecommunication Analyst &bull; Radio Planner &bull; Developer</p>
+@@ -220,9 +220,10 @@
+-          <p class="bio-text"><span class="bio-ripple">I graduated as a Telecommunication Student and stepped straight into the field I love. Today I work at </span><span class="highlight">AIS</span><span class="bio-ripple"> (Advanced Info Service Public Company Limited) in Thailand, one of the country's largest mobile operators, where I focus on </span><span class="teal">4G and 5G</span><span class="bio-ripple"> network planning and optimization.</span></p>
+-          <p class="bio-text"><span class="bio-ripple">My days revolve around cell coverage analysis, antenna configuration, and RF network planning. When I couldn't find tools that fit my team's workflow, I built them myself. That's how the </span><span class="highlight">Radio Planning Tools</span><span class="bio-ripple"> project was born, starting from a simple tilt calculator and growing into a full suite of engineering instruments.</span></p>
+-          <p class="bio-text"><span class="bio-ripple">Beyond telecom, I explore Python development, data visualization with QGIS and Power BI, and experiment with JavaScript. I believe the best tools come from </span><span class="teal">people who actually use them</span><span class="bio-ripple">.</span></p>
++          <p class="bio-text">I graduated in <strong>Electrical Engineering</strong> from <span class="highlight"><strong>Chulalongkorn University</strong></span>, with a focus on communications and telecommunications. Today, I work at <strong class="ais-gradient">AIS</strong> (Advanced Info Service Public Company Limited) in Thailand, where I support <strong class="teal">4G and 5G</strong> network planning and optimization.</p>
++          <p class="bio-text">Although my role is in telecommunications, much of the work I enjoy most involves <strong class="teal">data</strong>. I work with information from different sources, clean and validate datasets, analyse KPI trends, and create visualizations to support engineering decisions. Through both assigned and self-initiated projects, I have become increasingly interested in how data can be structured and used to solve practical problems.</p>
++          <p class="bio-text">When existing tools do not fit my team’s workflow, I build my own. Using <strong class="teal">Python, pandas, Excel, Power Query, QGIS, and Power BI</strong>, I have created tools for data processing, geospatial visualization, antenna analysis, KPI analysis, and workflow automation. My <span class="highlight"><strong>Radio Planning Tools</strong></span> project grew from this interest in combining technical knowledge, data, and software to make everyday work more effective.</p>
++          <p class="bio-text">I am still connected to telecommunications, but I am increasingly interested in developing further in <strong class="teal">data analytics</strong>. I enjoy taking complex information, making it more structured and understandable, and creating practical tools for the people who use them. I am also currently developing my <span class="highlight"><strong>SQL</strong></span> skills as I continue building toward this direction.</p>
+@@ -759,7 +760,7 @@
+-  <script src="mainpage_component/vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.js"></script>
++  <script src="library/text/shiny_text/shiny_text.js"></script>
+diff --git a/mainpage_component/profile_style.css b/mainpage_component/profile_style.css
+@@ -1209,6 +1209,15 @@ body.smooth-mode #uncharted::after {
++ .bio-text .ais-gradient {
++   color: transparent;
++   background: linear-gradient(90deg, #5b9828 0%, #8ec53d 48%, #ffffff 100%);
++   background-clip: text;
++   -webkit-background-clip: text;
++   -webkit-text-fill-color: transparent;
++   font-weight: 700;
++ }
+
+No Task 4 fix-round source implementation edit had occurred at capture time.

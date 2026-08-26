@@ -1,16 +1,16 @@
-# Graph Report - HalloweenConyCoding  (2026-08-26)
+# Graph Report - HalloweenConyCoding  (2026-08-27)
 
 ## Corpus Check
-- 55 files · ~2,833,157 words
+- 58 files · ~2,835,719 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1034 nodes · 1913 edges · 54 communities (45 shown, 9 thin omitted)
+- 1071 nodes · 1952 edges · 57 communities (48 shown, 9 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 33 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `c7cfea65`
+- Built from commit: `ff37576e`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -58,12 +58,15 @@
 - [[_COMMUNITY_Community 40|Community 40]]
 - [[_COMMUNITY_Community 41|Community 41]]
 - [[_COMMUNITY_Community 42|Community 42]]
+- [[_COMMUNITY_Community 43|Community 43]]
 - [[_COMMUNITY_Community 44|Community 44]]
 - [[_COMMUNITY_Community 45|Community 45]]
-- [[_COMMUNITY_Community 46|Community 46]]
+- [[_COMMUNITY_Community 47|Community 47]]
 - [[_COMMUNITY_Community 48|Community 48]]
 - [[_COMMUNITY_Community 49|Community 49]]
+- [[_COMMUNITY_Community 51|Community 51]]
 - [[_COMMUNITY_Community 52|Community 52]]
+- [[_COMMUNITY_Community 55|Community 55]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `Draggable()` - 29 edges
@@ -89,7 +92,7 @@
 - `Draggable()` --calls--> `re()`  [INFERRED]
   mainpage_component/gsap/Draggable.min.js → mainpage_component/gsap/gsap.min.js
 
-## Communities (54 total, 9 thin omitted)
+## Communities (57 total, 9 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.06
@@ -160,12 +163,12 @@ Cohesion: 0.16
 Nodes (20): buildAgentCard(), buildHero(), buildHierarchy(), buildParticles(), buildRuneBackground(), buildTopbar(), corner(), el() (+12 more)
 
 ### Community 17 - "Community 17"
-Cohesion: 0.17
-Nodes (16): $(), aa(), da(), fa(), L(), m(), N(), O() (+8 more)
-
-### Community 18 - "Community 18"
 Cohesion: 0.16
 Nodes (3): AsciiGlitchRipple, instance, instances
+
+### Community 18 - "Community 18"
+Cohesion: 0.17
+Nodes (16): $(), aa(), da(), fa(), L(), m(), N(), O() (+8 more)
 
 ### Community 19 - "Community 19"
 Cohesion: 0.16
@@ -176,100 +179,112 @@ Cohesion: 0.15
 Nodes (12): canUsePinnedChapters(), chapterScrollTarget(), clamp01(), findChapterTrigger(), getChapterContentHeight(), list(), pinReveal(), refreshProgressFromScroll() (+4 more)
 
 ### Community 21 - "Community 21"
+Cohesion: 0.18
+Nodes (7): defaults, instance, instances, readDataOptions(), ShinyText, toBoolean(), toCssValue()
+
+### Community 22 - "Community 22"
 Cohesion: 0.22
 Nodes (8): GROUPS, NODE_DATA, NODE_MAP, PIPELINE_COLORS, PIPELINE_LABELS, PORTRAIT_PATHS(), sigilMap, SIGILS
 
-### Community 22 - "Community 22"
+### Community 23 - "Community 23"
 Cohesion: 0.32
 Nodes (12): A(), B(), l(), m(), p(), q(), r(), s() (+4 more)
 
-### Community 23 - "Community 23"
+### Community 24 - "Community 24"
 Cohesion: 0.4
 Nodes (9): arcToSegment(), CustomEase(), m(), n(), q(), r(), stringToRawPath(), t() (+1 more)
 
-### Community 24 - "Community 24"
+### Community 25 - "Community 25"
+Cohesion: 0.18
+Nodes (10): code:html (<p class="bio-text">I graduated in <strong>Electrical Engine), code:css (.bio-text .ais-gradient {), code:html (<h1 class="hero-name" data-shiny-text data-shiny-color="#173), code:powershell (node --check library/text/shiny_text/shiny_text.js), Global Constraints, Portfolio Story and Text Effects Implementation Plan, Task 1: Prune the pasted library to the effect actually used, Task 2: Replace My Story copy and add visual emphasis (+2 more)
+
+### Community 26 - "Community 26"
+Cohesion: 0.18
+Nodes (10): Active Problems, Architecture / Important Files, Cony Workspace Local Effect Library, Current Goal, Current State, Key Decisions, Preferences / Upgrade Notes, Project Memory Companion Notes (+2 more)
+
+### Community 27 - "Community 27"
 Cohesion: 0.44
 Nodes (9): A(), k(), l(), m(), n(), o(), p(), u() (+1 more)
 
-### Community 25 - "Community 25"
+### Community 28 - "Community 28"
 Cohesion: 0.36
 Nodes (8): l(), m(), n(), p(), q(), s(), t(), u()
 
-### Community 26 - "Community 26"
+### Community 29 - "Community 29"
 Cohesion: 0.2
 Nodes (8): Active Problems, Architecture / Important Files, Current Goal, Current State, Detailed Notes, Key Decisions, Recent Work Log, Workflow Rules for Agents
 
-### Community 27 - "Community 27"
-Cohesion: 0.2
-Nodes (10): code:powershell (rg -n "Radio Planning Tools|CodeSnippet|project-grid|cel-car), code:text (Radio Planning Tools appears before CodeSnippet inside .proj), code:html (<div class="cel-card featured reveal reveal-delay-3">), code:html (<p class="cel-card-desc">...</p>), code:html (<div class="cel-card featured reveal reveal-delay-3">), code:html (<div class="cel-card featured reveal reveal-delay-4">), code:css (.cel-card-status.demo {), code:powershell (rg -n "Task Planner|◆ DEMO|categories/projects/task-planner/) (+2 more)
-
-### Community 28 - "Community 28"
+### Community 30 - "Community 30"
 Cohesion: 0.2
 Nodes (10): code:powershell (node --check "C:\Beer\Programming\Personal_Project\Halloween), code:text (All commands exit with code 0.), code:powershell (python -m http.server 8123), code:text (Serving HTTP on :: port 8123 or Serving HTTP on 0.0.0.0 port), code:powershell ($base = "http://127.0.0.1:8123/categories/projects/task-plan), code:text (home=200 tasks=200 calendar=200), code:text (http://127.0.0.1:8123/categories/projects/task-planner/index), code:text (Ctrl+C) (+2 more)
 
-### Community 29 - "Community 29"
+### Community 31 - "Community 31"
+Cohesion: 0.2
+Nodes (10): code:powershell (rg -n "Radio Planning Tools|CodeSnippet|project-grid|cel-car), code:text (Radio Planning Tools appears before CodeSnippet inside .proj), code:html (<div class="cel-card featured reveal reveal-delay-3">), code:html (<p class="cel-card-desc">...</p>), code:html (<div class="cel-card featured reveal reveal-delay-3">), code:html (<div class="cel-card featured reveal reveal-delay-4">), code:css (.cel-card-status.demo {), code:powershell (rg -n "Task Planner|◆ DEMO|categories/projects/task-planner/) (+2 more)
+
+### Community 32 - "Community 32"
 Cohesion: 0.22
 Nodes (9): code:powershell (git status --short), code:text (M PROJECT.md), code:powershell (git diff --check), code:text (No output.), code:powershell (rg -n "showOpenFilePicker|showSaveFilePicker|indexedDB|local), code:text (No runtime persistence references remain in the public demo ), code:powershell (graphify update .), code:text (Graphify completes. If graph.html is skipped because the gra) (+1 more)
 
-### Community 30 - "Community 30"
+### Community 33 - "Community 33"
 Cohesion: 0.39
 Nodes (5): f(), g(), h(), i(), l()
 
-### Community 31 - "Community 31"
+### Community 34 - "Community 34"
 Cohesion: 0.25
 Nodes (7): 🚀 About Me, 🌐 Connect With Me, 🌟 Featured Project, 📊 GitHub Profile and Activities, 🔧 Key Features, 🧰 Technical Skills, 🧩 What I Build
 
-### Community 32 - "Community 32"
+### Community 35 - "Community 35"
 Cohesion: 0.25
-Nodes (7): code:html (<!DOCTYPE html>), code:javascript ((function () {), File Structure, Scope, Self-Review, Task 3: Add Demo Landing Page And In-Memory Persistence, Task Planner Demo Page Implementation Plan
+Nodes (8): code:html (<!DOCTYPE html>), code:javascript ((function () {), code:markdown (- 2026-07-04 - Added Task Planner demo project direction:), code:powershell (rg -n "Task Planner demo|two-page public demo|memory-only de), code:text (The new recent-work entry is present.), File Structure, Task 3: Add Demo Landing Page And In-Memory Persistence, Task 6: Update Project Memory
 
-### Community 33 - "Community 33"
+### Community 36 - "Community 36"
 Cohesion: 0.43
 Nodes (6): clone(), demoData, result(), sections, startedAt, writeSection()
 
-### Community 34 - "Community 34"
+### Community 37 - "Community 37"
 Cohesion: 0.29
 Nodes (7): code:html (<script src="data/workspace-data.js"></script>), code:html (<script src="demo-persistence.js"></script>), code:html (<span class="save-status-label">Demo - resets on refresh</sp), code:javascript (const pages = [), code:powershell (rg -n "data/workspace-data|persistence\.js|showOpenFilePicke), code:text (No matches, except comments if deliberately added to explain), Task 4: Rewire Copied Pages For Demo Mode
 
-### Community 35 - "Community 35"
+### Community 38 - "Community 38"
 Cohesion: 0.29
 Nodes (7): code:powershell (New-Item -ItemType Directory -Force -Path "C:\Beer\Programmi), code:text (All three target folders exist.), code:powershell ($src = "C:\Beer\Programming\Personal_Project\Cony-Workspace\), code:text (The copied tasks.html and calendar.html still resemble the r), code:powershell (Get-ChildItem "C:\Beer\Programming\Personal_Project\Hallowee), code:text (Output includes tasks.html, tasks.js, calendar.html, calenda), Task 2: Copy The Real Demo Page Bundle
 
-### Community 36 - "Community 36"
+### Community 39 - "Community 39"
 Cohesion: 0.33
 Nodes (5): curtain, href, pages, shell, sidebar
 
-### Community 38 - "Community 38"
+### Community 41 - "Community 41"
 Cohesion: 0.47
 Nodes (4): CharSet(), emojiSafeSplit(), i(), p()
 
-### Community 39 - "Community 39"
+### Community 42 - "Community 42"
 Cohesion: 0.53
 Nodes (4): s(), ScrollSmoother(), t(), v()
 
-### Community 46 - "Community 46"
+### Community 49 - "Community 49"
 Cohesion: 0.5
-Nodes (4): code:markdown (- 2026-07-04 - Added Task Planner demo project direction:), code:powershell (rg -n "Task Planner demo|two-page public demo|memory-only de), code:text (The new recent-work entry is present.), Task 6: Update Project Memory
+Nodes (3): Scope, Self-Review, Task Planner Demo Page Implementation Plan
 
 ## Knowledge Gaps
-- **168 isolated node(s):** `NODE_DATA`, `NODE_MAP`, `HIERARCHY_ROOT`, `CODEX_GRID`, `FLOW_CONTAINER` (+163 more)
+- **186 isolated node(s):** `NODE_DATA`, `NODE_MAP`, `HIERARCHY_ROOT`, `CODEX_GRID`, `FLOW_CONTAINER` (+181 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **9 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `fe()` connect `Community 19` to `Community 8`, `Community 11`, `Community 3`, `Community 1`?**
-  _High betweenness centrality (0.043) - this node is a cross-community bridge._
 - **Why does `Draggable()` connect `Community 3` to `Community 0`, `Community 19`?**
-  _High betweenness centrality (0.039) - this node is a cross-community bridge._
+  _High betweenness centrality (0.042) - this node is a cross-community bridge._
+- **Why does `fe()` connect `Community 19` to `Community 8`, `Community 11`, `Community 3`, `Community 1`?**
+  _High betweenness centrality (0.034) - this node is a cross-community bridge._
 - **Why does `Draggable()` connect `Community 8` to `Community 0`, `Community 19`?**
-  _High betweenness centrality (0.035) - this node is a cross-community bridge._
+  _High betweenness centrality (0.025) - this node is a cross-community bridge._
 - **Are the 5 inferred relationships involving `Draggable()` (e.g. with `te` and `fe()`) actually correct?**
   _`Draggable()` has 5 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 5 inferred relationships involving `Draggable()` (e.g. with `fe()` and `_a()`) actually correct?**
   _`Draggable()` has 5 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `NODE_DATA`, `NODE_MAP`, `HIERARCHY_ROOT` to the rest of the system?**
-  _168 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _186 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.06 - nodes in this community are weakly interconnected._

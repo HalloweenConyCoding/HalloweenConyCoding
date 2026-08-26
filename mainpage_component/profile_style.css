@@ -1209,17 +1209,13 @@ body.smooth-mode #uncharted::after {
   font-weight: 500;
 }
 
-/* ── ASCII glitch ripple on the story copy ─────────────────────────────
-   The vengeance_ui ripple is built for single-line labels (it forces
-   display:inline-block + white-space:pre). Body paragraphs must keep
-   wrapping, so override to inline + pre-wrap, and keep normal selection. */
-.bio-text .ascii-glitch-ripple {
-  display: inline;
-  cursor: text;
-  user-select: text;
-}
-.bio-text .ascii-glitch-ripple.is-ascii-glitching {
-  white-space: pre-wrap;
+.bio-text .ais-gradient {
+  color: transparent;
+  background: linear-gradient(90deg, #5b9828 0%, #8ec53d 48%, #ffffff 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
 }
 
 /* Skills Bookshelf */

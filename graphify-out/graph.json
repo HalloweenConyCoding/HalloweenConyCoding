@@ -729,7 +729,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/AgentCard.jsx",
       "source_location": "L1",
       "id": "categories_ai_operating_team_v4_base44_0_agentcard_jsx",
-      "community": 21,
+      "community": 22,
       "norm_label": "agentcard.jsx"
     },
     {
@@ -738,7 +738,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/AgentCard.jsx",
       "source_location": "L6",
       "id": "v4_base44_0_agentcard_agentcard",
-      "community": 21,
+      "community": 22,
       "norm_label": "agentcard()"
     },
     {
@@ -747,7 +747,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/App.jsx",
       "source_location": "L1",
       "id": "categories_ai_operating_team_v4_base44_0_app_jsx",
-      "community": 47,
+      "community": 50,
       "norm_label": "app.jsx"
     },
     {
@@ -756,7 +756,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/App.jsx",
       "source_location": "L12",
       "id": "v4_base44_0_app_authenticatedapp",
-      "community": 47,
+      "community": 50,
       "norm_label": "authenticatedapp()"
     },
     {
@@ -765,7 +765,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/App.jsx",
       "source_location": "L46",
       "id": "v4_base44_0_app_app",
-      "community": 47,
+      "community": 50,
       "norm_label": "app()"
     },
     {
@@ -774,7 +774,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/BlueprintSection.jsx",
       "source_location": "L1",
       "id": "categories_ai_operating_team_v4_base44_0_blueprintsection_jsx",
-      "community": 48,
+      "community": 51,
       "norm_label": "blueprintsection.jsx"
     },
     {
@@ -783,7 +783,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/BlueprintSection.jsx",
       "source_location": "L6",
       "id": "v4_base44_0_blueprintsection_blueprint_cards",
-      "community": 48,
+      "community": 51,
       "norm_label": "blueprint_cards"
     },
     {
@@ -792,7 +792,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/BlueprintSection.jsx",
       "source_location": "L51",
       "id": "v4_base44_0_blueprintsection_blueprintsection",
-      "community": 48,
+      "community": 51,
       "norm_label": "blueprintsection()"
     },
     {
@@ -801,7 +801,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/ConyTopbar.jsx",
       "source_location": "L1",
       "id": "categories_ai_operating_team_v4_base44_0_conytopbar_jsx",
-      "community": 50,
+      "community": 53,
       "norm_label": "conytopbar.jsx"
     },
     {
@@ -810,7 +810,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/ConyTopbar.jsx",
       "source_location": "L3",
       "id": "v4_base44_0_conytopbar_conytopbar",
-      "community": 50,
+      "community": 53,
       "norm_label": "conytopbar()"
     },
     {
@@ -819,7 +819,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/HeroSection.jsx",
       "source_location": "L1",
       "id": "categories_ai_operating_team_v4_base44_0_herosection_jsx",
-      "community": 43,
+      "community": 46,
       "norm_label": "herosection.jsx"
     },
     {
@@ -828,7 +828,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/HeroSection.jsx",
       "source_location": "L4",
       "id": "v4_base44_0_herosection_herosection",
-      "community": 43,
+      "community": 46,
       "norm_label": "herosection()"
     },
     {
@@ -837,7 +837,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/HeroSection.jsx",
       "source_location": "L132",
       "id": "v4_base44_0_herosection_herolink",
-      "community": 43,
+      "community": 46,
       "norm_label": "herolink()"
     },
     {
@@ -846,7 +846,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/HeroSection.jsx",
       "source_location": "L166",
       "id": "v4_base44_0_herosection_cornerornament",
-      "community": 43,
+      "community": 46,
       "norm_label": "cornerornament()"
     },
     {
@@ -855,7 +855,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/HierarchySection.jsx",
       "source_location": "L1",
       "id": "categories_ai_operating_team_v4_base44_0_hierarchysection_jsx",
-      "community": 21,
+      "community": 22,
       "norm_label": "hierarchysection.jsx"
     },
     {
@@ -864,7 +864,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/HierarchySection.jsx",
       "source_location": "L7",
       "id": "v4_base44_0_hierarchysection_groups",
-      "community": 21,
+      "community": 22,
       "norm_label": "groups"
     },
     {
@@ -873,7 +873,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/HierarchySection.jsx",
       "source_location": "L44",
       "id": "v4_base44_0_hierarchysection_hierarchysection",
-      "community": 21,
+      "community": 22,
       "norm_label": "hierarchysection()"
     },
     {
@@ -882,7 +882,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/main.jsx",
       "source_location": "L1",
       "id": "categories_ai_operating_team_v4_base44_0_main_jsx",
-      "community": 53,
+      "community": 56,
       "norm_label": "main.jsx"
     },
     {
@@ -891,7 +891,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/nodeData.jsx",
       "source_location": "L1",
       "id": "categories_ai_operating_team_v4_base44_0_nodedata_jsx",
-      "community": 21,
+      "community": 22,
       "norm_label": "nodedata.jsx"
     },
     {
@@ -900,7 +900,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/nodeData.jsx",
       "source_location": "L1",
       "id": "v4_base44_0_nodedata_node_data",
-      "community": 21,
+      "community": 22,
       "norm_label": "node_data"
     },
     {
@@ -909,7 +909,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/nodeData.jsx",
       "source_location": "L277",
       "id": "v4_base44_0_nodedata_node_map",
-      "community": 21,
+      "community": 22,
       "norm_label": "node_map"
     },
     {
@@ -918,7 +918,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/nodeData.jsx",
       "source_location": "L279",
       "id": "v4_base44_0_nodedata_pipeline_colors",
-      "community": 21,
+      "community": 22,
       "norm_label": "pipeline_colors"
     },
     {
@@ -927,7 +927,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/nodeData.jsx",
       "source_location": "L286",
       "id": "v4_base44_0_nodedata_pipeline_labels",
-      "community": 21,
+      "community": 22,
       "norm_label": "pipeline_labels"
     },
     {
@@ -936,7 +936,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/nodeData.jsx",
       "source_location": "L293",
       "id": "v4_base44_0_nodedata_portrait_paths",
-      "community": 21,
+      "community": 22,
       "norm_label": "portrait_paths()"
     },
     {
@@ -945,7 +945,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/nodeData.jsx",
       "source_location": "L298",
       "id": "v4_base44_0_nodedata_sigils",
-      "community": 21,
+      "community": 22,
       "norm_label": "sigils"
     },
     {
@@ -954,7 +954,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/nodeData.jsx",
       "source_location": "L310",
       "id": "v4_base44_0_nodedata_sigilmap",
-      "community": 21,
+      "community": 22,
       "norm_label": "sigilmap"
     },
     {
@@ -963,7 +963,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/ParticleField.jsx",
       "source_location": "L1",
       "id": "categories_ai_operating_team_v4_base44_0_particlefield_jsx",
-      "community": 51,
+      "community": 54,
       "norm_label": "particlefield.jsx"
     },
     {
@@ -972,7 +972,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/ParticleField.jsx",
       "source_location": "L5",
       "id": "v4_base44_0_particlefield_particlefield",
-      "community": 51,
+      "community": 54,
       "norm_label": "particlefield()"
     },
     {
@@ -981,7 +981,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/RuneBackground.jsx",
       "source_location": "L1",
       "id": "categories_ai_operating_team_v4_base44_0_runebackground_jsx",
-      "community": 44,
+      "community": 47,
       "norm_label": "runebackground.jsx"
     },
     {
@@ -990,7 +990,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/RuneBackground.jsx",
       "source_location": "L6",
       "id": "v4_base44_0_runebackground_runes",
-      "community": 44,
+      "community": 47,
       "norm_label": "runes"
     },
     {
@@ -999,7 +999,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/RuneBackground.jsx",
       "source_location": "L17",
       "id": "v4_base44_0_runebackground_runesvg",
-      "community": 44,
+      "community": 47,
       "norm_label": "runesvg()"
     },
     {
@@ -1008,7 +1008,7 @@
       "source_file": "categories/AI Operating Team/v4_base44_0/RuneBackground.jsx",
       "source_location": "L38",
       "id": "v4_base44_0_runebackground_runebackground",
-      "community": 44,
+      "community": 47,
       "norm_label": "runebackground()"
     },
     {
@@ -1890,7 +1890,7 @@
       "source_file": "categories/projects/task-planner/demo-persistence.js",
       "source_location": "L1",
       "id": "categories_projects_task_planner_demo_persistence_js",
-      "community": 33,
+      "community": 36,
       "norm_label": "demo-persistence.js"
     },
     {
@@ -1899,7 +1899,7 @@
       "source_file": "categories/projects/task-planner/demo-persistence.js",
       "source_location": "L4",
       "id": "task_planner_demo_persistence_startedat",
-      "community": 33,
+      "community": 36,
       "norm_label": "startedat"
     },
     {
@@ -1908,7 +1908,7 @@
       "source_file": "categories/projects/task-planner/demo-persistence.js",
       "source_location": "L5",
       "id": "task_planner_demo_persistence_demodata",
-      "community": 33,
+      "community": 36,
       "norm_label": "demodata"
     },
     {
@@ -1917,7 +1917,7 @@
       "source_file": "categories/projects/task-planner/demo-persistence.js",
       "source_location": "L84",
       "id": "task_planner_demo_persistence_sections",
-      "community": 33,
+      "community": 36,
       "norm_label": "sections"
     },
     {
@@ -1926,7 +1926,7 @@
       "source_file": "categories/projects/task-planner/demo-persistence.js",
       "source_location": "L102",
       "id": "task_planner_demo_persistence_clone",
-      "community": 33,
+      "community": 36,
       "norm_label": "clone()"
     },
     {
@@ -1935,7 +1935,7 @@
       "source_file": "categories/projects/task-planner/demo-persistence.js",
       "source_location": "L106",
       "id": "task_planner_demo_persistence_result",
-      "community": 33,
+      "community": 36,
       "norm_label": "result()"
     },
     {
@@ -1944,7 +1944,7 @@
       "source_file": "categories/projects/task-planner/demo-persistence.js",
       "source_location": "L120",
       "id": "task_planner_demo_persistence_writesection",
-      "community": 33,
+      "community": 36,
       "norm_label": "writesection()"
     },
     {
@@ -1953,7 +1953,7 @@
       "source_file": "categories/projects/task-planner/nav.js",
       "source_location": "L1",
       "id": "categories_projects_task_planner_nav_js",
-      "community": 36,
+      "community": 39,
       "norm_label": "nav.js"
     },
     {
@@ -1962,7 +1962,7 @@
       "source_file": "categories/projects/task-planner/nav.js",
       "source_location": "L8",
       "id": "task_planner_nav_pages",
-      "community": 36,
+      "community": 39,
       "norm_label": "pages"
     },
     {
@@ -1971,7 +1971,7 @@
       "source_file": "categories/projects/task-planner/nav.js",
       "source_location": "L16",
       "id": "task_planner_nav_sidebar",
-      "community": 36,
+      "community": 39,
       "norm_label": "sidebar"
     },
     {
@@ -1980,7 +1980,7 @@
       "source_file": "categories/projects/task-planner/nav.js",
       "source_location": "L38",
       "id": "task_planner_nav_shell",
-      "community": 36,
+      "community": 39,
       "norm_label": "shell"
     },
     {
@@ -1989,7 +1989,7 @@
       "source_file": "categories/projects/task-planner/nav.js",
       "source_location": "L44",
       "id": "task_planner_nav_curtain",
-      "community": 36,
+      "community": 39,
       "norm_label": "curtain"
     },
     {
@@ -1998,7 +1998,7 @@
       "source_file": "categories/projects/task-planner/nav.js",
       "source_location": "L50",
       "id": "task_planner_nav_href",
-      "community": 36,
+      "community": 39,
       "norm_label": "href"
     },
     {
@@ -2007,7 +2007,7 @@
       "source_file": "categories/projects/task-planner/spotlight.js",
       "source_location": "L1",
       "id": "categories_projects_task_planner_spotlight_js",
-      "community": 52,
+      "community": 55,
       "norm_label": "spotlight.js"
     },
     {
@@ -2016,7 +2016,7 @@
       "source_file": "categories/projects/task-planner/spotlight.js",
       "source_location": "L16",
       "id": "task_planner_spotlight_rect",
-      "community": 52,
+      "community": 55,
       "norm_label": "rect"
     },
     {
@@ -2295,7 +2295,7 @@
       "source_file": "categories/projects/task-planner/gsap/CustomEase.min.js",
       "source_location": "L1",
       "id": "categories_projects_task_planner_gsap_customease_min_js",
-      "community": 23,
+      "community": 24,
       "norm_label": "customease.min.js"
     },
     {
@@ -2304,7 +2304,7 @@
       "source_file": "mainpage_component/gsap/CustomEase.min.js",
       "source_location": "L10",
       "id": "gsap_customease_min_m",
-      "community": 23,
+      "community": 24,
       "norm_label": "m()"
     },
     {
@@ -2313,7 +2313,7 @@
       "source_file": "mainpage_component/gsap/CustomEase.min.js",
       "source_location": "L10",
       "id": "gsap_customease_min_n",
-      "community": 23,
+      "community": 24,
       "norm_label": "n()"
     },
     {
@@ -2322,7 +2322,7 @@
       "source_file": "mainpage_component/gsap/CustomEase.min.js",
       "source_location": "L10",
       "id": "gsap_customease_min_arctosegment",
-      "community": 23,
+      "community": 24,
       "norm_label": "arctosegment()"
     },
     {
@@ -2331,7 +2331,7 @@
       "source_file": "mainpage_component/gsap/CustomEase.min.js",
       "source_location": "L10",
       "id": "gsap_customease_min_stringtorawpath",
-      "community": 23,
+      "community": 24,
       "norm_label": "stringtorawpath()"
     },
     {
@@ -2340,7 +2340,7 @@
       "source_file": "mainpage_component/gsap/CustomEase.min.js",
       "source_location": "L10",
       "id": "gsap_customease_min_q",
-      "community": 23,
+      "community": 24,
       "norm_label": "q()"
     },
     {
@@ -2349,7 +2349,7 @@
       "source_file": "mainpage_component/gsap/CustomEase.min.js",
       "source_location": "L10",
       "id": "gsap_customease_min_r",
-      "community": 23,
+      "community": 24,
       "norm_label": "r()"
     },
     {
@@ -2358,7 +2358,7 @@
       "source_file": "mainpage_component/gsap/CustomEase.min.js",
       "source_location": "L10",
       "id": "gsap_customease_min_t",
-      "community": 23,
+      "community": 24,
       "norm_label": "t()"
     },
     {
@@ -2367,7 +2367,7 @@
       "source_file": "mainpage_component/gsap/CustomEase.min.js",
       "source_location": "L10",
       "id": "gsap_customease_min_y",
-      "community": 23,
+      "community": 24,
       "norm_label": "y()"
     },
     {
@@ -2376,7 +2376,7 @@
       "source_file": "mainpage_component/gsap/CustomEase.min.js",
       "source_location": "L10",
       "id": "gsap_customease_min_customease",
-      "community": 23,
+      "community": 24,
       "norm_label": "customease()"
     },
     {
@@ -3627,7 +3627,7 @@
       "source_file": "categories/projects/task-planner/vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.js",
       "source_location": "L1",
       "id": "categories_projects_task_planner_vengeance_ui_ascii_glitch_ripple_ascii_glitch_ripple_js",
-      "community": 18,
+      "community": 17,
       "norm_label": "ascii-glitch-ripple.js"
     },
     {
@@ -3636,7 +3636,7 @@
       "source_file": "mainpage_component/vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.js",
       "source_location": "L10",
       "id": "ascii_glitch_ripple_ascii_glitch_ripple_asciiglitchripple",
-      "community": 18,
+      "community": 17,
       "norm_label": "asciiglitchripple"
     },
     {
@@ -3645,7 +3645,7 @@
       "source_file": "mainpage_component/vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.js",
       "source_location": "L11",
       "id": "ascii_glitch_ripple_ascii_glitch_ripple_asciiglitchripple_constructor",
-      "community": 18,
+      "community": 17,
       "norm_label": ".constructor()"
     },
     {
@@ -3654,7 +3654,7 @@
       "source_file": "mainpage_component/vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.js",
       "source_location": "L44",
       "id": "ascii_glitch_ripple_ascii_glitch_ripple_asciiglitchripple_bind",
-      "community": 18,
+      "community": 17,
       "norm_label": ".bind()"
     },
     {
@@ -3663,7 +3663,7 @@
       "source_file": "mainpage_component/vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.js",
       "source_location": "L50",
       "id": "ascii_glitch_ripple_ascii_glitch_ripple_asciiglitchripple_destroy",
-      "community": 18,
+      "community": 17,
       "norm_label": ".destroy()"
     },
     {
@@ -3672,7 +3672,7 @@
       "source_file": "mainpage_component/vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.js",
       "source_location": "L64",
       "id": "ascii_glitch_ripple_ascii_glitch_ripple_asciiglitchripple_refresh",
-      "community": 18,
+      "community": 17,
       "norm_label": ".refresh()"
     },
     {
@@ -3681,7 +3681,7 @@
       "source_file": "mainpage_component/vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.js",
       "source_location": "L71",
       "id": "ascii_glitch_ripple_ascii_glitch_ripple_asciiglitchripple_updatecursorpos",
-      "community": 18,
+      "community": 17,
       "norm_label": ".updatecursorpos()"
     },
     {
@@ -3690,7 +3690,7 @@
       "source_file": "mainpage_component/vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.js",
       "source_location": "L86",
       "id": "ascii_glitch_ripple_ascii_glitch_ripple_asciiglitchripple_lockwidth",
-      "community": 18,
+      "community": 17,
       "norm_label": ".lockwidth()"
     },
     {
@@ -3699,7 +3699,7 @@
       "source_file": "mainpage_component/vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.js",
       "source_location": "L93",
       "id": "ascii_glitch_ripple_ascii_glitch_ripple_asciiglitchripple_resetwidth",
-      "community": 18,
+      "community": 17,
       "norm_label": ".resetwidth()"
     },
     {
@@ -3708,7 +3708,7 @@
       "source_file": "mainpage_component/vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.js",
       "source_location": "L98",
       "id": "ascii_glitch_ripple_ascii_glitch_ripple_asciiglitchripple_startwave",
-      "community": 18,
+      "community": 17,
       "norm_label": ".startwave()"
     },
     {
@@ -3717,7 +3717,7 @@
       "source_file": "mainpage_component/vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.js",
       "source_location": "L110",
       "id": "ascii_glitch_ripple_ascii_glitch_ripple_asciiglitchripple_start",
-      "community": 18,
+      "community": 17,
       "norm_label": ".start()"
     },
     {
@@ -3726,7 +3726,7 @@
       "source_file": "mainpage_component/vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.js",
       "source_location": "L120",
       "id": "ascii_glitch_ripple_ascii_glitch_ripple_asciiglitchripple_stop",
-      "community": 18,
+      "community": 17,
       "norm_label": ".stop()"
     },
     {
@@ -3735,7 +3735,7 @@
       "source_file": "mainpage_component/vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.js",
       "source_location": "L134",
       "id": "ascii_glitch_ripple_ascii_glitch_ripple_asciiglitchripple_animate",
-      "community": 18,
+      "community": 17,
       "norm_label": ".animate()"
     },
     {
@@ -3744,7 +3744,7 @@
       "source_file": "mainpage_component/vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.js",
       "source_location": "L148",
       "id": "ascii_glitch_ripple_ascii_glitch_ripple_asciiglitchripple_calcwaveeffect",
-      "community": 18,
+      "community": 17,
       "norm_label": ".calcwaveeffect()"
     },
     {
@@ -3753,7 +3753,7 @@
       "source_file": "mainpage_component/vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.js",
       "source_location": "L181",
       "id": "ascii_glitch_ripple_ascii_glitch_ripple_asciiglitchripple_generatescrambledtext",
-      "community": 18,
+      "community": 17,
       "norm_label": ".generatescrambledtext()"
     },
     {
@@ -3762,7 +3762,7 @@
       "source_file": "mainpage_component/vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.js",
       "source_location": "L190",
       "id": "ascii_glitch_ripple_ascii_glitch_ripple_asciiglitchripple_handleenter",
-      "community": 18,
+      "community": 17,
       "norm_label": ".handleenter()"
     },
     {
@@ -3771,7 +3771,7 @@
       "source_file": "mainpage_component/vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.js",
       "source_location": "L196",
       "id": "ascii_glitch_ripple_ascii_glitch_ripple_asciiglitchripple_handlemove",
-      "community": 18,
+      "community": 17,
       "norm_label": ".handlemove()"
     },
     {
@@ -3780,7 +3780,7 @@
       "source_file": "mainpage_component/vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.js",
       "source_location": "L207",
       "id": "ascii_glitch_ripple_ascii_glitch_ripple_asciiglitchripple_handleleave",
-      "community": 18,
+      "community": 17,
       "norm_label": ".handleleave()"
     },
     {
@@ -3789,7 +3789,7 @@
       "source_file": "mainpage_component/vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.js",
       "source_location": "L215",
       "id": "ascii_glitch_ripple_ascii_glitch_ripple_instances",
-      "community": 18,
+      "community": 17,
       "norm_label": "instances"
     },
     {
@@ -3798,8 +3798,143 @@
       "source_file": "mainpage_component/vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.js",
       "source_location": "L220",
       "id": "ascii_glitch_ripple_ascii_glitch_ripple_instance",
-      "community": 18,
+      "community": 17,
       "norm_label": "instance"
+    },
+    {
+      "label": "shiny_text.js",
+      "file_type": "code",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L1",
+      "id": "library_text_shiny_text_shiny_text_js",
+      "community": 21,
+      "norm_label": "shiny_text.js"
+    },
+    {
+      "label": "defaults",
+      "file_type": "code",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L4",
+      "id": "shiny_text_shiny_text_defaults",
+      "community": 21,
+      "norm_label": "defaults"
+    },
+    {
+      "label": "toCssValue()",
+      "file_type": "code",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L17",
+      "id": "shiny_text_shiny_text_tocssvalue",
+      "community": 21,
+      "norm_label": "tocssvalue()"
+    },
+    {
+      "label": "toBoolean()",
+      "file_type": "code",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L21",
+      "id": "shiny_text_shiny_text_toboolean",
+      "community": 21,
+      "norm_label": "toboolean()"
+    },
+    {
+      "label": "readDataOptions()",
+      "file_type": "code",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L26",
+      "id": "shiny_text_shiny_text_readdataoptions",
+      "community": 21,
+      "norm_label": "readdataoptions()"
+    },
+    {
+      "label": "ShinyText",
+      "file_type": "code",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L43",
+      "id": "shiny_text_shiny_text_shinytext",
+      "community": 21,
+      "norm_label": "shinytext"
+    },
+    {
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L44",
+      "id": "shiny_text_shiny_text_shinytext_constructor",
+      "community": 21,
+      "norm_label": ".constructor()"
+    },
+    {
+      "label": ".apply()",
+      "file_type": "code",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L54",
+      "id": "shiny_text_shiny_text_shinytext_apply",
+      "community": 21,
+      "norm_label": ".apply()"
+    },
+    {
+      "label": ".handleEnter()",
+      "file_type": "code",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L79",
+      "id": "shiny_text_shiny_text_shinytext_handleenter",
+      "community": 21,
+      "norm_label": ".handleenter()"
+    },
+    {
+      "label": ".handleLeave()",
+      "file_type": "code",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L83",
+      "id": "shiny_text_shiny_text_shinytext_handleleave",
+      "community": 21,
+      "norm_label": ".handleleave()"
+    },
+    {
+      "label": ".setOptions()",
+      "file_type": "code",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L87",
+      "id": "shiny_text_shiny_text_shinytext_setoptions",
+      "community": 21,
+      "norm_label": ".setoptions()"
+    },
+    {
+      "label": ".destroy()",
+      "file_type": "code",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L96",
+      "id": "shiny_text_shiny_text_shinytext_destroy",
+      "community": 21,
+      "norm_label": ".destroy()"
+    },
+    {
+      "label": "instances",
+      "file_type": "code",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L110",
+      "id": "shiny_text_shiny_text_instances",
+      "community": 21,
+      "norm_label": "instances"
+    },
+    {
+      "label": "instance",
+      "file_type": "code",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L116",
+      "id": "shiny_text_shiny_text_instance",
+      "community": 21,
+      "norm_label": "instance"
+    },
+    {
+      "label": "init()",
+      "file_type": "code",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L125",
+      "id": "shiny_text_shiny_text_init",
+      "community": 21,
+      "norm_label": "init()"
     },
     {
       "label": "profile_motion.js",
@@ -3888,7 +4023,7 @@
       "source_file": "mainpage_component/gsap/CSSRulePlugin.min.js",
       "source_location": "L1",
       "id": "mainpage_component_gsap_cssruleplugin_min_js",
-      "community": 45,
+      "community": 48,
       "norm_label": "cssruleplugin.min.js"
     },
     {
@@ -3897,7 +4032,7 @@
       "source_file": "mainpage_component/gsap/CSSRulePlugin.min.js",
       "source_location": "L10",
       "id": "gsap_cssruleplugin_min_h",
-      "community": 45,
+      "community": 48,
       "norm_label": "h()"
     },
     {
@@ -3906,7 +4041,7 @@
       "source_file": "mainpage_component/gsap/CSSRulePlugin.min.js",
       "source_location": "L10",
       "id": "gsap_cssruleplugin_min_i",
-      "community": 45,
+      "community": 48,
       "norm_label": "i()"
     },
     {
@@ -3915,7 +4050,7 @@
       "source_file": "mainpage_component/gsap/CSSRulePlugin.min.js",
       "source_location": "L10",
       "id": "gsap_cssruleplugin_min_j",
-      "community": 45,
+      "community": 48,
       "norm_label": "j()"
     },
     {
@@ -3924,7 +4059,7 @@
       "source_file": "mainpage_component/gsap/CustomBounce.min.js",
       "source_location": "L1",
       "id": "mainpage_component_gsap_custombounce_min_js",
-      "community": 40,
+      "community": 43,
       "norm_label": "custombounce.min.js"
     },
     {
@@ -3933,7 +4068,7 @@
       "source_file": "mainpage_component/gsap/CustomBounce.min.js",
       "source_location": "L10",
       "id": "gsap_custombounce_min_g",
-      "community": 40,
+      "community": 43,
       "norm_label": "g()"
     },
     {
@@ -3942,7 +4077,7 @@
       "source_file": "mainpage_component/gsap/CustomBounce.min.js",
       "source_location": "L10",
       "id": "gsap_custombounce_min_h",
-      "community": 40,
+      "community": 43,
       "norm_label": "h()"
     },
     {
@@ -3951,7 +4086,7 @@
       "source_file": "mainpage_component/gsap/CustomBounce.min.js",
       "source_location": "L10",
       "id": "gsap_custombounce_min_i",
-      "community": 40,
+      "community": 43,
       "norm_label": "i()"
     },
     {
@@ -3960,7 +4095,7 @@
       "source_file": "mainpage_component/gsap/CustomBounce.min.js",
       "source_location": "L10",
       "id": "gsap_custombounce_min_custombounce",
-      "community": 40,
+      "community": 43,
       "norm_label": "custombounce()"
     },
     {
@@ -3969,7 +4104,7 @@
       "source_file": "mainpage_component/gsap/CustomEase.min.js",
       "source_location": "L1",
       "id": "mainpage_component_gsap_customease_min_js",
-      "community": 23,
+      "community": 24,
       "norm_label": "customease.min.js"
     },
     {
@@ -3978,7 +4113,7 @@
       "source_file": "mainpage_component/gsap/CustomWiggle.min.js",
       "source_location": "L1",
       "id": "mainpage_component_gsap_customwiggle_min_js",
-      "community": 37,
+      "community": 40,
       "norm_label": "customwiggle.min.js"
     },
     {
@@ -3987,7 +4122,7 @@
       "source_file": "mainpage_component/gsap/CustomWiggle.min.js",
       "source_location": "L10",
       "id": "gsap_customwiggle_min_g",
-      "community": 37,
+      "community": 40,
       "norm_label": "g()"
     },
     {
@@ -3996,7 +4131,7 @@
       "source_file": "mainpage_component/gsap/CustomWiggle.min.js",
       "source_location": "L10",
       "id": "gsap_customwiggle_min_i",
-      "community": 37,
+      "community": 40,
       "norm_label": "i()"
     },
     {
@@ -4005,7 +4140,7 @@
       "source_file": "mainpage_component/gsap/CustomWiggle.min.js",
       "source_location": "L10",
       "id": "gsap_customwiggle_min_j",
-      "community": 37,
+      "community": 40,
       "norm_label": "j()"
     },
     {
@@ -4014,7 +4149,7 @@
       "source_file": "mainpage_component/gsap/CustomWiggle.min.js",
       "source_location": "L10",
       "id": "gsap_customwiggle_min_k",
-      "community": 37,
+      "community": 40,
       "norm_label": "k()"
     },
     {
@@ -4023,7 +4158,7 @@
       "source_file": "mainpage_component/gsap/CustomWiggle.min.js",
       "source_location": "L10",
       "id": "gsap_customwiggle_min_customwiggle",
-      "community": 37,
+      "community": 40,
       "norm_label": "customwiggle()"
     },
     {
@@ -4041,7 +4176,7 @@
       "source_file": "mainpage_component/gsap/DrawSVGPlugin.min.js",
       "source_location": "L1",
       "id": "mainpage_component_gsap_drawsvgplugin_min_js",
-      "community": 22,
+      "community": 23,
       "norm_label": "drawsvgplugin.min.js"
     },
     {
@@ -4050,7 +4185,7 @@
       "source_file": "mainpage_component/gsap/DrawSVGPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_drawsvgplugin_min_l",
-      "community": 22,
+      "community": 23,
       "norm_label": "l()"
     },
     {
@@ -4059,7 +4194,7 @@
       "source_file": "mainpage_component/gsap/DrawSVGPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_drawsvgplugin_min_m",
-      "community": 22,
+      "community": 23,
       "norm_label": "m()"
     },
     {
@@ -4068,7 +4203,7 @@
       "source_file": "mainpage_component/gsap/DrawSVGPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_drawsvgplugin_min_p",
-      "community": 22,
+      "community": 23,
       "norm_label": "p()"
     },
     {
@@ -4077,7 +4212,7 @@
       "source_file": "mainpage_component/gsap/DrawSVGPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_drawsvgplugin_min_q",
-      "community": 22,
+      "community": 23,
       "norm_label": "q()"
     },
     {
@@ -4086,7 +4221,7 @@
       "source_file": "mainpage_component/gsap/DrawSVGPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_drawsvgplugin_min_r",
-      "community": 22,
+      "community": 23,
       "norm_label": "r()"
     },
     {
@@ -4095,7 +4230,7 @@
       "source_file": "mainpage_component/gsap/DrawSVGPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_drawsvgplugin_min_s",
-      "community": 22,
+      "community": 23,
       "norm_label": "s()"
     },
     {
@@ -4104,7 +4239,7 @@
       "source_file": "mainpage_component/gsap/DrawSVGPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_drawsvgplugin_min_u",
-      "community": 22,
+      "community": 23,
       "norm_label": "u()"
     },
     {
@@ -4113,7 +4248,7 @@
       "source_file": "mainpage_component/gsap/DrawSVGPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_drawsvgplugin_min_v",
-      "community": 22,
+      "community": 23,
       "norm_label": "v()"
     },
     {
@@ -4122,7 +4257,7 @@
       "source_file": "mainpage_component/gsap/DrawSVGPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_drawsvgplugin_min_w",
-      "community": 22,
+      "community": 23,
       "norm_label": "w()"
     },
     {
@@ -4131,7 +4266,7 @@
       "source_file": "mainpage_component/gsap/DrawSVGPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_drawsvgplugin_min_z",
-      "community": 22,
+      "community": 23,
       "norm_label": "z()"
     },
     {
@@ -4140,7 +4275,7 @@
       "source_file": "mainpage_component/gsap/DrawSVGPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_drawsvgplugin_min_a",
-      "community": 22,
+      "community": 23,
       "norm_label": "a()"
     },
     {
@@ -4149,7 +4284,7 @@
       "source_file": "mainpage_component/gsap/DrawSVGPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_drawsvgplugin_min_b",
-      "community": 22,
+      "community": 23,
       "norm_label": "b()"
     },
     {
@@ -4158,7 +4293,7 @@
       "source_file": "mainpage_component/gsap/EaselPlugin.min.js",
       "source_location": "L1",
       "id": "mainpage_component_gsap_easelplugin_min_js",
-      "community": 24,
+      "community": 27,
       "norm_label": "easelplugin.min.js"
     },
     {
@@ -4167,7 +4302,7 @@
       "source_file": "mainpage_component/gsap/EaselPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_easelplugin_min_k",
-      "community": 24,
+      "community": 27,
       "norm_label": "k()"
     },
     {
@@ -4176,7 +4311,7 @@
       "source_file": "mainpage_component/gsap/EaselPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_easelplugin_min_l",
-      "community": 24,
+      "community": 27,
       "norm_label": "l()"
     },
     {
@@ -4185,7 +4320,7 @@
       "source_file": "mainpage_component/gsap/EaselPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_easelplugin_min_m",
-      "community": 24,
+      "community": 27,
       "norm_label": "m()"
     },
     {
@@ -4194,7 +4329,7 @@
       "source_file": "mainpage_component/gsap/EaselPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_easelplugin_min_n",
-      "community": 24,
+      "community": 27,
       "norm_label": "n()"
     },
     {
@@ -4203,7 +4338,7 @@
       "source_file": "mainpage_component/gsap/EaselPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_easelplugin_min_o",
-      "community": 24,
+      "community": 27,
       "norm_label": "o()"
     },
     {
@@ -4212,7 +4347,7 @@
       "source_file": "mainpage_component/gsap/EaselPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_easelplugin_min_p",
-      "community": 24,
+      "community": 27,
       "norm_label": "p()"
     },
     {
@@ -4221,7 +4356,7 @@
       "source_file": "mainpage_component/gsap/EaselPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_easelplugin_min_u",
-      "community": 24,
+      "community": 27,
       "norm_label": "u()"
     },
     {
@@ -4230,7 +4365,7 @@
       "source_file": "mainpage_component/gsap/EaselPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_easelplugin_min_z",
-      "community": 24,
+      "community": 27,
       "norm_label": "z()"
     },
     {
@@ -4239,7 +4374,7 @@
       "source_file": "mainpage_component/gsap/EaselPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_easelplugin_min_a",
-      "community": 24,
+      "community": 27,
       "norm_label": "a()"
     },
     {
@@ -4248,7 +4383,7 @@
       "source_file": "mainpage_component/gsap/EasePack.min.js",
       "source_location": "L1",
       "id": "mainpage_component_gsap_easepack_min_js",
-      "community": 30,
+      "community": 33,
       "norm_label": "easepack.min.js"
     },
     {
@@ -4257,7 +4392,7 @@
       "source_file": "mainpage_component/gsap/EasePack.min.js",
       "source_location": "L10",
       "id": "gsap_easepack_min_f",
-      "community": 30,
+      "community": 33,
       "norm_label": "f()"
     },
     {
@@ -4266,7 +4401,7 @@
       "source_file": "mainpage_component/gsap/EasePack.min.js",
       "source_location": "L10",
       "id": "gsap_easepack_min_g",
-      "community": 30,
+      "community": 33,
       "norm_label": "g()"
     },
     {
@@ -4275,7 +4410,7 @@
       "source_file": "mainpage_component/gsap/EasePack.min.js",
       "source_location": "L10",
       "id": "gsap_easepack_min_h",
-      "community": 30,
+      "community": 33,
       "norm_label": "h()"
     },
     {
@@ -4284,7 +4419,7 @@
       "source_file": "mainpage_component/gsap/EasePack.min.js",
       "source_location": "L10",
       "id": "gsap_easepack_min_i",
-      "community": 30,
+      "community": 33,
       "norm_label": "i()"
     },
     {
@@ -4293,7 +4428,7 @@
       "source_file": "mainpage_component/gsap/EasePack.min.js",
       "source_location": "L10",
       "id": "gsap_easepack_min_j",
-      "community": 30,
+      "community": 33,
       "norm_label": "j()"
     },
     {
@@ -4302,7 +4437,7 @@
       "source_file": "mainpage_component/gsap/EasePack.min.js",
       "source_location": "L10",
       "id": "gsap_easepack_min_k",
-      "community": 30,
+      "community": 33,
       "norm_label": "k()"
     },
     {
@@ -4311,7 +4446,7 @@
       "source_file": "mainpage_component/gsap/EasePack.min.js",
       "source_location": "L10",
       "id": "gsap_easepack_min_l",
-      "community": 30,
+      "community": 33,
       "norm_label": "l()"
     },
     {
@@ -5238,7 +5373,7 @@
       "source_file": "mainpage_component/gsap/InertiaPlugin.min.js",
       "source_location": "L1",
       "id": "mainpage_component_gsap_inertiaplugin_min_js",
-      "community": 17,
+      "community": 18,
       "norm_label": "inertiaplugin.min.js"
     },
     {
@@ -5247,7 +5382,7 @@
       "source_file": "mainpage_component/gsap/InertiaPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_inertiaplugin_min_m",
-      "community": 17,
+      "community": 18,
       "norm_label": "m()"
     },
     {
@@ -5256,7 +5391,7 @@
       "source_file": "mainpage_component/gsap/InertiaPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_inertiaplugin_min_p",
-      "community": 17,
+      "community": 18,
       "norm_label": "p()"
     },
     {
@@ -5265,7 +5400,7 @@
       "source_file": "mainpage_component/gsap/InertiaPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_inertiaplugin_min_q",
-      "community": 17,
+      "community": 18,
       "norm_label": "q()"
     },
     {
@@ -5274,7 +5409,7 @@
       "source_file": "mainpage_component/gsap/InertiaPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_inertiaplugin_min_r",
-      "community": 17,
+      "community": 18,
       "norm_label": "r()"
     },
     {
@@ -5283,7 +5418,7 @@
       "source_file": "mainpage_component/gsap/InertiaPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_inertiaplugin_min_t",
-      "community": 17,
+      "community": 18,
       "norm_label": "t()"
     },
     {
@@ -5292,7 +5427,7 @@
       "source_file": "mainpage_component/gsap/InertiaPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_inertiaplugin_min_u",
-      "community": 17,
+      "community": 18,
       "norm_label": "u()"
     },
     {
@@ -5301,7 +5436,7 @@
       "source_file": "mainpage_component/gsap/InertiaPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_inertiaplugin_min_velocitytracker",
-      "community": 17,
+      "community": 18,
       "norm_label": "velocitytracker()"
     },
     {
@@ -5310,7 +5445,7 @@
       "source_file": "mainpage_component/gsap/InertiaPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_inertiaplugin_min_l",
-      "community": 17,
+      "community": 18,
       "norm_label": "l()"
     },
     {
@@ -5319,7 +5454,7 @@
       "source_file": "mainpage_component/gsap/InertiaPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_inertiaplugin_min_n",
-      "community": 17,
+      "community": 18,
       "norm_label": "n()"
     },
     {
@@ -5328,7 +5463,7 @@
       "source_file": "mainpage_component/gsap/InertiaPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_inertiaplugin_min_o",
-      "community": 17,
+      "community": 18,
       "norm_label": "o()"
     },
     {
@@ -5337,7 +5472,7 @@
       "source_file": "mainpage_component/gsap/InertiaPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_inertiaplugin_min_s",
-      "community": 17,
+      "community": 18,
       "norm_label": "s()"
     },
     {
@@ -5346,7 +5481,7 @@
       "source_file": "mainpage_component/gsap/InertiaPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_inertiaplugin_min_w",
-      "community": 17,
+      "community": 18,
       "norm_label": "w()"
     },
     {
@@ -5355,7 +5490,7 @@
       "source_file": "mainpage_component/gsap/InertiaPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_inertiaplugin_min_x",
-      "community": 17,
+      "community": 18,
       "norm_label": "x()"
     },
     {
@@ -5364,7 +5499,7 @@
       "source_file": "mainpage_component/gsap/InertiaPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_inertiaplugin_min_y",
-      "community": 17,
+      "community": 18,
       "norm_label": "y()"
     },
     {
@@ -5373,7 +5508,7 @@
       "source_file": "mainpage_component/gsap/InertiaPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_inertiaplugin_min_z",
-      "community": 17,
+      "community": 18,
       "norm_label": "z()"
     },
     {
@@ -5382,7 +5517,7 @@
       "source_file": "mainpage_component/gsap/InertiaPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_inertiaplugin_min",
-      "community": 17,
+      "community": 18,
       "norm_label": "$()"
     },
     {
@@ -5391,7 +5526,7 @@
       "source_file": "mainpage_component/gsap/InertiaPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_inertiaplugin_min_aa",
-      "community": 17,
+      "community": 18,
       "norm_label": "aa()"
     },
     {
@@ -5400,7 +5535,7 @@
       "source_file": "mainpage_component/gsap/InertiaPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_inertiaplugin_min_ba",
-      "community": 17,
+      "community": 18,
       "norm_label": "ba()"
     },
     {
@@ -5409,7 +5544,7 @@
       "source_file": "mainpage_component/gsap/InertiaPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_inertiaplugin_min_da",
-      "community": 17,
+      "community": 18,
       "norm_label": "da()"
     },
     {
@@ -5418,7 +5553,7 @@
       "source_file": "mainpage_component/gsap/InertiaPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_inertiaplugin_min_fa",
-      "community": 17,
+      "community": 18,
       "norm_label": "fa()"
     },
     {
@@ -6777,7 +6912,7 @@
       "source_file": "mainpage_component/gsap/Physics2DPlugin.min.js",
       "source_location": "L1",
       "id": "mainpage_component_gsap_physics2dplugin_min_js",
-      "community": 41,
+      "community": 44,
       "norm_label": "physics2dplugin.min.js"
     },
     {
@@ -6786,7 +6921,7 @@
       "source_file": "mainpage_component/gsap/Physics2DPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_physics2dplugin_min_j",
-      "community": 41,
+      "community": 44,
       "norm_label": "j()"
     },
     {
@@ -6795,7 +6930,7 @@
       "source_file": "mainpage_component/gsap/Physics2DPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_physics2dplugin_min_k",
-      "community": 41,
+      "community": 44,
       "norm_label": "k()"
     },
     {
@@ -6804,7 +6939,7 @@
       "source_file": "mainpage_component/gsap/Physics2DPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_physics2dplugin_min_l",
-      "community": 41,
+      "community": 44,
       "norm_label": "l()"
     },
     {
@@ -6813,7 +6948,7 @@
       "source_file": "mainpage_component/gsap/Physics2DPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_physics2dplugin_min_m",
-      "community": 41,
+      "community": 44,
       "norm_label": "m()"
     },
     {
@@ -6822,7 +6957,7 @@
       "source_file": "mainpage_component/gsap/PhysicsPropsPlugin.min.js",
       "source_location": "L1",
       "id": "mainpage_component_gsap_physicspropsplugin_min_js",
-      "community": 42,
+      "community": 45,
       "norm_label": "physicspropsplugin.min.js"
     },
     {
@@ -6831,7 +6966,7 @@
       "source_file": "mainpage_component/gsap/PhysicsPropsPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_physicspropsplugin_min_i",
-      "community": 42,
+      "community": 45,
       "norm_label": "i()"
     },
     {
@@ -6840,7 +6975,7 @@
       "source_file": "mainpage_component/gsap/PhysicsPropsPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_physicspropsplugin_min_j",
-      "community": 42,
+      "community": 45,
       "norm_label": "j()"
     },
     {
@@ -6849,7 +6984,7 @@
       "source_file": "mainpage_component/gsap/PhysicsPropsPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_physicspropsplugin_min_k",
-      "community": 42,
+      "community": 45,
       "norm_label": "k()"
     },
     {
@@ -6858,7 +6993,7 @@
       "source_file": "mainpage_component/gsap/PhysicsPropsPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_physicspropsplugin_min_l",
-      "community": 42,
+      "community": 45,
       "norm_label": "l()"
     },
     {
@@ -7074,7 +7209,7 @@
       "source_file": "mainpage_component/gsap/ScrambleTextPlugin.min.js",
       "source_location": "L1",
       "id": "mainpage_component_gsap_scrambletextplugin_min_js",
-      "community": 38,
+      "community": 41,
       "norm_label": "scrambletextplugin.min.js"
     },
     {
@@ -7083,7 +7218,7 @@
       "source_file": "mainpage_component/gsap/ScrambleTextPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_scrambletextplugin_min_gettext",
-      "community": 38,
+      "community": 41,
       "norm_label": "gettext()"
     },
     {
@@ -7092,7 +7227,7 @@
       "source_file": "mainpage_component/gsap/ScrambleTextPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_scrambletextplugin_min_emojisafesplit",
-      "community": 38,
+      "community": 41,
       "norm_label": "emojisafesplit()"
     },
     {
@@ -7101,7 +7236,7 @@
       "source_file": "mainpage_component/gsap/ScrambleTextPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_scrambletextplugin_min_charset",
-      "community": 38,
+      "community": 41,
       "norm_label": "charset()"
     },
     {
@@ -7110,7 +7245,7 @@
       "source_file": "mainpage_component/gsap/ScrambleTextPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_scrambletextplugin_min_i",
-      "community": 38,
+      "community": 41,
       "norm_label": "i()"
     },
     {
@@ -7119,7 +7254,7 @@
       "source_file": "mainpage_component/gsap/ScrambleTextPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_scrambletextplugin_min_p",
-      "community": 38,
+      "community": 41,
       "norm_label": "p()"
     },
     {
@@ -7128,7 +7263,7 @@
       "source_file": "mainpage_component/gsap/ScrollSmoother.min.js",
       "source_location": "L1",
       "id": "mainpage_component_gsap_scrollsmoother_min_js",
-      "community": 39,
+      "community": 42,
       "norm_label": "scrollsmoother.min.js"
     },
     {
@@ -7137,7 +7272,7 @@
       "source_file": "mainpage_component/gsap/ScrollSmoother.min.js",
       "source_location": "L10",
       "id": "gsap_scrollsmoother_min_defineproperties",
-      "community": 39,
+      "community": 42,
       "norm_label": "_defineproperties()"
     },
     {
@@ -7146,7 +7281,7 @@
       "source_file": "mainpage_component/gsap/ScrollSmoother.min.js",
       "source_location": "L10",
       "id": "gsap_scrollsmoother_min_s",
-      "community": 39,
+      "community": 42,
       "norm_label": "s()"
     },
     {
@@ -7155,7 +7290,7 @@
       "source_file": "mainpage_component/gsap/ScrollSmoother.min.js",
       "source_location": "L10",
       "id": "gsap_scrollsmoother_min_t",
-      "community": 39,
+      "community": 42,
       "norm_label": "t()"
     },
     {
@@ -7164,7 +7299,7 @@
       "source_file": "mainpage_component/gsap/ScrollSmoother.min.js",
       "source_location": "L10",
       "id": "gsap_scrollsmoother_min_v",
-      "community": 39,
+      "community": 42,
       "norm_label": "v()"
     },
     {
@@ -7173,7 +7308,7 @@
       "source_file": "mainpage_component/gsap/ScrollSmoother.min.js",
       "source_location": "L10",
       "id": "gsap_scrollsmoother_min_scrollsmoother",
-      "community": 39,
+      "community": 42,
       "norm_label": "scrollsmoother()"
     },
     {
@@ -7182,7 +7317,7 @@
       "source_file": "mainpage_component/gsap/ScrollToPlugin.min.js",
       "source_location": "L1",
       "id": "mainpage_component_gsap_scrolltoplugin_min_js",
-      "community": 25,
+      "community": 28,
       "norm_label": "scrolltoplugin.min.js"
     },
     {
@@ -7191,7 +7326,7 @@
       "source_file": "mainpage_component/gsap/ScrollToPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_scrolltoplugin_min_l",
-      "community": 25,
+      "community": 28,
       "norm_label": "l()"
     },
     {
@@ -7200,7 +7335,7 @@
       "source_file": "mainpage_component/gsap/ScrollToPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_scrolltoplugin_min_m",
-      "community": 25,
+      "community": 28,
       "norm_label": "m()"
     },
     {
@@ -7209,7 +7344,7 @@
       "source_file": "mainpage_component/gsap/ScrollToPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_scrolltoplugin_min_n",
-      "community": 25,
+      "community": 28,
       "norm_label": "n()"
     },
     {
@@ -7218,7 +7353,7 @@
       "source_file": "mainpage_component/gsap/ScrollToPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_scrolltoplugin_min_o",
-      "community": 25,
+      "community": 28,
       "norm_label": "o()"
     },
     {
@@ -7227,7 +7362,7 @@
       "source_file": "mainpage_component/gsap/ScrollToPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_scrolltoplugin_min_p",
-      "community": 25,
+      "community": 28,
       "norm_label": "p()"
     },
     {
@@ -7236,7 +7371,7 @@
       "source_file": "mainpage_component/gsap/ScrollToPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_scrolltoplugin_min_q",
-      "community": 25,
+      "community": 28,
       "norm_label": "q()"
     },
     {
@@ -7245,7 +7380,7 @@
       "source_file": "mainpage_component/gsap/ScrollToPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_scrolltoplugin_min_s",
-      "community": 25,
+      "community": 28,
       "norm_label": "s()"
     },
     {
@@ -7254,7 +7389,7 @@
       "source_file": "mainpage_component/gsap/ScrollToPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_scrolltoplugin_min_t",
-      "community": 25,
+      "community": 28,
       "norm_label": "t()"
     },
     {
@@ -7263,7 +7398,7 @@
       "source_file": "mainpage_component/gsap/ScrollToPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_scrolltoplugin_min_u",
-      "community": 25,
+      "community": 28,
       "norm_label": "u()"
     },
     {
@@ -8190,7 +8325,7 @@
       "source_file": "mainpage_component/gsap/TextPlugin.min.js",
       "source_location": "L1",
       "id": "mainpage_component_gsap_textplugin_min_js",
-      "community": 49,
+      "community": 52,
       "norm_label": "textplugin.min.js"
     },
     {
@@ -8199,7 +8334,7 @@
       "source_file": "mainpage_component/gsap/TextPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_textplugin_min_splitinnerhtml",
-      "community": 49,
+      "community": 52,
       "norm_label": "splitinnerhtml()"
     },
     {
@@ -8208,7 +8343,7 @@
       "source_file": "mainpage_component/gsap/TextPlugin.min.js",
       "source_location": "L10",
       "id": "gsap_textplugin_min_emojisafesplit",
-      "community": 49,
+      "community": 52,
       "norm_label": "emojisafesplit()"
     },
     {
@@ -8217,7 +8352,7 @@
       "source_file": "mainpage_component/vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.js",
       "source_location": "L1",
       "id": "mainpage_component_vengeance_ui_ascii_glitch_ripple_ascii_glitch_ripple_js",
-      "community": 18,
+      "community": 17,
       "norm_label": "ascii-glitch-ripple.js"
     },
     {
@@ -8568,7 +8703,7 @@
       "source_file": "PROJECT.md",
       "source_location": "L1",
       "id": "project_md",
-      "community": 26,
+      "community": 29,
       "norm_label": "project.md"
     },
     {
@@ -8577,7 +8712,7 @@
       "source_file": "PROJECT.md",
       "source_location": "L1",
       "id": "halloweenconycoding_project_project_md",
-      "community": 26,
+      "community": 29,
       "norm_label": "project.md"
     },
     {
@@ -8586,7 +8721,7 @@
       "source_file": "PROJECT.md",
       "source_location": "L3",
       "id": "halloweenconycoding_project_current_state",
-      "community": 26,
+      "community": 29,
       "norm_label": "current state"
     },
     {
@@ -8595,7 +8730,7 @@
       "source_file": "PROJECT.md",
       "source_location": "L6",
       "id": "halloweenconycoding_project_current_goal",
-      "community": 26,
+      "community": 29,
       "norm_label": "current goal"
     },
     {
@@ -8604,7 +8739,7 @@
       "source_file": "PROJECT.md",
       "source_location": "L9",
       "id": "halloweenconycoding_project_key_decisions",
-      "community": 26,
+      "community": 29,
       "norm_label": "key decisions"
     },
     {
@@ -8613,7 +8748,7 @@
       "source_file": "PROJECT.md",
       "source_location": "L17",
       "id": "halloweenconycoding_project_active_problems",
-      "community": 26,
+      "community": 29,
       "norm_label": "active problems"
     },
     {
@@ -8622,7 +8757,7 @@
       "source_file": "PROJECT.md",
       "source_location": "L23",
       "id": "halloweenconycoding_project_architecture_important_files",
-      "community": 26,
+      "community": 29,
       "norm_label": "architecture / important files"
     },
     {
@@ -8631,7 +8766,7 @@
       "source_file": "PROJECT.md",
       "source_location": "L37",
       "id": "halloweenconycoding_project_workflow_rules_for_agents",
-      "community": 26,
+      "community": 29,
       "norm_label": "workflow rules for agents"
     },
     {
@@ -8640,16 +8775,16 @@
       "source_file": "PROJECT.md",
       "source_location": "L45",
       "id": "halloweenconycoding_project_recent_work_log",
-      "community": 26,
+      "community": 29,
       "norm_label": "recent work log"
     },
     {
       "label": "Detailed Notes",
       "file_type": "document",
       "source_file": "PROJECT.md",
-      "source_location": "L70",
+      "source_location": "L74",
       "id": "halloweenconycoding_project_detailed_notes",
-      "community": 26,
+      "community": 29,
       "norm_label": "detailed notes"
     },
     {
@@ -8658,7 +8793,7 @@
       "source_file": "README.md",
       "source_location": "L1",
       "id": "readme_md",
-      "community": 31,
+      "community": 34,
       "norm_label": "readme.md"
     },
     {
@@ -8667,7 +8802,7 @@
       "source_file": "README.md",
       "source_location": "L15",
       "id": "halloweenconycoding_readme_about_me",
-      "community": 31,
+      "community": 34,
       "norm_label": "\ud83d\ude80 about me"
     },
     {
@@ -8676,7 +8811,7 @@
       "source_file": "README.md",
       "source_location": "L25",
       "id": "halloweenconycoding_readme_technical_skills",
-      "community": 31,
+      "community": 34,
       "norm_label": "\ud83e\uddf0 technical skills"
     },
     {
@@ -8685,7 +8820,7 @@
       "source_file": "README.md",
       "source_location": "L47",
       "id": "halloweenconycoding_readme_featured_project",
-      "community": 31,
+      "community": 34,
       "norm_label": "\ud83c\udf1f featured project"
     },
     {
@@ -8694,7 +8829,7 @@
       "source_file": "README.md",
       "source_location": "L61",
       "id": "halloweenconycoding_readme_key_features",
-      "community": 31,
+      "community": 34,
       "norm_label": "\ud83d\udd27 key features"
     },
     {
@@ -8703,7 +8838,7 @@
       "source_file": "README.md",
       "source_location": "L89",
       "id": "halloweenconycoding_readme_what_i_build",
-      "community": 31,
+      "community": 34,
       "norm_label": "\ud83e\udde9 what i build"
     },
     {
@@ -8712,7 +8847,7 @@
       "source_file": "README.md",
       "source_location": "L105",
       "id": "halloweenconycoding_readme_connect_with_me",
-      "community": 31,
+      "community": 34,
       "norm_label": "\ud83c\udf10 connect with me"
     },
     {
@@ -8721,7 +8856,7 @@
       "source_file": "README.md",
       "source_location": "L118",
       "id": "halloweenconycoding_readme_github_profile_and_activities",
-      "community": 31,
+      "community": 34,
       "norm_label": "\ud83d\udcca github profile and activities"
     },
     {
@@ -8730,7 +8865,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L1",
       "id": "docs_superpowers_plans_2026_07_04_task_planner_demo_page_md",
-      "community": 32,
+      "community": 49,
       "norm_label": "2026-07-04-task-planner-demo-page.md"
     },
     {
@@ -8739,7 +8874,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L1",
       "id": "plans_2026_07_04_task_planner_demo_page_task_planner_demo_page_implementation_plan",
-      "community": 32,
+      "community": 49,
       "norm_label": "task planner demo page implementation plan"
     },
     {
@@ -8748,7 +8883,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L13",
       "id": "plans_2026_07_04_task_planner_demo_page_scope",
-      "community": 32,
+      "community": 49,
       "norm_label": "scope"
     },
     {
@@ -8757,7 +8892,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L34",
       "id": "plans_2026_07_04_task_planner_demo_page_file_structure",
-      "community": 32,
+      "community": 35,
       "norm_label": "file structure"
     },
     {
@@ -8766,7 +8901,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L69",
       "id": "plans_2026_07_04_task_planner_demo_page_task_1_add_homepage_card",
-      "community": 27,
+      "community": 31,
       "norm_label": "task 1: add homepage card"
     },
     {
@@ -8775,7 +8910,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L79",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_1",
-      "community": 27,
+      "community": 31,
       "norm_label": "code:powershell (rg -n \"radio planning tools|codesnippet|project-grid|cel-car)"
     },
     {
@@ -8784,7 +8919,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L85",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_2",
-      "community": 27,
+      "community": 31,
       "norm_label": "code:text (radio planning tools appears before codesnippet inside .proj)"
     },
     {
@@ -8793,7 +8928,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L93",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_3",
-      "community": 27,
+      "community": 31,
       "norm_label": "code:html (<div class=\"cel-card featured reveal reveal-delay-3\">)"
     },
     {
@@ -8802,7 +8937,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L118",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_4",
-      "community": 27,
+      "community": 31,
       "norm_label": "code:html (<p class=\"cel-card-desc\">...</p>)"
     },
     {
@@ -8811,7 +8946,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L126",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_5",
-      "community": 27,
+      "community": 31,
       "norm_label": "code:html (<div class=\"cel-card featured reveal reveal-delay-3\">)"
     },
     {
@@ -8820,7 +8955,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L132",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_6",
-      "community": 27,
+      "community": 31,
       "norm_label": "code:html (<div class=\"cel-card featured reveal reveal-delay-4\">)"
     },
     {
@@ -8829,7 +8964,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L140",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_7",
-      "community": 27,
+      "community": 31,
       "norm_label": "code:css (.cel-card-status.demo {)"
     },
     {
@@ -8838,7 +8973,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L152",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_8",
-      "community": 27,
+      "community": 31,
       "norm_label": "code:powershell (rg -n \"task planner|\u25c6 demo|categories/projects/task-planner/)"
     },
     {
@@ -8847,7 +8982,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L159",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_9",
-      "community": 27,
+      "community": 31,
       "norm_label": "code:text (task planner appears before codesnippet.)"
     },
     {
@@ -8856,7 +8991,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L168",
       "id": "plans_2026_07_04_task_planner_demo_page_task_2_copy_the_real_demo_page_bundle",
-      "community": 35,
+      "community": 38,
       "norm_label": "task 2: copy the real demo page bundle"
     },
     {
@@ -8865,7 +9000,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L177",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_10",
-      "community": 35,
+      "community": 38,
       "norm_label": "code:powershell (new-item -itemtype directory -force -path \"c:\\beer\\programmi)"
     },
     {
@@ -8874,7 +9009,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L185",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_11",
-      "community": 35,
+      "community": 38,
       "norm_label": "code:text (all three target folders exist.)"
     },
     {
@@ -8883,7 +9018,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L193",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_12",
-      "community": 35,
+      "community": 38,
       "norm_label": "code:powershell ($src = \"c:\\beer\\programming\\personal_project\\cony-workspace\\)"
     },
     {
@@ -8892,7 +9027,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L213",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_13",
-      "community": 35,
+      "community": 38,
       "norm_label": "code:text (the copied tasks.html and calendar.html still resemble the r)"
     },
     {
@@ -8901,7 +9036,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L221",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_14",
-      "community": 35,
+      "community": 38,
       "norm_label": "code:powershell (get-childitem \"c:\\beer\\programming\\personal_project\\hallowee)"
     },
     {
@@ -8910,7 +9045,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L228",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_15",
-      "community": 35,
+      "community": 38,
       "norm_label": "code:text (output includes tasks.html, tasks.js, calendar.html, calenda)"
     },
     {
@@ -8919,7 +9054,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L234",
       "id": "plans_2026_07_04_task_planner_demo_page_task_3_add_demo_landing_page_and_in_memory_persistence",
-      "community": 32,
+      "community": 35,
       "norm_label": "task 3: add demo landing page and in-memory persistence"
     },
     {
@@ -8928,7 +9063,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L244",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_16",
-      "community": 32,
+      "community": 35,
       "norm_label": "code:html (<!doctype html>)"
     },
     {
@@ -8937,7 +9072,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L324",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_17",
-      "community": 32,
+      "community": 35,
       "norm_label": "code:javascript ((function () {)"
     },
     {
@@ -8946,7 +9081,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L461",
       "id": "plans_2026_07_04_task_planner_demo_page_task_4_rewire_copied_pages_for_demo_mode",
-      "community": 34,
+      "community": 37,
       "norm_label": "task 4: rewire copied pages for demo mode"
     },
     {
@@ -8955,7 +9090,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L472",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_18",
-      "community": 34,
+      "community": 37,
       "norm_label": "code:html (<script src=\"data/workspace-data.js\"></script>)"
     },
     {
@@ -8964,7 +9099,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L479",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_19",
-      "community": 34,
+      "community": 37,
       "norm_label": "code:html (<script src=\"demo-persistence.js\"></script>)"
     },
     {
@@ -8973,7 +9108,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L489",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_20",
-      "community": 34,
+      "community": 37,
       "norm_label": "code:html (<span class=\"save-status-label\">demo - resets on refresh</sp)"
     },
     {
@@ -8982,7 +9117,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L497",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_21",
-      "community": 34,
+      "community": 37,
       "norm_label": "code:javascript (const pages = [)"
     },
     {
@@ -8991,7 +9126,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L509",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_22",
-      "community": 34,
+      "community": 37,
       "norm_label": "code:powershell (rg -n \"data/workspace-data|persistence\\.js|showopenfilepicke)"
     },
     {
@@ -9000,7 +9135,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L515",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_23",
-      "community": 34,
+      "community": 37,
       "norm_label": "code:text (no matches, except comments if deliberately added to explain)"
     },
     {
@@ -9009,7 +9144,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L521",
       "id": "plans_2026_07_04_task_planner_demo_page_task_5_validate_demo_interactions",
-      "community": 28,
+      "community": 30,
       "norm_label": "task 5: validate demo interactions"
     },
     {
@@ -9018,7 +9153,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L530",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_24",
-      "community": 28,
+      "community": 30,
       "norm_label": "code:powershell (node --check \"c:\\beer\\programming\\personal_project\\halloween)"
     },
     {
@@ -9027,7 +9162,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L539",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_25",
-      "community": 28,
+      "community": 30,
       "norm_label": "code:text (all commands exit with code 0.)"
     },
     {
@@ -9036,7 +9171,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L547",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_26",
-      "community": 28,
+      "community": 30,
       "norm_label": "code:powershell (python -m http.server 8123)"
     },
     {
@@ -9045,7 +9180,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L553",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_27",
-      "community": 28,
+      "community": 30,
       "norm_label": "code:text (serving http on :: port 8123 or serving http on 0.0.0.0 port)"
     },
     {
@@ -9054,7 +9189,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L561",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_28",
-      "community": 28,
+      "community": 30,
       "norm_label": "code:powershell ($base = \"http://127.0.0.1:8123/categories/projects/task-plan)"
     },
     {
@@ -9063,7 +9198,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L571",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_29",
-      "community": 28,
+      "community": 30,
       "norm_label": "code:text (home=200 tasks=200 calendar=200)"
     },
     {
@@ -9072,7 +9207,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L579",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_30",
-      "community": 28,
+      "community": 30,
       "norm_label": "code:text (http://127.0.0.1:8123/categories/projects/task-planner/index)"
     },
     {
@@ -9081,7 +9216,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L605",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_31",
-      "community": 28,
+      "community": 30,
       "norm_label": "code:text (ctrl+c)"
     },
     {
@@ -9090,7 +9225,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L611",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_32",
-      "community": 28,
+      "community": 30,
       "norm_label": "code:text (the server stops cleanly.)"
     },
     {
@@ -9099,7 +9234,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L617",
       "id": "plans_2026_07_04_task_planner_demo_page_task_6_update_project_memory",
-      "community": 46,
+      "community": 35,
       "norm_label": "task 6: update project memory"
     },
     {
@@ -9108,7 +9243,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L626",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_33",
-      "community": 46,
+      "community": 35,
       "norm_label": "code:markdown (- 2026-07-04 - added task planner demo project direction:)"
     },
     {
@@ -9117,7 +9252,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L637",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_34",
-      "community": 46,
+      "community": 35,
       "norm_label": "code:powershell (rg -n \"task planner demo|two-page public demo|memory-only de)"
     },
     {
@@ -9126,7 +9261,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L643",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_35",
-      "community": 46,
+      "community": 35,
       "norm_label": "code:text (the new recent-work entry is present.)"
     },
     {
@@ -9135,7 +9270,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L649",
       "id": "plans_2026_07_04_task_planner_demo_page_task_7_final_diff_review",
-      "community": 29,
+      "community": 32,
       "norm_label": "task 7: final diff review"
     },
     {
@@ -9144,7 +9279,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L658",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_36",
-      "community": 29,
+      "community": 32,
       "norm_label": "code:powershell (git status --short)"
     },
     {
@@ -9153,7 +9288,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L664",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_37",
-      "community": 29,
+      "community": 32,
       "norm_label": "code:text (m project.md)"
     },
     {
@@ -9162,7 +9297,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L675",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_38",
-      "community": 29,
+      "community": 32,
       "norm_label": "code:powershell (git diff --check)"
     },
     {
@@ -9171,7 +9306,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L681",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_39",
-      "community": 29,
+      "community": 32,
       "norm_label": "code:text (no output.)"
     },
     {
@@ -9180,7 +9315,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L689",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_40",
-      "community": 29,
+      "community": 32,
       "norm_label": "code:powershell (rg -n \"showopenfilepicker|showsavefilepicker|indexeddb|local)"
     },
     {
@@ -9189,7 +9324,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L695",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_41",
-      "community": 29,
+      "community": 32,
       "norm_label": "code:text (no runtime persistence references remain in the public demo )"
     },
     {
@@ -9198,7 +9333,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L703",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_42",
-      "community": 29,
+      "community": 32,
       "norm_label": "code:powershell (graphify update .)"
     },
     {
@@ -9207,7 +9342,7 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L709",
       "id": "plans_2026_07_04_task_planner_demo_page_codeblock_43",
-      "community": 29,
+      "community": 32,
       "norm_label": "code:text (graphify completes. if graph.html is skipped because the gra)"
     },
     {
@@ -9216,8 +9351,206 @@
       "source_file": "docs/superpowers/plans/2026-07-04-task-planner-demo-page.md",
       "source_location": "L725",
       "id": "plans_2026_07_04_task_planner_demo_page_self_review",
-      "community": 32,
+      "community": 49,
       "norm_label": "self-review"
+    },
+    {
+      "label": "2026-08-26-portfolio-story-effects.md",
+      "file_type": "document",
+      "source_file": "docs/superpowers/plans/2026-08-26-portfolio-story-effects.md",
+      "source_location": "L1",
+      "id": "docs_superpowers_plans_2026_08_26_portfolio_story_effects_md",
+      "community": 25,
+      "norm_label": "2026-08-26-portfolio-story-effects.md"
+    },
+    {
+      "label": "Portfolio Story and Text Effects Implementation Plan",
+      "file_type": "document",
+      "source_file": "docs/superpowers/plans/2026-08-26-portfolio-story-effects.md",
+      "source_location": "L1",
+      "id": "plans_2026_08_26_portfolio_story_effects_portfolio_story_and_text_effects_implementation_plan",
+      "community": 25,
+      "norm_label": "portfolio story and text effects implementation plan"
+    },
+    {
+      "label": "Global Constraints",
+      "file_type": "document",
+      "source_file": "docs/superpowers/plans/2026-08-26-portfolio-story-effects.md",
+      "source_location": "L13",
+      "id": "plans_2026_08_26_portfolio_story_effects_global_constraints",
+      "community": 25,
+      "norm_label": "global constraints"
+    },
+    {
+      "label": "Task 1: Prune the pasted library to the effect actually used",
+      "file_type": "document",
+      "source_file": "docs/superpowers/plans/2026-08-26-portfolio-story-effects.md",
+      "source_location": "L27",
+      "id": "plans_2026_08_26_portfolio_story_effects_task_1_prune_the_pasted_library_to_the_effect_actually_used",
+      "community": 25,
+      "norm_label": "task 1: prune the pasted library to the effect actually used"
+    },
+    {
+      "label": "Task 2: Replace My Story copy and add visual emphasis",
+      "file_type": "document",
+      "source_file": "docs/superpowers/plans/2026-08-26-portfolio-story-effects.md",
+      "source_location": "L54",
+      "id": "plans_2026_08_26_portfolio_story_effects_task_2_replace_my_story_copy_and_add_visual_emphasis",
+      "community": 25,
+      "norm_label": "task 2: replace my story copy and add visual emphasis"
+    },
+    {
+      "label": "code:html (<p class=\"bio-text\">I graduated in <strong>Electrical Engine)",
+      "file_type": "document",
+      "source_file": "docs/superpowers/plans/2026-08-26-portfolio-story-effects.md",
+      "source_location": "L65",
+      "id": "plans_2026_08_26_portfolio_story_effects_codeblock_1",
+      "community": 25,
+      "norm_label": "code:html (<p class=\"bio-text\">i graduated in <strong>electrical engine)"
+    },
+    {
+      "label": "code:css (.bio-text .ais-gradient {)",
+      "file_type": "document",
+      "source_file": "docs/superpowers/plans/2026-08-26-portfolio-story-effects.md",
+      "source_location": "L74",
+      "id": "plans_2026_08_26_portfolio_story_effects_codeblock_2",
+      "community": 25,
+      "norm_label": "code:css (.bio-text .ais-gradient {)"
+    },
+    {
+      "label": "Task 3: Wire the retained ShinyText effect to the hero",
+      "file_type": "document",
+      "source_file": "docs/superpowers/plans/2026-08-26-portfolio-story-effects.md",
+      "source_location": "L87",
+      "id": "plans_2026_08_26_portfolio_story_effects_task_3_wire_the_retained_shinytext_effect_to_the_hero",
+      "community": 25,
+      "norm_label": "task 3: wire the retained shinytext effect to the hero"
+    },
+    {
+      "label": "code:html (<h1 class=\"hero-name\" data-shiny-text data-shiny-color=\"#173)",
+      "file_type": "document",
+      "source_file": "docs/superpowers/plans/2026-08-26-portfolio-story-effects.md",
+      "source_location": "L98",
+      "id": "plans_2026_08_26_portfolio_story_effects_codeblock_3",
+      "community": 25,
+      "norm_label": "code:html (<h1 class=\"hero-name\" data-shiny-text data-shiny-color=\"#173)"
+    },
+    {
+      "label": "Task 4: Validate, refresh project memory, and hand off for human review",
+      "file_type": "document",
+      "source_file": "docs/superpowers/plans/2026-08-26-portfolio-story-effects.md",
+      "source_location": "L107",
+      "id": "plans_2026_08_26_portfolio_story_effects_task_4_validate_refresh_project_memory_and_hand_off_for_human_review",
+      "community": 25,
+      "norm_label": "task 4: validate, refresh project memory, and hand off for human review"
+    },
+    {
+      "label": "code:powershell (node --check library/text/shiny_text/shiny_text.js)",
+      "file_type": "document",
+      "source_file": "docs/superpowers/plans/2026-08-26-portfolio-story-effects.md",
+      "source_location": "L127",
+      "id": "plans_2026_08_26_portfolio_story_effects_codeblock_4",
+      "community": 25,
+      "norm_label": "code:powershell (node --check library/text/shiny_text/shiny_text.js)"
+    },
+    {
+      "label": "PROJECT.md",
+      "file_type": "document",
+      "source_file": "library/PROJECT.md",
+      "source_location": "L1",
+      "id": "library_project_md",
+      "community": 26,
+      "norm_label": "project.md"
+    },
+    {
+      "label": "Cony Workspace Local Effect Library",
+      "file_type": "document",
+      "source_file": "library/PROJECT.md",
+      "source_location": "L1",
+      "id": "library_project_cony_workspace_local_effect_library",
+      "community": 26,
+      "norm_label": "cony workspace local effect library"
+    },
+    {
+      "label": "Current State",
+      "file_type": "document",
+      "source_file": "library/PROJECT.md",
+      "source_location": "L3",
+      "id": "library_project_current_state",
+      "community": 26,
+      "norm_label": "current state"
+    },
+    {
+      "label": "Current Goal",
+      "file_type": "document",
+      "source_file": "library/PROJECT.md",
+      "source_location": "L8",
+      "id": "library_project_current_goal",
+      "community": 26,
+      "norm_label": "current goal"
+    },
+    {
+      "label": "Project Memory Companion Notes",
+      "file_type": "document",
+      "source_file": "library/PROJECT.md",
+      "source_location": "L11",
+      "id": "library_project_project_memory_companion_notes",
+      "community": 26,
+      "norm_label": "project memory companion notes"
+    },
+    {
+      "label": "Key Decisions",
+      "file_type": "document",
+      "source_file": "library/PROJECT.md",
+      "source_location": "L14",
+      "id": "library_project_key_decisions",
+      "community": 26,
+      "norm_label": "key decisions"
+    },
+    {
+      "label": "Active Problems",
+      "file_type": "document",
+      "source_file": "library/PROJECT.md",
+      "source_location": "L19",
+      "id": "library_project_active_problems",
+      "community": 26,
+      "norm_label": "active problems"
+    },
+    {
+      "label": "Architecture / Important Files",
+      "file_type": "document",
+      "source_file": "library/PROJECT.md",
+      "source_location": "L22",
+      "id": "library_project_architecture_important_files",
+      "community": 26,
+      "norm_label": "architecture / important files"
+    },
+    {
+      "label": "Preferences / Upgrade Notes",
+      "file_type": "document",
+      "source_file": "library/PROJECT.md",
+      "source_location": "L26",
+      "id": "library_project_preferences_upgrade_notes",
+      "community": 26,
+      "norm_label": "preferences / upgrade notes"
+    },
+    {
+      "label": "Workflow Rules for Agents",
+      "file_type": "document",
+      "source_file": "library/PROJECT.md",
+      "source_location": "L29",
+      "id": "library_project_workflow_rules_for_agents",
+      "community": 26,
+      "norm_label": "workflow rules for agents"
+    },
+    {
+      "label": "Recent Work Log",
+      "file_type": "document",
+      "source_file": "library/PROJECT.md",
+      "source_location": "L34",
+      "id": "library_project_recent_work_log",
+      "community": 26,
+      "norm_label": "recent work log"
     },
     {
       "label": "refreshProgressFromScroll()",
@@ -18642,6 +18975,201 @@
       "confidence_score": 1.0,
       "source": "mainpage_component_vengeance_ui_ascii_glitch_ripple_ascii_glitch_ripple_js",
       "target": "ascii_glitch_ripple_ascii_glitch_ripple_instance"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "library_text_shiny_text_shiny_text_js",
+      "target": "shiny_text_shiny_text_defaults"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "library_text_shiny_text_shiny_text_js",
+      "target": "shiny_text_shiny_text_tocssvalue"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L21",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "library_text_shiny_text_shiny_text_js",
+      "target": "shiny_text_shiny_text_toboolean"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "library_text_shiny_text_shiny_text_js",
+      "target": "shiny_text_shiny_text_readdataoptions"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L43",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "library_text_shiny_text_shiny_text_js",
+      "target": "shiny_text_shiny_text_shinytext"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L110",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "library_text_shiny_text_shiny_text_js",
+      "target": "shiny_text_shiny_text_instances"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L116",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "library_text_shiny_text_shiny_text_js",
+      "target": "shiny_text_shiny_text_instance"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L125",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "library_text_shiny_text_shiny_text_js",
+      "target": "shiny_text_shiny_text_init"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L65",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "shiny_text_shiny_text_shinytext_apply",
+      "target": "shiny_text_shiny_text_tocssvalue"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L30",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "shiny_text_shiny_text_readdataoptions",
+      "target": "shiny_text_shiny_text_toboolean"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L48",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "shiny_text_shiny_text_shinytext_constructor",
+      "target": "shiny_text_shiny_text_readdataoptions"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L44",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "shiny_text_shiny_text_shinytext",
+      "target": "shiny_text_shiny_text_shinytext_constructor"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L54",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "shiny_text_shiny_text_shinytext",
+      "target": "shiny_text_shiny_text_shinytext_apply"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L79",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "shiny_text_shiny_text_shinytext",
+      "target": "shiny_text_shiny_text_shinytext_handleenter"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L83",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "shiny_text_shiny_text_shinytext",
+      "target": "shiny_text_shiny_text_shinytext_handleleave"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L87",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "shiny_text_shiny_text_shinytext",
+      "target": "shiny_text_shiny_text_shinytext_setoptions"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L96",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "shiny_text_shiny_text_shinytext",
+      "target": "shiny_text_shiny_text_shinytext_destroy"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L51",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "shiny_text_shiny_text_shinytext_constructor",
+      "target": "shiny_text_shiny_text_shinytext_apply"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "library/text/shiny_text/shiny_text.js",
+      "source_location": "L93",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "shiny_text_shiny_text_shinytext_setoptions",
+      "target": "shiny_text_shiny_text_shinytext_apply"
     },
     {
       "relation": "contains",
@@ -29184,6 +29712,206 @@
       "target": "plans_2026_07_04_task_planner_demo_page_codeblock_43"
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/plans/2026-08-26-portfolio-story-effects.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_superpowers_plans_2026_08_26_portfolio_story_effects_md",
+      "target": "plans_2026_08_26_portfolio_story_effects_portfolio_story_and_text_effects_implementation_plan"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/plans/2026-08-26-portfolio-story-effects.md",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "plans_2026_08_26_portfolio_story_effects_portfolio_story_and_text_effects_implementation_plan",
+      "target": "plans_2026_08_26_portfolio_story_effects_global_constraints"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/plans/2026-08-26-portfolio-story-effects.md",
+      "source_location": "L27",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "plans_2026_08_26_portfolio_story_effects_portfolio_story_and_text_effects_implementation_plan",
+      "target": "plans_2026_08_26_portfolio_story_effects_task_1_prune_the_pasted_library_to_the_effect_actually_used"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/plans/2026-08-26-portfolio-story-effects.md",
+      "source_location": "L54",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "plans_2026_08_26_portfolio_story_effects_portfolio_story_and_text_effects_implementation_plan",
+      "target": "plans_2026_08_26_portfolio_story_effects_task_2_replace_my_story_copy_and_add_visual_emphasis"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/plans/2026-08-26-portfolio-story-effects.md",
+      "source_location": "L87",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "plans_2026_08_26_portfolio_story_effects_portfolio_story_and_text_effects_implementation_plan",
+      "target": "plans_2026_08_26_portfolio_story_effects_task_3_wire_the_retained_shinytext_effect_to_the_hero"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/plans/2026-08-26-portfolio-story-effects.md",
+      "source_location": "L107",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "plans_2026_08_26_portfolio_story_effects_portfolio_story_and_text_effects_implementation_plan",
+      "target": "plans_2026_08_26_portfolio_story_effects_task_4_validate_refresh_project_memory_and_hand_off_for_human_review"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/plans/2026-08-26-portfolio-story-effects.md",
+      "source_location": "L65",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "plans_2026_08_26_portfolio_story_effects_task_2_replace_my_story_copy_and_add_visual_emphasis",
+      "target": "plans_2026_08_26_portfolio_story_effects_codeblock_1"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/plans/2026-08-26-portfolio-story-effects.md",
+      "source_location": "L74",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "plans_2026_08_26_portfolio_story_effects_task_2_replace_my_story_copy_and_add_visual_emphasis",
+      "target": "plans_2026_08_26_portfolio_story_effects_codeblock_2"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/plans/2026-08-26-portfolio-story-effects.md",
+      "source_location": "L98",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "plans_2026_08_26_portfolio_story_effects_task_3_wire_the_retained_shinytext_effect_to_the_hero",
+      "target": "plans_2026_08_26_portfolio_story_effects_codeblock_3"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/superpowers/plans/2026-08-26-portfolio-story-effects.md",
+      "source_location": "L127",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "plans_2026_08_26_portfolio_story_effects_task_4_validate_refresh_project_memory_and_hand_off_for_human_review",
+      "target": "plans_2026_08_26_portfolio_story_effects_codeblock_4"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "library/PROJECT.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "library_project_md",
+      "target": "library_project_cony_workspace_local_effect_library"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "library/PROJECT.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "library_project_cony_workspace_local_effect_library",
+      "target": "library_project_current_state"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "library/PROJECT.md",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "library_project_cony_workspace_local_effect_library",
+      "target": "library_project_current_goal"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "library/PROJECT.md",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "library_project_cony_workspace_local_effect_library",
+      "target": "library_project_project_memory_companion_notes"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "library/PROJECT.md",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "library_project_cony_workspace_local_effect_library",
+      "target": "library_project_key_decisions"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "library/PROJECT.md",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "library_project_cony_workspace_local_effect_library",
+      "target": "library_project_active_problems"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "library/PROJECT.md",
+      "source_location": "L22",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "library_project_cony_workspace_local_effect_library",
+      "target": "library_project_architecture_important_files"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "library/PROJECT.md",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "library_project_cony_workspace_local_effect_library",
+      "target": "library_project_preferences_upgrade_notes"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "library/PROJECT.md",
+      "source_location": "L29",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "library_project_cony_workspace_local_effect_library",
+      "target": "library_project_workflow_rules_for_agents"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "library/PROJECT.md",
+      "source_location": "L34",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "library_project_cony_workspace_local_effect_library",
+      "target": "library_project_recent_work_log"
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -29229,5 +29957,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "c7cfea6505788c59f258cd28e75c2393d0994ae5"
+  "built_at_commit": "ff37576e28049e16db5953b03a7c3158a6bd7178"
 }

@@ -44,6 +44,10 @@ Upgrade the homepage from plain vertical scrolling into a GSAP-powered chapter e
 
 ## Recent Work Log
 Newest first.
+- 2026-08-27 - Completed portfolio story/effect handoff validation:
+  - Changed: Recorded the four-paragraph My Story refresh with semantic emphasis, the AIS green-to-white gradient, the retained local vanilla ShinyText library, `CHATCHON` at 6.4 seconds, the hero role line at 3.2 seconds, root-only ASCII ripple removal with task-planner subpage preservation, and the validation/no-commit/no-push state.
+  - Validation: Static checks, ShinyText syntax, Graphify update, browser smoke, and reduced-motion browser smoke completed for the Task 4 handoff.
+  - Next: Human review; no commit or push was made.
 - 2026-07-04 - Added Task Planner public demo:
   - Changed: Added a `Task Planner` DEMO card between Radio Planning Tools and CodeSnippet, created `categories/projects/task-planner/`, copied the real Tasks and Calendar pages into the demo bundle, and replaced workspace-file persistence with memory-only seeded demo data (`Task 1` through `Task 6`, `Event 1` through `Event 6` with category tags).
   - Validation: JavaScript syntax checks passed, HTTP smoke returned 200 for demo home/tasks/calendar, browser automation confirmed task edit/reset, task drag/reset, calendar event edit/reset, seeded event/task labels, zero console errors, and no mobile horizontal overflow on the Tasks page.
