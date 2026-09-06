@@ -1,49 +1,46 @@
 # PROJECT.md
 
 ## Current State
-HalloweenConyCoding is a plain static GitHub Pages-style personal homepage. The root `index.html` is the live entrypoint, with visual assets and CSS under `mainpage_component/`. The homepage has four public sections: Library, Projects, AI Team, and Uncharted, now with a desktop/tablet GSAP chapter layer and a natural-scroll fallback path.
+Plain static portfolio. Root homepage now uses native scrolling with a clockwork cream hero, dark project gallery, About/story disclosure, compact AI team atlas, Uncharted teaser, and contact section. The public Tasks demo uses the current workspace's flat board presentation with the existing session-only sample data.
 
 ## Current Goal
-Upgrade the homepage from plain vertical scrolling into a GSAP-powered chapter experience while preserving static-site deployment and public-safe content.
+Review the completed local homepage redesign before publishing. No commit or push has been made.
 
 ## Key Decisions
-- 2026-06-19 - Use local GSAP assets for homepage motion:
-  - Reason: The site already contains `mainpage_component/gsap` and should not depend on CDN or build tooling.
-  - Impact: Motion scripts must load from local relative paths and degrade safely without GSAP.
-- 2026-06-19 - Keep mobile scrolling natural:
-  - Reason: Pinned scrubbed scenes can trap or fatigue mobile users.
-  - Impact: Desktop/tablet can use pinned chapters; mobile and reduced-motion use lighter reveals.
+- Preserve the clockwork/celestial identity with ivory, navy, bronze, and teal; show real project interfaces early.
+- Keep one navigation/motion controller and native scrolling at every size. No pinned chapters or floating rail.
+- Keep content visible without JavaScript. Mobile navigation supports hidden/inert state, Escape, and destination focus.
+- Preserve the local ShinyText effect on the name with an 8-second wipe; keep the role line static. Respect reduced-motion and forced-colors preferences.
+- Use native details for the full biography, preserving all four existing paragraphs.
+- Public preview images contain public interfaces or seeded demo data only. Never copy private workspace data or persistence settings into the public demo.
+- Capture the Planning Tools landing controls completely and retain the image's natural aspect ratio.
 
-## Active Problems
-- Problem: GSAP chapter mode was disabled by an over-strict height guard and also had duplicate navigation handlers.
-  - Current diagnosis: canUsePinnedChapters() required every .section to be shorter than the viewport even though .section has min-height: 100vh, making pinned chapter mode dead code; nav clicks also had both inline and motion-script handlers.
-  - Tried already: Read problem_and_sol.md, inspected live files, and patched C1/C2/C3/H1/H2/L1 plus a light M1 particle pause.
-  - Next action: Human visual review for pacing; browser checks now confirm desktop pinned chapters are active and mobile/reduced-motion fallbacks remain safe.
+## Active Problems / Limits
+- Native OS reduced-motion rendering was not toggled during this review. Its CSS fallback was inspected; an isolated preference fixture exercised the controller's instant-scroll and zero-reveal path.
+- External Google Fonts remain optional; local/system font fallbacks are defined.
 
 ## Architecture / Important Files
-- `index.html`
-  - Purpose: Live homepage markup and inline baseline JavaScript.
-  - Notes: Must remain plain static HTML.
-- `mainpage_component/profile_style.css`
-  - Purpose: Homepage visual system and responsive styles.
-  - Notes: Preserve existing clockwork/celestial identity while adding motion hooks.
-- `mainpage_component/profile_motion.js`
-  - Purpose: GSAP chapter motion layer.
-  - Notes: Should be defensive and no-op when GSAP is unavailable.
-- `mainpage_component/gsap/`
-  - Purpose: Local GSAP runtime files.
-  - Notes: Use local scripts, not CDN.
+- `index.html`: semantic homepage sections and links; preserved original section IDs plus About and Connect.
+- `mainpage_component/profile_style.css`: homepage tokens, layouts, states, responsive and accessibility styles.
+- `mainpage_component/profile_motion.js`: navigation, focus, header theme, and optional 480ms reveals.
+- `library/text/shiny_text/`: existing shared name-wipe component, unchanged.
+- `mainpage_component/previews/`: public-safe screenshots with provenance in README.
+- `categories/projects/task-planner/tasks.html`: flat board presentation. `tasks.js`: priority attributes and mounted-card entry animation.
+- `categories/projects/task-planner/demo-persistence.js`: unchanged memory-only Task 1–6 / Event 1–6 seeds.
+- `tests/mainpage.behavior.test.mjs`: CUA-driven mobile behavior regression checks.
 
 ## Workflow Rules for Agents
-- Always read this file before planning or editing this project.
-- Update this file after meaningful decisions, problems, solutions, or project-state changes.
-- Keep this file concise.
-- Do not paste full chat logs.
-- Move long details to `docs/project-memory/` and link them here.
-- Never store secrets, API keys, passwords, private tokens, or sensitive company data.
+- Read this file before editing; update after meaningful decisions or validation.
+- Keep static-site deployment and existing subpage boundaries.
+- Preserve user backups and unrelated changes.
+- Never store secrets, private workspace content, or sensitive company data.
 
 ## Recent Work Log
 Newest first.
+- 2026-09-06 - Implemented the approved homepage redesign and public Tasks presentation refresh.
+  - Validation: 12 CUA mobile regression checks passed; no horizontal overflow at 320, 390, and 768px; desktop anchor clearance/theme and all team portraits checked; native story disclosure and no-script fallback checked; name animation computed at 8 seconds. Public task edit/status-change and refresh-reset verified using only sample tasks.
+  - Fixed during review: WebKit focusout prematurely closing menu links; doubled anchor offsets; truncated Planning Tools hero snapshot.
+  - No commit, push, or deployment.
 - 2026-08-27 - Completed portfolio story/effect handoff validation:
   - Changed: Recorded the four-paragraph My Story refresh with semantic emphasis, the AIS green-to-white gradient, the retained local vanilla ShinyText library, `CHATCHON` at 6.4 seconds, the hero role line at 3.2 seconds, root-only ASCII ripple removal with task-planner subpage preservation, and the validation/no-commit/no-push state.
   - Validation: Static checks, ShinyText syntax, Graphify update, browser smoke, and reduced-motion browser smoke completed for the Task 4 handoff.

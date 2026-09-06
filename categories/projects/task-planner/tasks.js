@@ -96,6 +96,7 @@ function renderTasks() {
       const card = document.createElement('div');
       card.className = `task-card spotlight-card${col === 'done' ? ' done-card' : ''}`;
       card.dataset.id = task.id;
+      card.dataset.priority = task.priority;
       card.draggable = true;
       // Tint the cursor-follow glow by priority (high = warm red, med = amber, low = green).
       const spotByPriority = {
@@ -138,8 +139,8 @@ function renderTasks() {
         openEditTask(task.id);
       });
 
-      gsap.from(card, { opacity: 0, y: 8, duration: 0.25, ease: 'snappy' });
       container.appendChild(card);
+      gsap.from(card, { opacity: 0, y: 8, duration: 0.25, ease: 'snappy' });
     });
 
     document.getElementById(`count-${col}`).textContent = cols[col].length;
