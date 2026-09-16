@@ -11,6 +11,12 @@
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   var sections = Array.from(doc.querySelectorAll('main > section[id]'));
   var navLinks = Array.from(menu.querySelectorAll('a[href^="#"]'));
+  var parallax = window.ProfileParallax;
+  var parallaxLayers = parallax ? [
+    { element: doc.querySelector('.hero-texture'), section: doc.getElementById('library'), amount: 72, mobileAmount: 72, direction: -1 },
+    { element: doc.querySelector('.astrolabe'), section: doc.getElementById('library'), amount: 112, mobileAmount: 108, direction: 1 },
+    { element: doc.querySelector('.stars'), section: doc.getElementById('celestial'), amount: 88, mobileAmount: 88, direction: -1 }
+  ].filter(function (layer) { return layer.element && layer.section; }) : [];
   var open = false;
   var scheduled = false;
   var animations = new Set();
@@ -85,12 +91,28 @@
       if (link.getAttribute('href') === '#' + active.id) link.setAttribute('aria-current', 'location');
       else link.removeAttribute('aria-current');
     });
+    updateParallax();
   }
   function requestUpdate() {
     if (!scheduled) { scheduled = true; window.requestAnimationFrame(update); }
   }
   function preferenceChange() {
     if (reduced.matches) { animations.forEach(function (animation) { animation.cancel(); }); animations.clear(); }
+    requestUpdate();
+  }
+
+  function updateParallax() {
+    if (!parallaxLayers.length) return;
+    var viewportHeight = window.innerHeight;
+    parallaxLayers.forEach(function (layer) {
+      var offset = 0;
+      if (!reduced.matches) {
+        var rect = layer.section.getBoundingClientRect();
+        var progress = parallax.sectionProgress({ top: rect.top, height: rect.height, viewportHeight: viewportHeight });
+        offset = parallax.offsetFor(progress, mobile.matches ? layer.mobileAmount : layer.amount, layer.direction);
+      }
+      layer.element.style.setProperty('--parallax-y', offset.toFixed(3) + 'px');
+    });
   }
   function listen(query, callback) {
     if (query.addEventListener) query.addEventListener('change', callback);
