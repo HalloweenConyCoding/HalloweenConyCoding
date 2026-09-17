@@ -17,6 +17,20 @@
     { element: doc.querySelector('.astrolabe'), section: doc.getElementById('library'), amount: 112, mobileAmount: 108, direction: 1 },
     { element: doc.querySelector('.stars'), section: doc.getElementById('celestial'), amount: 88, mobileAmount: 88, direction: -1 }
   ].filter(function (layer) { return layer.element && layer.section; }) : [];
+  var atmosphereLayers = parallax ? [
+    { element: doc.querySelector('.profile-atmo-gradient'), amount: 24, mobileAmount: 16, travel: 30, mobileTravel: 20, maxTravel: 96, mobileMaxTravel: 72, direction: -1 },
+    { element: doc.querySelector('.profile-atmo-texture'), amount: 30, mobileAmount: 20, travel: 38, mobileTravel: 24, maxTravel: 120, mobileMaxTravel: 88, direction: 1 },
+    { element: doc.querySelector('.profile-atmo-grid-far'), amount: 34, mobileAmount: 24, travel: 46, mobileTravel: 30, maxTravel: 150, mobileMaxTravel: 108, direction: -1 },
+    { element: doc.querySelector('.profile-atmo-grid-near'), amount: 62, mobileAmount: 42, travel: 82, mobileTravel: 50, maxTravel: 250, mobileMaxTravel: 150, direction: 1 },
+    { element: doc.querySelector('.profile-atmo-stars-far'), amount: 26, mobileAmount: 20, travel: 36, mobileTravel: 24, maxTravel: 130, mobileMaxTravel: 90, direction: -1 },
+    { element: doc.querySelector('.profile-atmo-stars-near'), amount: 54, mobileAmount: 34, travel: 72, mobileTravel: 46, maxTravel: 220, mobileMaxTravel: 140, direction: 1 },
+    { element: doc.querySelector('.profile-atmo-nebula-teal'), amount: 90, mobileAmount: 54, travel: 112, mobileTravel: 68, maxTravel: 320, mobileMaxTravel: 204, direction: -1 },
+    { element: doc.querySelector('.profile-atmo-nebula-gold'), amount: 132, mobileAmount: 76, travel: 150, mobileTravel: 90, maxTravel: 420, mobileMaxTravel: 270, direction: 1 },
+    { element: doc.querySelector('.profile-atmo-galaxy'), amount: 150, mobileAmount: 90, travel: 124, mobileTravel: 74, maxTravel: 360, mobileMaxTravel: 222, direction: -1 },
+    { element: doc.querySelector('.profile-atmo-clock-far'), amount: 170, mobileAmount: 96, travel: 96, mobileTravel: 64, maxTravel: 260, mobileMaxTravel: 192, direction: -1 },
+    { element: doc.querySelector('.profile-atmo-clock-near'), amount: 230, mobileAmount: 126, travel: 142, mobileTravel: 88, maxTravel: 380, mobileMaxTravel: 264, direction: 1 },
+    { element: doc.querySelector('.profile-atmo-dust'), amount: 74, mobileAmount: 44, travel: 88, mobileTravel: 54, maxTravel: 260, mobileMaxTravel: 162, direction: -1 }
+  ].filter(function (layer) { return layer.element; }) : [];
   var open = false;
   var scheduled = false;
   var animations = new Set();
@@ -102,8 +116,12 @@
   }
 
   function updateParallax() {
-    if (!parallaxLayers.length) return;
+    if (!parallax) return;
     var viewportHeight = window.innerHeight;
+    atmosphereLayers.forEach(function (layer) {
+      var offset = reduced.matches ? 0 : parallax.scrollOffset(window.scrollY, viewportHeight, mobile.matches ? layer.mobileTravel : layer.travel, layer.direction, mobile.matches ? layer.mobileMaxTravel : layer.maxTravel);
+      layer.element.style.setProperty('--parallax-y', offset.toFixed(3) + 'px');
+    });
     parallaxLayers.forEach(function (layer) {
       var offset = 0;
       if (!reduced.matches) {

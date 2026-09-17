@@ -37,7 +37,7 @@ export async function runMobileChecks(tab) {
     main: !!document.querySelector('main'),
     destinations: ['library','celestial','about','ai-team','uncharted','connect'].every(id => !!document.getElementById(id))
   }));
-  check(state.light === 'rgb(247, 242, 231)', 'Library must have its own safe ivory background');
+  check(state.light === 'rgb(247, 242, 231)' || state.light === 'rgba(247, 242, 231, 0.68)', 'Library must retain a safe ivory background over the atmosphere');
   check(!state.rail, 'A floating mobile rail must not cover reading content');
   check(!state.overflow, 'Narrow viewport must not overflow horizontally');
   check(!state.badImages.length, 'Every loaded preview must resolve');

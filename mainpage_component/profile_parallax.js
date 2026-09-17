@@ -22,5 +22,24 @@
     return offset === 0 ? 0 : offset;
   }
 
-  global.ProfileParallax = Object.freeze({ sectionProgress: sectionProgress, offsetFor: offsetFor });
+  function pageProgress(scrollY, scrollHeight, viewportHeight) {
+    var y = Number(scrollY);
+    var height = Number(scrollHeight);
+    var viewport = Number(viewportHeight);
+    if (!Number.isFinite(y) || !Number.isFinite(height) || !Number.isFinite(viewport) || height <= viewport) return 0.5;
+    return clamp(y / (height - viewport), 0, 1);
+  }
+
+  function scrollOffset(scrollY, viewportHeight, speed, direction, limit) {
+    var y = Number(scrollY);
+    var viewport = Number(viewportHeight);
+    var safeSpeed = Number(speed);
+    var safeLimit = Number(limit);
+    if (!Number.isFinite(y) || !Number.isFinite(viewport) || viewport <= 0 || !Number.isFinite(safeSpeed)) return 0;
+    if (!Number.isFinite(safeLimit) || safeLimit < 0) safeLimit = Math.abs(safeSpeed) * 4;
+    var safeDirection = Number(direction) < 0 ? -1 : 1;
+    return clamp((y / viewport) * Math.abs(safeSpeed) * safeDirection, -safeLimit, safeLimit);
+  }
+
+  global.ProfileParallax = Object.freeze({ sectionProgress: sectionProgress, pageProgress: pageProgress, offsetFor: offsetFor, scrollOffset: scrollOffset });
 }(window));

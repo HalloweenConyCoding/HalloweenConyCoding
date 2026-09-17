@@ -13,6 +13,7 @@ Review the completed local homepage redesign and its scroll-linked background de
 - Preserve the local ShinyText effect on the name with an 8-second wipe; keep the role line static. Respect reduced-motion and forced-colors preferences.
 - Keep parallax limited to decorative background layers: the hero texture, astrolabe, and celestial stars use separate slow amplitudes while foreground content remains stable. Mobile uses smaller offsets and reduced-motion disables transforms.
 - Keep the depth stack explicit: translucent underlays use `z-index: 0`, while hero/project content sits at `z-index: 1`; no decorative layer is allowed to become an opaque foreground sheet.
+- Use a fixed atmospheric root inspired by the Radio Planning Tools page: independent grid, texture, star, nebula, generated galaxy, orbit-clock, gradient, and dust layers use capped per-viewport scroll travel at different speeds, while section-local accents retain their own progress.
 - Use native details for the full biography, preserving all four existing paragraphs.
 - Public preview images contain public interfaces or seeded demo data only. Never copy private workspace data or persistence settings into the public demo.
 - Capture the Planning Tools landing controls completely and retain the image's natural aspect ratio.
@@ -40,6 +41,31 @@ Review the completed local homepage redesign and its scroll-linked background de
 
 ## Recent Work Log
 Newest first.
+- 2026-09-18 - Smoothed the paper/night section changes.
+  - Changed: Added 180px immersive gradient fades at the project showcase and contact boundaries. Those sections now use transparent bases with color ramps, so the generated atmosphere remains visible while the surface transitions from ivory to night and back.
+  - Validation: Live desktop screenshots at scroll positions 520 and 660 show the project heading entering through a continuous fade instead of a hard edge; mobile reports the same gradient and retains 12 passing behavior checks. Depth/parallax tests, syntax checks, and whitespace checks pass.
+  - Next: Human visual review; no commit, push, or deployment.
+- 2026-09-18 - Removed the remaining purple showcase artwork.
+  - Changed: The local `.stars` layer in the project showcase no longer uses `cosmic_bg.png`; it now uses the generated blue/cyan/gold galaxy with lower saturation and a soft fade. The hero and fixed atmosphere already use the same generated asset.
+  - Validation: The live desktop and mobile tabs report `profile_galaxy_showcase.png` for hero, fixed atmosphere, and showcase layers; no `cosmic_bg.png` remains in the showcase rule. Parallax/depth tests, syntax checks, mobile behavior, and whitespace checks pass.
+  - Next: Human visual review; no commit, push, or deployment.
+- 2026-09-18 - Replaced the remaining old hero picture with the generated galaxy artwork.
+  - Changed: `hero-texture` now points directly to `profile_galaxy_showcase.png`; `library_bg.png` is no longer used as the homepage hero background. The fixed atmosphere keeps the same asset for the showcase and parallax controller.
+  - Validation: The live desktop and mobile tabs report the generated image URL for both hero and atmosphere layers; the hero screenshot now visibly shows the cyan/gold dust lane and star field. Depth/parallax tests, syntax checks, mobile behavior, and whitespace checks pass.
+  - Next: Human visual review; no commit, push, or deployment.
+- 2026-09-18 - Fixed the atmosphere being visually buried by near-opaque section fills.
+  - Changed: Reduced paper/night section alpha from `.91/.93` to `.68/.58`, keeping individual card surfaces opaque while allowing the generated galaxy, dust, stars, and orbit layers to read behind the showcase content. Refreshed the stylesheet cache key.
+  - Validation: The live tab now reports the new stylesheet, 12 atmosphere layers, `rgba(..., 0.58)` in the showcase, and the galaxy at `0.78` opacity with a −124px one-screen offset. Desktop and mobile screenshots show the dust lane and star field; mobile behavior still passes all 12 checks.
+  - Next: Human visual review; no commit, push, or deployment.
+- 2026-09-17 - Increased motion readability and replaced the showcase nebula artwork.
+  - Changed: Added a capped `scrollOffset` helper so one normal viewport scroll moves near layers 2–3x farther than far layers without allowing indefinite drift. Added a generated, text-free galaxy asset with a calm center and cyan/gold dust lane; it is screen-blended in the night showcase and nearly invisible on paper sections. The older CSS nebula clouds remain as low-opacity support haze.
+  - Validation: One live viewport scroll now moves the far clock 96px, near clock 142px, and galaxy 124px; the generated asset resolves from the page and the showcase screenshot shows the new dust lane behind stable project cards. Parallax/depth tests, syntax checks, and whitespace checks pass.
+  - Next: Human visual review; no commit, push, or deployment.
+- 2026-09-17 - Reworked the profile background into a fixed multi-layer atmosphere after comparing the Radio Planning Tools reference.
+  - Research: The reference uses a fixed `.atmosphere` root with gradient/texture, generated stars, four nebula clouds, a rotating multi-ring clock, sunbeams, and dust. The profile previously had only three section-local layers behind mostly opaque section backgrounds.
+  - Changed: Added eleven profile atmosphere nodes with independent grid, texture, stars, nebula, clock, dust, and gradient layers. Paper/night sections are translucent, content is above the atmosphere, and one rAF controller assigns distinct full-page parallax amplitudes while CSS supplies slow ambient drift/rotation.
+  - Validation: The structural depth test was red before the new root existed and passes now; parallax math and syntax checks pass; the live page reports 11 layers, translucent sections, `z-index` 0/1 separation, and distinct offsets for every decorative layer after scrolling with zero overflow.
+  - Next: Human visual review; no commit, push, or deployment.
 - 2026-09-16 - Tuned narrow viewport motion and refreshed the profile stylesheet cache key.
   - Changed: The in-app preview runs at 515px, so its mobile branch now uses 72/108/88px amplitudes for texture/astrolabe/stars. Bumped the `profile_style.css` query string so browsers cannot keep the pre-parallax stylesheet, which had no transform declarations.
   - Validation: The depth-layer test failed against the old stylesheet query and lower mobile amplitudes, then passed after the update; live mobile scroll changed the texture from `11.556px` to `-15.772px` and the astrolabe from `-17.334px` to `23.658px` with no overflow.
