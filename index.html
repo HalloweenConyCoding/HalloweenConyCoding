@@ -9,15 +9,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="mainpage_component/profile_style.css?v=20260918g">
+  <link rel="stylesheet" href="mainpage_component/profile_style.css?v=20260919f">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2318354A'/%3E%3Ctext x='32' y='45' font-family='Georgia' font-size='44' text-anchor='middle' fill='%23F7F2E7'%3EC%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="library/text/shiny_text/shiny_text.css">
   <script src="mainpage_component/profile_parallax.js?v=20260917c" defer></script>
-  <script src="mainpage_component/profile_motion.js?v=20260917c" defer></script>
+  <script src="mainpage_component/gsap/gsap.min.js" defer></script>
+  <script src="mainpage_component/gsap/ScrollTrigger.min.js" defer></script>
+  <script src="mainpage_component/profile_motion.js?v=20260919e" defer></script>
   <script src="library/text/shiny_text/shiny_text.js" defer></script>
 </head>
 <body data-theme="paper">
   <div class="profile-atmosphere" aria-hidden="true">
+    <div class="profile-atmo-zone-tint profile-atmo-zone-tint-intro"></div>
+    <div class="profile-atmo-zone-tint profile-atmo-zone-tint-collection"></div>
+    <div class="profile-atmo-zone-tint profile-atmo-zone-tint-contact"></div>
     <div class="profile-atmo-gradient"></div>
     <div class="profile-atmo-texture"></div>
     <div class="profile-atmo-grid profile-atmo-grid-far"></div>
@@ -45,8 +50,8 @@
     </nav>
   </header>
   <main id="main" tabindex="-1">
+    <div class="profile-zone profile-zone-intro" data-zone="intro">
     <section class="hero section paper" id="library" aria-labelledby="hero-name" data-theme="paper" tabindex="-1">
-      <div class="hero-texture" aria-hidden="true"></div>
       <div class="wrap hero-grid">
         <div class="hero-copy reveal">
           <p class="eyebrow"><span class="small-star" aria-hidden="true">✦</span> THE CLOCKWORK LIBRARY</p>
@@ -72,21 +77,22 @@
       </div>
       <div class="wrap hero-bottom"><span>ENGINEERING CURIOSITY, PUT INTO PRACTICE.</span><a href="#celestial">Explore the collection <span aria-hidden="true">↓</span></a></div>
     </section>
+    </div>
 
+    <div class="profile-zone profile-zone-collection" data-zone="collection">
     <section class="section night projects" id="celestial" aria-labelledby="projects-title" data-theme="night" tabindex="-1">
-      <div class="stars" aria-hidden="true"></div>
       <div class="wrap">
         <div class="section-heading reveal"><div><p class="eyebrow">01 / THE CELESTIAL ARCHIVE</p><h2 id="projects-title">Built for the <em>real world.</em></h2></div><p>Small tools. Practical problems.<br>A collection of things I’ve built.</p></div>
         <div class="project-grid">
-          <article class="project-card project-featured reveal">
-            <div class="project-image"><img class="project-preview" src="mainpage_component/previews/radio-tool.jpg" width="1280" height="720" alt="Cell Coverage Calculator showing antenna parameters and calculated beam visualization" loading="lazy"></div>
+          <article class="project-card project-featured reveal" data-gsap-reveal="up">
+            <div class="project-image"><img class="project-preview" src="mainpage_component/previews/radio-tool-v8.jpg" width="1280" height="720" alt="Cell Coverage Calculator V8 showing demo antenna parameters and calculated beam visualization" loading="lazy"></div>
             <div class="project-copy"><div class="card-kicker"><span>01 / ENGINEERING</span><span class="status">FEATURED</span></div><h3>Radio Planning<br>Tools</h3><p>Precision instruments for cell coverage, antenna visualization, and RF planning. Built from the engineering problems I work with.</p><ul class="tags" aria-label="Project capabilities"><li>RF planning</li><li>Coverage</li><li>Visualization</li></ul><a class="project-link" href="https://halloweenconycoding.github.io/Radio_Planning_Tools/">Open Radio Planning Tools <span aria-hidden="true">↗</span></a></div>
           </article>
-          <article class="project-card reveal">
+          <article class="project-card reveal" data-gsap-reveal="right">
             <div class="project-image"><img class="project-preview" src="mainpage_component/previews/task-board.jpg" width="1280" height="720" alt="Task Planner board with sample tasks in To Do, In Progress, and Done" loading="lazy"></div>
             <div class="project-copy"><div class="card-kicker"><span>02 / PRODUCTIVITY</span><span class="status status-demo">PUBLIC DEMO</span></div><h3>Task Planner</h3><p>A focused space to organize tasks and see what’s next. Explore the task board and calendar with sample data.</p><ul class="tags" aria-label="Project capabilities"><li>Tasks</li><li>Calendar</li><li>Session-only demo</li></ul><a class="project-link" href="categories/projects/task-planner/index.html">Try Task Planner <span aria-hidden="true">↗</span></a></div>
           </article>
-          <article class="project-card reveal">
+          <article class="project-card reveal" data-gsap-reveal="left">
             <div class="project-image"><img class="project-preview" src="mainpage_component/previews/code-snippet.png" width="1280" height="720" alt="CodeSnippet editor showing syntax-highlighted code and theme controls" loading="lazy"></div>
             <div class="project-copy"><div class="card-kicker"><span>03 / CREATIVE TOOLS</span><span class="status">WEB TOOL</span></div><h3>CodeSnippet</h3><p>Turn code into something worth sharing. Style syntax-highlighted snippets, tune the layout, and export the result.</p><ul class="tags" aria-label="Project capabilities"><li>Syntax highlighting</li><li>Themes</li><li>Export</li></ul><a class="project-link" href="categories/projects/code-snippet/CodeSnippet.html">Open CodeSnippet <span aria-hidden="true">↗</span></a></div>
           </article>
@@ -96,11 +102,11 @@
 
     <section class="section night about" id="about" aria-labelledby="about-title" data-theme="night" tabindex="-1">
       <div class="wrap about-grid">
-        <div class="about-copy reveal"><p class="eyebrow">02 / BEHIND THE WORK</p><h2 id="about-title">An engineer’s mind.<br><em>A builder’s curiosity.</em></h2><p>I’m Beer — Chatchon. My work sits between telecommunications, data, and software. At AIS in Thailand, I support 4G and 5G network planning and optimization.</p><p>When the tools don’t fit the workflow, I enjoy building something that does. That curiosity is also leading me further into data analytics.</p><details class="story"><summary><span>Read my full story</span><span class="disclosure-symbol" aria-hidden="true">+</span></summary><div class="story-content"><p class="bio-text">I graduated in <strong>Electrical Engineering</strong> from <span class="highlight"><strong>Chulalongkorn University</strong></span>, with a focus on communications and telecommunications. Today, I work at <strong class="ais-gradient">AIS</strong> (Advanced Info Service Public Company Limited) in Thailand, where I support <strong class="teal">4G and 5G</strong> network planning and optimization.</p>
+        <div class="about-copy reveal"><p class="eyebrow" data-gsap-about="eyebrow">02 / BEHIND THE WORK</p><h2 id="about-title" data-gsap-about="heading">An engineer’s mind.<br><em>A builder’s curiosity.</em></h2><p data-gsap-about="body-1">I’m Beer — Chatchon. My work sits between telecommunications, data, and software. At AIS in Thailand, I support 4G and 5G network planning and optimization.</p><p data-gsap-about="body-2">When the tools don’t fit the workflow, I enjoy building something that does. That curiosity is also leading me further into data analytics.</p><details class="story" data-gsap-about="story"><summary><span>Read my full story</span><span class="disclosure-symbol" aria-hidden="true">+</span></summary><div class="story-content"><p class="bio-text">I graduated in <strong>Electrical Engineering</strong> from <span class="highlight"><strong>Chulalongkorn University</strong></span>, with a focus on communications and telecommunications. Today, I work at <strong class="ais-gradient">AIS</strong> (Advanced Info Service Public Company Limited) in Thailand, where I support <strong class="teal">4G and 5G</strong> network planning and optimization.</p>
 <p class="bio-text">Although my role is in telecommunications, much of the work I enjoy most involves <strong class="teal">data</strong>. I work with information from different sources, clean and validate datasets, analyse KPI trends, and create visualizations to support engineering decisions. Through both assigned and self-initiated projects, I have become increasingly interested in how data can be structured and used to solve practical problems.</p>
 <p class="bio-text">When existing tools do not fit my team’s workflow, I build my own. Using <strong class="teal">Python, pandas, Excel, Power Query, QGIS, and Power BI</strong>, I have created tools for data processing, geospatial visualization, antenna analysis, KPI analysis, and workflow automation. My <span class="highlight"><strong>Radio Planning Tools</strong></span> project grew from this interest in combining technical knowledge, data, and software to make everyday work more effective.</p>
 <p class="bio-text">I am still connected to telecommunications, but I am increasingly interested in developing further in <strong class="teal">data analytics</strong>. I enjoy taking complex information, making it more structured and understandable, and creating practical tools for the people who use them. I am also currently developing my <span class="highlight"><strong>SQL</strong></span> skills as I continue building toward this direction.</p></div></details></div>
-        <div class="capabilities reveal"><p class="eyebrow">MY WORKBENCH</p><h3>Skills &amp; tools</h3><dl><div><dt><span aria-hidden="true">01</span> Data &amp; automation</dt><dd>Python, pandas, Excel, Power Query, PowerShell</dd></div><div><dt><span aria-hidden="true">02</span> Geospatial &amp; visualization</dt><dd>QGIS, Power BI, TIBCO Spotfire</dd></div><div><dt><span aria-hidden="true">03</span> Telecom engineering</dt><dd>4G/5G planning, coverage &amp; antenna analysis</dd></div><div><dt><span aria-hidden="true">04</span> Web development</dt><dd>JavaScript, HTML, CSS, GitHub Pages</dd></div></dl><p class="learning"><span aria-hidden="true">↗</span> Currently developing my SQL skills.</p></div>
+        <div class="capabilities reveal" data-gsap-about-card="right"><p class="eyebrow">MY WORKBENCH</p><h3>Skills &amp; tools</h3><dl><div><dt><span aria-hidden="true">01</span> Data &amp; automation</dt><dd>Python, pandas, Excel, Power Query, PowerShell</dd></div><div><dt><span aria-hidden="true">02</span> Geospatial &amp; visualization</dt><dd>QGIS, Power BI, TIBCO Spotfire</dd></div><div><dt><span aria-hidden="true">03</span> Telecom engineering</dt><dd>4G/5G planning, coverage &amp; antenna analysis</dd></div><div><dt><span aria-hidden="true">04</span> Web development</dt><dd>JavaScript, HTML, CSS, GitHub Pages</dd></div></dl><p class="learning"><span aria-hidden="true">↗</span> Currently developing my SQL skills.</p></div>
       </div>
     </section>
 
@@ -112,8 +118,11 @@
     </section>
 
     <section class="section night uncharted" id="uncharted" aria-labelledby="uncharted-title" data-theme="night" tabindex="-1"><div class="wrap uncharted-row"><span class="uncharted-orbit" aria-hidden="true">✦</span><div><p class="eyebrow">04 / ON THE HORIZON</p><h2 id="uncharted-title">The Uncharted Realm</h2><p>A little room for creative experiments. More to explore in time.</p></div><span class="coming-soon">IN EXPLORATION</span></div></section>
+    </div>
 
+    <div class="profile-zone profile-zone-contact" data-zone="contact">
     <section class="section paper connect" id="connect" aria-labelledby="connect-title" data-theme="paper" tabindex="-1"><div class="wrap connect-grid"><div><p class="eyebrow">THE NEXT CHAPTER</p><h2 id="connect-title">Good work starts<br>with <em>a conversation.</em></h2><p>Explore the code, exchange an idea, or just say hello.</p></div><div class="connect-links"><a href="https://www.linkedin.com/in/chatchon-prajayapipatana/"><span><small>LET’S TALK</small>LinkedIn</span><span aria-hidden="true">↗</span></a><a href="https://github.com/HalloweenConyCoding"><span><small>EXPLORE THE CODE</small>GitHub</span><span aria-hidden="true">↗</span></a></div></div></section>
+    </div>
   </main>
   <footer class="footer paper"><div class="wrap footer-inner"><p>© 2025–2026 Chatchon <span> / HalloweenConyCoding</span></p><p>Crafted with gears &amp; starlight <span aria-hidden="true">✦</span></p><a href="#library">Back to top ↑</a></div></footer>
 </body>

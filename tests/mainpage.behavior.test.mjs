@@ -31,13 +31,15 @@ export async function runMobileChecks(tab) {
   await tab.getAXState({ emit: false });
   state = await tab.playwright.evaluate(() => ({
     light: getComputedStyle(document.getElementById('library')).backgroundColor,
+    introFilter: getComputedStyle(document.querySelector('.profile-atmo-zone-tint-intro')).opacity,
     rail: [...document.querySelectorAll('.chapter-rail')].some(e => getComputedStyle(e).display !== 'none'),
     overflow: document.documentElement.scrollWidth > innerWidth,
     badImages: [...document.images].filter(e => e.complete && !e.naturalWidth).map(e => e.src),
     main: !!document.querySelector('main'),
     destinations: ['library','celestial','about','ai-team','uncharted','connect'].every(id => !!document.getElementById(id))
   }));
-  check(state.light === 'rgb(247, 242, 231)' || state.light === 'rgba(247, 242, 231, 0.68)', 'Library must retain a safe ivory background over the atmosphere');
+  check(state.light === 'rgba(0, 0, 0, 0)' || state.light === 'rgb(247, 242, 231)' || state.light === 'rgba(247, 242, 231, 0.68)', 'Library must keep a transparent or safe ivory surface over the atmosphere');
+  check(state.introFilter === '1', 'Intro must use the fixed light screen filter at the top of the page');
   check(!state.rail, 'A floating mobile rail must not cover reading content');
   check(!state.overflow, 'Narrow viewport must not overflow horizontally');
   check(!state.badImages.length, 'Every loaded preview must resolve');
