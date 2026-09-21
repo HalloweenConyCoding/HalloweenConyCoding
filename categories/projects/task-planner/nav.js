@@ -6,9 +6,9 @@
 
 (function() {
   const pages = [
-    { href: 'index.html', label: 'Demo Home', icon: `<circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/>` },
-    { href: 'tasks.html', label: 'Tasks', icon: `<polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>` },
-    { href: 'calendar.html', label: 'Calendar', icon: `<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>` }
+    { href: 'index.html', label: 'Workspace', icon: '../../../library/icon/cony-workspace/hub-command-orbit.svg' },
+    { href: 'calendar.html', label: 'Calendar', icon: '../../../library/icon/cony-workspace/calendar-grid.svg' },
+    { href: 'tasks.html', label: 'Tasks', icon: '../../../library/icon/cony-workspace/tasks-stack.svg' }
   ];
 
   const current = window.location.pathname.split('/').pop() || 'index.html';
@@ -28,7 +28,7 @@
     </div>
     ${pages.map(p => `
       <a class="nav-item${p.href === current ? ' active' : ''}" href="${p.href}" data-nav-link>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">${p.icon}</svg>
+        <img class="nav-icon" src="${p.icon}" alt="" aria-hidden="true">
         <span class="nav-tooltip">${p.label}</span>
       </a>
     `).join('')}
@@ -59,16 +59,52 @@
     });
   }
 
-  // GSAP hover micro-animation on nav items
-  document.querySelectorAll('.nav-item').forEach(item => {
-    item.addEventListener('mouseenter', () => {
-      gsap.to(item, { x: 2, duration: 0.2, ease: 'power2.out' });
-      gsap.to(item.querySelector('svg'), { scale: 1.1, duration: 0.2, ease: 'power2.out', transformOrigin: 'center' });
+  // Vertical dock interaction adapted from the latest ACTIVE workspace nav.
+  const reduceMotion = typeof window.matchMedia === 'function'
+    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const navItems = Array.from(sidebar.querySelectorAll('.nav-item'));
+
+  function resetDock() {
+    gsap.to(navItems, {
+      x: 0,
+      scale: 1,
+      duration: reduceMotion ? 0 : 0.28,
+      ease: 'power3.out',
+      overwrite: 'auto'
     });
-    item.addEventListener('mouseleave', () => {
-      gsap.to(item, { x: 0, duration: 0.2, ease: 'power2.out' });
-      gsap.to(item.querySelector('svg'), { scale: 1, duration: 0.2, ease: 'power2.out' });
+  }
+
+  function updateDock(clientY) {
+    if (reduceMotion) return;
+    const distance = 92;
+    const maxShift = 15;
+    const maxScale = 0.16;
+
+    navItems.forEach(item => {
+      const rect = item.getBoundingClientRect();
+      const centerY = rect.top + rect.height / 2;
+      const raw = Math.max(0, 1 - Math.abs(clientY - centerY) / distance);
+      const influence = raw * raw * (3 - 2 * raw);
+
+      gsap.to(item, {
+        x: Math.round(influence * maxShift * 10) / 10,
+        scale: 1 + influence * maxScale,
+        duration: 0.2,
+        ease: 'power3.out',
+        overwrite: 'auto'
+      });
     });
+  }
+
+  sidebar.addEventListener('pointermove', event => updateDock(event.clientY));
+  sidebar.addEventListener('pointerleave', resetDock);
+
+  navItems.forEach(item => {
+    item.addEventListener('focus', () => {
+      const rect = item.getBoundingClientRect();
+      updateDock(rect.top + rect.height / 2);
+    });
+    item.addEventListener('blur', resetDock);
   });
 
 })();

@@ -12,6 +12,7 @@ const calendarJsPath = path.join(plannerRoot, 'calendar.js');
 const persistencePath = path.join(plannerRoot, 'persistence.js');
 const stylePath = path.join(plannerRoot, 'style.css');
 const uiPath = path.join(plannerRoot, 'assets/js/core/ui.js');
+const navPath = path.join(plannerRoot, 'nav.js');
 const componentPaths = [
   path.join(root, 'library/component/mini_calendar/mini-calendar.js'),
   path.join(root, 'library/component/mini_calendar/mini-calendar.css'),
@@ -26,6 +27,7 @@ const calendarJs = fs.readFileSync(calendarJsPath, 'utf8');
 const persistenceJs = fs.readFileSync(persistencePath, 'utf8');
 const styleCss = fs.readFileSync(stylePath, 'utf8');
 const uiJs = fs.readFileSync(uiPath, 'utf8');
+const navJs = fs.readFileSync(navPath, 'utf8');
 
 function assertLocalReferences(name, htmlPath) {
   const source = fs.readFileSync(htmlPath, 'utf8');
@@ -57,6 +59,12 @@ for (const [name, html] of [['Tasks', tasksHtml], ['Calendar', calendarHtml]]) {
 assert.ok(fs.existsSync(persistencePath), 'local persistence implementation must exist');
 assert.ok(!fs.existsSync(path.join(plannerRoot, 'demo-persistence.js')), 'seeded persistence file must be removed');
 componentPaths.forEach((componentPath) => assert.ok(fs.existsSync(componentPath), `missing copied component: ${componentPath}`));
+assert.ok(fs.existsSync(path.join(root, 'library/icon/cony-workspace/hub-command-orbit.svg')), 'missing copied workspace hub icon');
+assert.match(navJs, /<img class="nav-icon"/);
+assert.match(navJs, /hub-command-orbit\.svg/);
+assert.match(navJs, /calendar-grid\.svg/);
+assert.match(navJs, /tasks-stack\.svg/);
+assert.doesNotMatch(navJs, /Demo Home|<svg[^>]*>\$\{p\.icon\}/);
 assert.match(persistenceJs, /showOpenFilePicker/);
 assert.match(persistenceJs, /requestPermission\(\{ mode: ['"]readwrite['"] \}\)/);
 assert.match(persistenceJs, /workspace-persist-dot/);

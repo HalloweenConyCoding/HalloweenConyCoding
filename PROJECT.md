@@ -48,6 +48,9 @@ Review the completed local homepage redesign and its scroll-linked background de
 
 ## Recent Work Log
 Newest first.
+- 2026-09-22 - Replaced the legacy Public Workspace rail icons with the filtered ACTIVE navigation treatment.
+  - Changed: `nav.js` now uses local `hub-command-orbit.svg`, `calendar-grid.svg`, and `tasks-stack.svg` image assets, keeps only Workspace/Calendar/Tasks routes, and uses the ACTIVE vertical dock interaction for pointer and keyboard focus. No private navigation or data was copied.
+  - Validation: connection contract covers local icon existence and references; `nav.js` syntax check passes.
 - 2026-09-22 - Hardened Public Workspace deployment compatibility and connection status feedback.
   - Changed: mapped the deployed Calendar failure to a stale `ui.js`/page mismatch, added cache-busting query versions to the local persistence and UI helper scripts, and changed the header status indicator from the neutral white fallback to red when disconnected, amber when permission/changes need attention, and green when the selected file is writable.
   - Validation: the deployed runtime had no external Cony Workspace script reference; local deployment-path, landing, connection, syntax, and diff checks pass.
