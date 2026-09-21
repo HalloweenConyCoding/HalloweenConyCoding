@@ -1,7 +1,7 @@
 # PROJECT.md
 
 ## Current State
-Plain static portfolio. Root homepage now uses native scrolling with a clockwork cream hero, dark project gallery, About/story disclosure, compact AI team atlas, Uncharted teaser, and contact section. The public Tasks demo uses the current workspace's flat board presentation with the existing session-only sample data. The profile's three semantic zones now use local GSAP/ScrollTrigger for slow tint crossfades and reversible project-card entrances.
+Plain static portfolio. Root homepage now uses native scrolling with a clockwork cream hero, dark project gallery, About/story disclosure, compact AI team atlas, Uncharted teaser, and contact section. The public Task Planner entry is now a privacy-first Public Workspace landing page with an editorial cream/pastel treatment, local workspace template download, and direct Tasks/Calendar routes; the file-connection/edit gate remains a separate integration slice. The profile's three semantic zones now use local GSAP/ScrollTrigger for slow tint crossfades and reversible project-card entrances.
 
 ## Current Goal
 Review the completed local homepage redesign and its scroll-linked background depth before publishing. No commit or push has been made.
@@ -17,6 +17,8 @@ Review the completed local homepage redesign and its scroll-linked background de
 - Use native details for the full biography, preserving all four existing paragraphs.
 - Public preview images contain public interfaces or seeded demo data only. Never copy private workspace data or persistence settings into the public demo.
 - Capture the Planning Tools landing controls completely and retain the image's natural aspect ratio.
+- Public Workspace uses only a blank generated `workspace-data.js` template (`tasks: []`, `calendarNotes: {}`); never copy the private Cony Workspace data file into this repository.
+- Keep the Public Workspace landing page editorial and lightly alive: thin rules over cards, restrained pastel accents, local ShinyText, and motion that respects reduced-motion and forced-colors preferences.
 
 ## Active Problems / Limits
 - Native OS reduced-motion rendering was not toggled during this review. Its CSS fallback was inspected; an isolated preference fixture exercised the controller's instant-scroll and zero-reveal path.
@@ -42,6 +44,10 @@ Review the completed local homepage redesign and its scroll-linked background de
 
 ## Recent Work Log
 Newest first.
+- 2026-09-21 - Reframed the Task Planner entry as Public Workspace.
+  - Changed: Replaced the old session-only demo landing page with a ruled, editorial cream/pastel landing page that draws the local-file workflow, explains why personal data is not sent to HalloweenConyCoding, links directly to Tasks and Calendar, and offers a blank downloadable `workspace-data.js` template. Added a local landing module and local ShinyText wiring; no personal workspace data was copied. The actual file connection and read-only-until-connected gate remains planned as a separate integration slice.
+  - Validation: Landing contract test passes; generated template parses as `window.WORKSPACE_DATA` with empty tasks/calendar notes; local ShinyText JavaScript syntax-checks and retains reduced-motion/forced-colors safeguards. Changes remain uncommitted because this checkout cannot write Git metadata.
+  - Next: Implement and verify the browser file-connection/persistence gate against the updated Cony Workspace logic.
 - 2026-09-19 - Fixed horizontal scroll from the Workbench entrance.
   - Changed: The Skills & tools card intentionally starts at `x:120`, but the About section did not clip that transform, so the document grew to 916px wide even at the top of an 828px viewport. The About section now uses `overflow: clip`, preserving the slide-in while keeping the transformed card inside the page’s horizontal boundary.
   - Validation: Live width sampling at the top, project gallery, Workbench trigger, and later collection positions stays at `scrollWidth: 828` / `bodyScrollWidth: 828`; the card still enters from the right. Depth/parallax tests, syntax checks, whitespace checks, and browser warning/error checks pass.

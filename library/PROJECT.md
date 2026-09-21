@@ -34,6 +34,11 @@ Use this file as the entrypoint and summary. Create companion notes only when th
 ## Recent Work Log
 Newest first.
 
+- 2026-09-21 - Verified the local ShinyText bundle for Public Workspace:
+  - Changed: confirmed `text/shiny_text/shiny_text.js` matches the current Cony Workspace source byte-for-byte.
+  - Kept: the local CSS variant because it retains reduced-motion and forced-colors fallbacks that are absent from the current source copy.
+  - Validation: bundled Node syntax check passed; no private workspace data or unrelated effects were copied.
+
 - 2026-08-26 - Portfolio library cleanup:
   - Changed: Retained the local vanilla ShinyText CSS and JavaScript assets plus this project manifest; removed unrelated pasted effects and the ShinyText usage page.
   - Validation: Recursive remaining-file check, retained-path existence check, approved-deletion absence check, and target-source reference scan.
