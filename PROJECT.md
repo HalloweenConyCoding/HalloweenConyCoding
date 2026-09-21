@@ -1,7 +1,7 @@
 # PROJECT.md
 
 ## Current State
-Plain static portfolio. Root homepage now uses native scrolling with a clockwork cream hero, dark project gallery, About/story disclosure, compact AI team atlas, Uncharted teaser, and contact section. The public Task Planner entry is now a privacy-first Public Workspace landing page with an editorial cream/pastel treatment, local workspace template download, and direct Tasks/Calendar routes; the file-connection/edit gate remains a separate integration slice. The profile's three semantic zones now use local GSAP/ScrollTrigger for slow tint crossfades and reversible project-card entrances.
+Plain static portfolio. Root homepage now uses native scrolling with a clockwork cream hero, dark project gallery, About/story disclosure, compact AI team atlas, Uncharted teaser, and contact section. The public Task Planner entry is now a privacy-first Public Workspace flow with an editorial cream/pastel landing page, local workspace template download, public-safe Tasks and Calendar pages synchronized from the latest Cony Workspace structure, and a local file connection gate that keeps editing locked until write permission is granted. The profile's three semantic zones now use local GSAP/ScrollTrigger for slow tint crossfades and reversible project-card entrances.
 
 ## Current Goal
 Review the completed local homepage redesign and its scroll-linked background depth before publishing. No commit or push has been made.
@@ -19,6 +19,8 @@ Review the completed local homepage redesign and its scroll-linked background de
 - Capture the Planning Tools landing controls completely and retain the image's natural aspect ratio.
 - Public Workspace uses only a blank generated `workspace-data.js` template (`tasks: []`, `calendarNotes: {}`); never copy the private Cony Workspace data file into this repository.
 - Keep the Public Workspace landing page editorial and lightly alive: thin rules over cards, restrained pastel accents, local ShinyText, and motion that respects reduced-motion and forced-colors preferences.
+- Public Workspace Tasks and Calendar may copy current public-safe page logic and reusable components from Cony Workspace, but must not copy workspace data, machine-specific paths, private task labels, or unrelated private navigation.
+- Public Workspace starts with empty Tasks and Calendar data. The local `workspace-data.js` picker and bottom-left status control are the only path to editing; the persistence layer preserves unrelated sections when writing back.
 
 ## Active Problems / Limits
 - Native OS reduced-motion rendering was not toggled during this review. Its CSS fallback was inspected; an isolated preference fixture exercised the controller's instant-scroll and zero-reveal path.
@@ -32,8 +34,10 @@ Review the completed local homepage redesign and its scroll-linked background de
 - `mainpage_component/profile_parallax.js`: small clamped progress/offset helpers used by the single rAF motion controller.
 - `library/text/shiny_text/`: existing shared name-wipe component, unchanged.
 - `mainpage_component/previews/`: public-safe screenshots with provenance in README.
-- `categories/projects/task-planner/tasks.html`: flat board presentation. `tasks.js`: priority attributes and mounted-card entry animation.
-- `categories/projects/task-planner/demo-persistence.js`: unchanged memory-only Task 1–6 / Event 1–6 seeds.
+- `categories/projects/task-planner/index.html`, `landing.css`, `landing.js`: Public Workspace entry, local-file explanation, privacy copy, template download, and ShinyText headline wipe.
+- `categories/projects/task-planner/persistence.js`: public-safe File System Access connection, status dot, IndexedDB handle reuse, write gate, and workspace-data.js parser/serializer.
+- `categories/projects/task-planner/tasks.html`, `tasks.js`, `calendar.html`, `calendar.js`: public-safe Tasks and Calendar pages synchronized from Cony Workspace ACTIVE, with empty startup data and guarded mutations.
+- `library/component/mini_calendar/` and `library/component/dropdown_list/`: local copies of the reusable components required by the synchronized pages.
 - `tests/mainpage.behavior.test.mjs`: CUA-driven mobile behavior regression checks.
 
 ## Workflow Rules for Agents
@@ -44,6 +48,10 @@ Review the completed local homepage redesign and its scroll-linked background de
 
 ## Recent Work Log
 Newest first.
+- 2026-09-21 - Synchronized the public Tasks and Calendar pages with the latest Cony Workspace structure.
+  - Changed: Copied only the required public-safe page logic, styles, UI helper, icons, mini-calendar, and dropdown components; removed the seeded demo persistence script and private calendar title mappings. Added a local `persistence.js` that starts empty, reads/writes only a user-selected `workspace-data.js`, preserves unrelated sections, shows the bottom-left connection status dot, and blocks mutations until write permission is available. Fixed the landing headline line overlap by using independent block lines and added a restrained ShinyText wipe to the accent line.
+  - Privacy boundary: No personal workspace data, private paths, profiles, or machine-specific files were copied into this repository.
+  - Validation: Focused landing and connection contracts, syntax checks, personal-data scans, whitespace checks, and project regressions are being run before closeout. Browser smoke remains environment-blocked if the local file/HTTP policy is unchanged.
 - 2026-09-21 - Reframed the Task Planner entry as Public Workspace.
   - Changed: Replaced the old session-only demo landing page with a ruled, editorial cream/pastel landing page that draws the local-file workflow, explains why personal data is not sent to HalloweenConyCoding, links directly to Tasks and Calendar, and offers a blank downloadable `workspace-data.js` template. Added a local landing module and local ShinyText wiring; no personal workspace data was copied. The actual file connection and read-only-until-connected gate remains planned as a separate integration slice.
   - Validation: Landing contract test passes; generated template parses as `window.WORKSPACE_DATA` with empty tasks/calendar notes; local ShinyText JavaScript syntax-checks and retains reduced-motion/forced-colors safeguards. Changes remain uncommitted because this checkout cannot write Git metadata.

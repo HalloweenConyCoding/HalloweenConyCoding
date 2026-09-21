@@ -15,6 +15,8 @@ assert.match(html, /PUBLIC WORKSPACE/);
 assert.match(html, /Choose your workspace file/);
 assert.match(html, /Grant read and write permission/);
 assert.match(html, /Use Tasks or Calendar/);
+assert.match(html, /landing-title-line/);
+assert.ok((html.match(/data-shiny-text/g) || []).length >= 2, 'landing headline should use a visible ShinyText wipe');
 assert.match(html, /connection-visual/);
 assert.match(html, /workspace-data\.js/);
 assert.match(html, /No upload/);

@@ -3,9 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tasks — DEMO</title>
+  <title>Tasks — Public Workspace</title>
+  <link rel="icon" type="image/svg+xml" href="../../../library/icon/cony-workspace/tasks-stack.svg">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.css">
+  <link rel="stylesheet" href="../../../library/component/mini_calendar/mini-calendar.css">
+  <link rel="stylesheet" href="../../../library/component/dropdown_list/dropdown-list.css">
   <style>
     /* Fill the viewport exactly via flex (no magic header-height number) so the
        page never scrolls; the columns' card lists scroll internally instead. */
@@ -421,7 +424,7 @@
       <div class="header-actions">
         <span class="save-status" id="save-status" aria-live="polite">
           <span class="save-status-dot"></span>
-          <span class="save-status-label">Demo - resets on refresh</span>
+          <span class="save-status-label">Connect workspace file to edit</span>
         </span>
         <span class="text-dim text-xs text-mono" id="task-count-display">— tasks</span>
       </div>
@@ -446,7 +449,7 @@
             <button class="priority-opt" data-p="med"  onclick="selectPriority('todo','med',this)">Med</button>
             <button class="priority-opt" data-p="low"  onclick="selectPriority('todo','low',this)">Low</button>
           </div>
-          <input class="input" type="date" id="due-todo">
+          <div class="task-date-picker" id="due-picker-todo"></div>
           <div class="add-task-actions">
             <button class="btn btn-primary" style="flex:1;" onclick="addTask('todo')">Add</button>
             <button class="btn btn-ghost" onclick="closeAddForm('todo')">Cancel</button>
@@ -472,7 +475,7 @@
             <button class="priority-opt" data-p="med"  onclick="selectPriority('progress','med',this)">Med</button>
             <button class="priority-opt" data-p="low"  onclick="selectPriority('progress','low',this)">Low</button>
           </div>
-          <input class="input" type="date" id="due-progress">
+          <div class="task-date-picker" id="due-picker-progress"></div>
           <div class="add-task-actions">
             <button class="btn btn-primary" style="flex:1;" onclick="addTask('progress')">Add</button>
             <button class="btn btn-ghost" onclick="closeAddForm('progress')">Cancel</button>
@@ -498,7 +501,7 @@
             <button class="priority-opt" data-p="med"  onclick="selectPriority('done','med',this)">Med</button>
             <button class="priority-opt" data-p="low"  onclick="selectPriority('done','low',this)">Low</button>
           </div>
-          <input class="input" type="date" id="due-done">
+          <div class="task-date-picker" id="due-picker-done"></div>
           <div class="add-task-actions">
             <button class="btn btn-primary" style="flex:1;" onclick="addTask('done')">Add</button>
             <button class="btn btn-ghost" onclick="closeAddForm('done')">Cancel</button>
@@ -511,11 +514,11 @@
 
 <div class="toast" id="toast"></div>
 
-<div class="modal-overlay" id="task-edit-modal">
+<div class="modal-overlay" id="task-edit-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="task-edit-modal-title">
   <div class="modal" style="width:min(520px, calc(100vw - 32px));">
     <div class="modal-header">
-      <div class="modal-title">Edit Task</div>
-      <button class="modal-close" id="task-edit-close">x</button>
+      <div class="modal-title" id="task-edit-modal-title">Edit Task</div>
+      <button class="modal-close" id="task-edit-close" type="button">x</button>
     </div>
     <div class="form-group">
       <label class="form-label">Title</label>
@@ -528,15 +531,11 @@
     <div class="task-modal-grid">
       <div class="form-group">
         <label class="form-label">Status</label>
-        <select class="input" id="task-edit-col">
-          <option value="todo">To Do</option>
-          <option value="progress">In Progress</option>
-          <option value="done">Done</option>
-        </select>
+        <div class="task-status-dropdown" id="task-edit-col"></div>
       </div>
       <div class="form-group">
         <label class="form-label">Due Date</label>
-        <input class="input" type="date" id="task-edit-due">
+        <div class="task-date-picker" id="task-edit-due-picker"></div>
       </div>
     </div>
     <div class="form-group">
@@ -548,8 +547,8 @@
       </div>
     </div>
     <div style="display:flex; gap:8px; margin-top:18px;">
-      <button class="btn btn-primary" style="flex:1;" id="task-edit-save">Save Task</button>
-      <button class="btn btn-ghost" id="task-edit-cancel">Cancel</button>
+      <button class="btn btn-primary" style="flex:1;" id="task-edit-save" type="button">Save Task</button>
+      <button class="btn btn-ghost" id="task-edit-cancel" type="button">Cancel</button>
     </div>
   </div>
 </div>
@@ -558,10 +557,12 @@
 <script src="gsap/CustomEase.min.js"></script>
 <script src="gsap/Draggable.min.js"></script>
 <script src="nav.js"></script>
-<script src="demo-persistence.js"></script>
+<script src="persistence.js"></script>
 <script src="assets/js/core/ui.js"></script>
 <script src="spotlight.js"></script>
-<script src="tasks.js?v=20260906"></script>
+<script src="../../../library/component/mini_calendar/mini-calendar.js"></script>
+<script src="../../../library/component/dropdown_list/dropdown-list.js"></script>
+<script src="tasks.js"></script>
 <script src="vengeance_ui/ascii_glitch_ripple/ascii-glitch-ripple.js"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 /* ============================================
    WorkspaceV3 - Calendar JS
    ============================================ */
-/* global gsap, CustomEase, workspacePersistence */
+/* global gsap, CustomEase, workspacePersistence, ConyMiniCalendar, ConyDropdownList */
 
 gsap.registerPlugin(CustomEase);
 CustomEase.create('snappy', 'M0,0 C0.165,0.84 0.44,1 1,1');
@@ -29,17 +29,22 @@ function gsapKill(target) { if (gsapHas('killTweensOf')) { try { gsap.killTweens
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const DAYS_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const SHORT_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-// Fixed tag set (keys preserved for backward-compat with existing events; only
-// labels changed). Sorted alphabetically by visible label.
+// Fixed canonical tag set in the order shown in the event editor.
 const TAGS = [
-  { key: 'exercise', label: 'Exercise' },
-  { key: 'note', label: 'Holiday' },
+  { key: 'work', label: 'Work' },
+  { key: 'meeting', label: 'Meeting' },
+  { key: 'training', label: 'Training' },
+  { key: 'absent', label: 'Absent' },
+  { key: 'holiday', label: 'Holiday' },
   { key: 'personal', label: 'Personal' },
-  { key: 'site', label: 'Study' },
-  { key: 'deadline', label: 'Training' },
-  { key: 'work', label: 'Work' }
-].sort((a, b) => a.label.localeCompare(b.label));
+  { key: 'study', label: 'Study' },
+  { key: 'exercise', label: 'Exercise' }
+];
 const TAG_KEYS = TAGS.map((tag) => tag.key);
+const LEGACY_TAG_ALIASES = {
+  deadline: 'training',
+  site: 'study'
+};
 
 let currentYear = new Date().getFullYear();
 let currentMonth = new Date().getMonth();
@@ -60,10 +65,15 @@ let popover = null;
 let popoverOverlay = null;
 let popoverCtx = null; // { dateKey, editingId }
 let popoverClosing = null; // { popover, overlay } currently animating out
+let popoverCalendarController = null;
+let taskPopoverCalendarController = null;
+let taskPopoverStatusController = null;
+let taskPopoverPriorityController = null;
 const {
   describeSaveResult,
   reflectSaveIndicator,
   setSaveIndicator,
+  syncSaveIndicatorFromWorkspace,
   showToast
 } = window.WorkspaceUI;
 
@@ -89,22 +99,32 @@ window.showToast = showToast;
 const PRESS_SELECTOR = '.cal-nav-btn, .cal-view-btn, .cal-quick-add, .cal-more-chip, .cal-week-col-add, .cal-popover .btn';
 function wirePressFeedback() {
   if (typeof document === 'undefined' || typeof document.addEventListener !== 'function') return;
+  let pressedButton = null;
+  let pressedPointer = null;
+  const resetPress = () => {
+    if (!pressedButton) return;
+    gsapTo(pressedButton, { scale: 1, duration: 0.28, ease: 'pop', overwrite: 'auto' });
+    pressedButton = null;
+    pressedPointer = null;
+  };
   const press = (e) => {
     if (prefersReducedMotion || !e.target || typeof e.target.closest !== 'function') return;
     const btn = e.target.closest(PRESS_SELECTOR);
     if (!btn) return;
-    gsapTo(btn, { scale: 0.94, duration: 0.08, ease: 'power2.out' });
+    resetPress();
+    pressedButton = btn;
+    pressedPointer = e.pointerId;
+    gsapTo(btn, { scale: 0.94, duration: 0.08, ease: 'power2.out', overwrite: 'auto' });
   };
   const release = (e) => {
-    if (prefersReducedMotion || !e.target || typeof e.target.closest !== 'function') return;
-    const btn = e.target.closest(PRESS_SELECTOR);
-    if (!btn) return;
-    gsapTo(btn, { scale: 1, duration: 0.28, ease: 'pop' });
+    if (e.pointerId !== pressedPointer) return;
+    resetPress();
   };
   try {
     document.addEventListener('pointerdown', press, true);
     document.addEventListener('pointerup', release, true);
     document.addEventListener('pointercancel', release, true);
+    if (typeof window.addEventListener === 'function') window.addEventListener('blur', resetPress);
   } catch (err) { /* headless guard */ }
 }
 wirePressFeedback();
@@ -130,10 +150,12 @@ function selectedDateFromKey(dateKey) {
   return { y: d.getFullYear(), m: d.getMonth(), d: d.getDate() };
 }
 
-function normalizeTag(tag) {
-  if (typeof tag !== 'string' || !tag) return 'note';
+function normalizeTag(tag, title = '') {
+  if (typeof tag !== 'string' || !tag) return 'holiday';
   if (TAG_KEYS.includes(tag)) return tag;
-  return 'note';
+  if (tag === 'note') return 'holiday';
+  if (LEGACY_TAG_ALIASES[tag]) return LEGACY_TAG_ALIASES[tag];
+  return 'holiday';
 }
 
 function normalizeTime(time) {
@@ -154,7 +176,7 @@ function normalizeEvent(value, fallbackTitle) {
     id: typeof raw.id === 'string' && raw.id.trim() ? raw.id.trim() : makeEventId(),
     title,
     time: normalizeTime(raw.time),
-    tag: normalizeTag(raw.tag)
+    tag: normalizeTag(raw.tag, title)
   };
   const note = normalizeNote(raw.note);
   if (note) event.note = note;
@@ -173,7 +195,7 @@ function migrateCalendarNotes(rawNotes) {
 
     if (typeof value === 'string') {
       const title = value.trim();
-      migrated[dateKey] = title ? [{ id: makeEventId(), title, time: '', tag: 'note' }] : [];
+      migrated[dateKey] = title ? [{ id: makeEventId(), title, time: '', tag: 'holiday' }] : [];
       return;
     }
 
@@ -219,7 +241,20 @@ function tagLabel(tagKey) {
 
 // Resolve a tag's color from its CSS variable (usable inline; var() resolves).
 function tagColor(tagKey) {
-  return TAGS.some((t) => t.key === tagKey) ? `var(--cal-tag-${tagKey})` : 'var(--cal-tag-note)';
+  return TAGS.some((t) => t.key === tagKey) ? `var(--cal-tag-${tagKey})` : 'var(--cal-tag-holiday)';
+}
+
+function calendarNotesNeedMigration(rawNotes, migratedNotes) {
+  const input = rawNotes && typeof rawNotes === 'object' ? rawNotes : {};
+  return Object.entries(input).some(([dateKey, value]) => {
+    if (typeof value === 'string') return value.trim() !== '';
+    const events = Array.isArray(value) ? value : [value];
+    return events.some((event, index) => {
+      if (!event || typeof event !== 'object') return false;
+      const migrated = migratedNotes[dateKey]?.[Array.isArray(value) ? index : 0];
+      return migrated && event.tag !== migrated.tag;
+    });
+  });
 }
 
 function createTagDot(tagKey) {
@@ -229,6 +264,9 @@ function createTagDot(tagKey) {
 }
 
 async function persistCalendar(action) {
+  if (!workspacePersistence.guardMutation()) {
+    return { source: 'empty', status: 'blocked', reason: 'not-connected' };
+  }
   setSaveIndicator('saving', 'Saving…');
   let result = await workspacePersistence.autoSaveSection('calendarNotes', notes);
   if (
@@ -253,6 +291,7 @@ function createEventChip(event, dateKey) {
   chip.dataset.id = event.id;
   chip.setAttribute('draggable', 'true');
   chip.setAttribute('tabindex', '0');
+  chip.setAttribute('role', 'button');
   chip.title = `${event.time ? event.time + ' · ' : ''}${event.title}`;
 
   if (event.time) {
@@ -265,9 +304,15 @@ function createEventChip(event, dateKey) {
   label.textContent = event.title;
   chip.appendChild(label);
 
-  chip.addEventListener('click', (e) => {
+  const openEvent = (e) => {
     e.stopPropagation();
     openPopover({ dateKey, editingId: event.id, anchor: chip });
+  };
+  chip.addEventListener('click', openEvent);
+  chip.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    e.preventDefault();
+    openEvent(e);
   });
 
   chip.addEventListener('dragstart', (e) => {
@@ -294,13 +339,38 @@ function taskStatusMeta(col) {
   return { key: 'todo', glyph: '○', label: 'Waiting' };
 }
 
-function createTaskPill(task) {
+async function persistTasks(action) {
+  if (!workspacePersistence.guardMutation()) {
+    return { source: 'empty', status: 'blocked', reason: 'not-connected' };
+  }
+  setSaveIndicator('saving', 'Saving...');
+  const result = await workspacePersistence.saveSection('tasks', tasks, { disk: true });
+  showToast(describeSaveResult(action, result, { canceled: `${action} buffered. Save again when ready.` }));
+  reflectSaveIndicator(result, { bufferedLabel: 'Buffered - Save to write' });
+  return result;
+}
+
+function createTaskPill(task, dateKey) {
   const pill = document.createElement('div');
   pill.className = 'cal-task-pill';
   const status = taskStatusMeta(task && task.col);
   pill.dataset.status = status.key; // CSS ::before paints the matching glyph
   pill.textContent = task.title || 'Task';
   pill.title = `${status.label} task: ${task.title || ''}`;
+  pill.setAttribute('role', 'button');
+  pill.setAttribute('tabindex', '0');
+
+  const openTask = (event) => {
+    event.stopPropagation();
+    openTaskPopover({ dateKey, taskId: task && task.id, anchor: pill });
+  };
+  pill.addEventListener('click', openTask);
+  pill.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    openTask(event);
+  });
+
   return pill;
 }
 
@@ -326,6 +396,7 @@ function wireDropTarget(el, dateKey) {
 }
 
 async function moveEvent(eventId, targetKey) {
+  if (!workspacePersistence.guardMutation()) return;
   const found = findEvent(eventId);
   if (!found || found.dateKey === targetKey) return;
   const { dateKey, event } = found;
@@ -479,7 +550,7 @@ function renderCalendar(options = {}) {
       // Render every event/task for the day; the cell's .cal-cell-events scrolls
       // internally when there are more than fit, so nothing is truncated.
       dayEvents.forEach((event) => eventsEl.appendChild(createEventChip(event, key)));
-      dueTasks.forEach((task) => eventsEl.appendChild(createTaskPill(task)));
+      dueTasks.forEach((task) => eventsEl.appendChild(createTaskPill(task, key)));
       cell.appendChild(eventsEl);
     }
 
@@ -545,7 +616,7 @@ function renderWeek(host, animate) {
     const body = document.createElement('div');
     body.className = 'cal-week-col-body';
     sortEvents(getEventsForDate(key)).forEach((event) => body.appendChild(createEventChip(event, key)));
-    getTasksForDate(key).forEach((task) => body.appendChild(createTaskPill(task)));
+    getTasksForDate(key).forEach((task) => body.appendChild(createTaskPill(task, key)));
 
     const add = document.createElement('button');
     add.type = 'button';
@@ -553,8 +624,9 @@ function renderWeek(host, animate) {
     add.textContent = '+ Add';
     add.addEventListener('click', (e) => {
       e.stopPropagation();
+      const anchor = snapshotPopoverAnchor(add);
       selectDate(key);
-      openPopover({ dateKey: key, editingId: null, anchor: add });
+      openPopover({ dateKey: key, editingId: null, anchor });
     });
     body.appendChild(add);
     col.appendChild(body);
@@ -656,6 +728,8 @@ function renderAgenda(host, animate) {
       } else {
         el.classList.add('is-task');
         el.dataset.tag = 'deadline';
+        el.setAttribute('role', 'button');
+        el.setAttribute('tabindex', '0');
         time.textContent = 'Due';
         title.textContent = row.task.title || 'Task';
         const status = taskStatusMeta(row.task.col);
@@ -668,6 +742,16 @@ function renderAgenda(host, animate) {
         el.appendChild(time);
         el.appendChild(title);
         el.appendChild(check);
+        const openTask = (event) => {
+          event.stopPropagation();
+          openTaskPopover({ dateKey, taskId: row.task.id, anchor: el });
+        };
+        el.addEventListener('click', openTask);
+        el.addEventListener('keydown', (event) => {
+          if (event.key !== 'Enter' && event.key !== ' ') return;
+          event.preventDefault();
+          openTask(event);
+        });
       }
 
       group.appendChild(el);
@@ -778,11 +862,12 @@ function renderUpcoming() {
     item.appendChild(day);
     item.appendChild(text);
     item.addEventListener('click', () => {
+      const anchor = snapshotPopoverAnchor(item);
       currentYear = date.getFullYear();
       currentMonth = date.getMonth();
       selectedDate = selectedDateFromKey(dateKey);
       renderAll({ renderGrid: true, animateGrid: false });
-      openPopover({ dateKey, editingId: event.id, anchor: item });
+      openPopover({ dateKey, editingId: event.id, anchor });
     });
     list.appendChild(item);
   });
@@ -796,8 +881,45 @@ function renderAll(options = {}) {
 }
 
 /* ── Day popover (quick-add / edit) ────────────── */
+function destroyPopoverController() {
+  if (!popoverCalendarController) return;
+  if (typeof popoverCalendarController.destroy === 'function') {
+    popoverCalendarController.destroy();
+  }
+  popoverCalendarController = null;
+}
+
+function destroyTaskPopoverController() {
+  if (taskPopoverCalendarController && typeof taskPopoverCalendarController.destroy === 'function') {
+    taskPopoverCalendarController.destroy();
+  }
+  taskPopoverCalendarController = null;
+  if (taskPopoverStatusController && typeof taskPopoverStatusController.destroy === 'function') {
+    taskPopoverStatusController.destroy();
+  }
+  taskPopoverStatusController = null;
+  if (taskPopoverPriorityController && typeof taskPopoverPriorityController.destroy === 'function') {
+    taskPopoverPriorityController.destroy();
+  }
+  taskPopoverPriorityController = null;
+}
+
+function getTaskPopoverStatusValue() {
+  return taskPopoverStatusController && typeof taskPopoverStatusController.getValue === 'function'
+    ? taskPopoverStatusController.getValue()
+    : 'todo';
+}
+
+function getTaskPopoverPriorityValue() {
+  return taskPopoverPriorityController && typeof taskPopoverPriorityController.getValue === 'function'
+    ? taskPopoverPriorityController.getValue()
+    : 'med';
+}
+
 /* Immediately tear down any popover/overlay nodes (active or mid-close). */
 function destroyPopoverNodes() {
+  destroyPopoverController();
+  destroyTaskPopoverController();
   if (popoverClosing) {
     const { popover: p, overlay: o } = popoverClosing;
     gsapKill(p);
@@ -816,6 +938,8 @@ function destroyPopoverNodes() {
 function closePopover() {
   const p = popover;
   const o = popoverOverlay;
+  destroyPopoverController();
+  destroyTaskPopoverController();
   // Detach state immediately so save/delete/open never race the exit animation.
   popover = null;
   popoverOverlay = null;
@@ -844,6 +968,14 @@ function closePopover() {
   if (!tween) removeNow();
 }
 
+// Rerenders detach Week Add and Upcoming nodes. Keep their click-time geometry
+// in a virtual anchor; copy fields because DOMRect properties aren't enumerable.
+function snapshotPopoverAnchor(element) {
+  const { left, top, right, bottom, width, height } = element.getBoundingClientRect();
+  const rect = { left, top, right, bottom, width, height };
+  return { getBoundingClientRect: () => rect };
+}
+
 function positionPopover(anchor) {
   if (!popover) return;
   const pw = popover.offsetWidth || 280;
@@ -856,9 +988,7 @@ function positionPopover(anchor) {
   const rect = (anchor && typeof anchor.getBoundingClientRect === 'function')
     ? anchor.getBoundingClientRect()
     : null;
-  // A re-render (agenda / week / upcoming) can detach the clicked element before
-  // we open — its rect collapses to 0×0. Treat that (and any off-screen anchor)
-  // as "no anchor" and center the popover instead of pinning it to x≈0.
+  // Empty or off-screen anchors still fall back to a centered popover.
   const anchored = !!rect && rect.width > 0 && rect.height > 0
     && rect.right > 0 && rect.bottom > 0 && rect.left < vw && rect.top < vh;
 
@@ -894,163 +1024,6 @@ function positionPopover(anchor) {
       popover.style.transformOrigin = '50% 50%';
     }
   }
-}
-
-/* Custom themed 24h time picker: two bounded scroll columns (00-23 / 00-59).
-   Reads/writes the hidden #cal-pop-time input as "HH:MM" (or "" when cleared). */
-function setupTimePicker(root) {
-  const hidden = root.querySelector('#cal-pop-time');
-  const trigger = root.querySelector('#cal-time-trigger');
-  const panel = root.querySelector('#cal-time-panel');
-  const display = root.querySelector('.cal-time-display');
-  const clearBtn = root.querySelector('#cal-time-clear');
-  const hoursCol = root.querySelector('#cal-time-hours');
-  const minsCol = root.querySelector('#cal-time-minutes');
-  if (!hidden || !trigger || !panel || !hoursCol || !minsCol) return;
-
-  const pad = (n) => String(n).padStart(2, '0');
-  let h = null;
-  let m = null;
-  const init = /^(\d{2}):(\d{2})$/.exec(hidden.value || '');
-  if (init) { h = init[1]; m = init[2]; }
-
-  function buildCol(col, max) {
-    col.innerHTML = '';
-    for (let i = 0; i <= max; i++) {
-      const opt = document.createElement('button');
-      opt.type = 'button';
-      opt.className = 'cal-time-opt';
-      opt.dataset.val = pad(i);
-      opt.textContent = pad(i);
-      col.appendChild(opt);
-    }
-  }
-  buildCol(hoursCol, 23);
-  buildCol(minsCol, 59);
-
-  function paint() {
-    hoursCol.querySelectorAll('.cal-time-opt').forEach((o) => o.classList.toggle('is-selected', o.dataset.val === h));
-    minsCol.querySelectorAll('.cal-time-opt').forEach((o) => o.classList.toggle('is-selected', o.dataset.val === m));
-    const has = h !== null && m !== null;
-    if (display) display.textContent = has ? `${h}:${m}` : 'Set time';
-    trigger.classList.toggle('is-empty', !has);
-    if (clearBtn) clearBtn.hidden = !has;
-    hidden.value = has ? `${h}:${m}` : '';
-  }
-
-  function scrollToSelected() {
-    [[hoursCol, h], [minsCol, m]].forEach(([col, val]) => {
-      const sel = val !== null ? col.querySelector(`.cal-time-opt[data-val="${val}"]`) : null;
-      if (sel && typeof sel.scrollIntoView === 'function') {
-        try { sel.scrollIntoView({ block: 'center' }); } catch (e) { col.scrollTop = sel.offsetTop - col.clientHeight / 2; }
-      }
-    });
-  }
-
-  function openPanel() {
-    panel.hidden = false;
-    trigger.setAttribute('aria-expanded', 'true');
-    scrollToSelected();
-  }
-  function closePanel() {
-    panel.hidden = true;
-    trigger.setAttribute('aria-expanded', 'false');
-  }
-
-  trigger.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (panel.hidden) openPanel(); else closePanel();
-  });
-  if (clearBtn) clearBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    h = null; m = null; paint();
-  });
-  hoursCol.addEventListener('click', (e) => {
-    const opt = e.target.closest('.cal-time-opt'); if (!opt) return;
-    h = opt.dataset.val; if (m === null) m = '00'; paint();
-  });
-  minsCol.addEventListener('click', (e) => {
-    const opt = e.target.closest('.cal-time-opt'); if (!opt) return;
-    m = opt.dataset.val; if (h === null) h = '00'; paint();
-  });
-  // Close the panel when clicking elsewhere inside the popover.
-  root.addEventListener('click', (e) => {
-    if (panel.hidden) return;
-    if (e.target.closest && e.target.closest('#cal-timepicker')) return;
-    closePanel();
-  });
-
-  paint();
-}
-
-/* Custom themed date picker: a month-grid popover (no native white control).
-   Reads/writes the hidden #cal-pop-date input as "YYYY-MM-DD". */
-function setupDatePicker(root) {
-  const hidden = root.querySelector('#cal-pop-date');
-  const trigger = root.querySelector('#cal-date-trigger');
-  const panel = root.querySelector('#cal-date-panel');
-  const display = root.querySelector('.cal-date-display');
-  const titleEl = root.querySelector('#cal-dp-title');
-  const grid = root.querySelector('#cal-dp-grid');
-  const prevBtn = root.querySelector('#cal-dp-prev');
-  const nextBtn = root.querySelector('#cal-dp-next');
-  if (!hidden || !trigger || !panel || !grid) return;
-
-  let selectedKey = /^\d{4}-\d{2}-\d{2}$/.test(hidden.value) ? hidden.value : '';
-  const base = selectedKey ? keyToDate(selectedKey) : new Date();
-  let viewY = base.getFullYear();
-  let viewM = base.getMonth();
-  const now = new Date();
-  const todayKey = toKey(now.getFullYear(), now.getMonth(), now.getDate());
-
-  function fmt(key) {
-    const d = keyToDate(key);
-    return `${String(d.getDate()).padStart(2, '0')} ${SHORT_MONTHS[d.getMonth()]} ${d.getFullYear()}`;
-  }
-  function paintTrigger() {
-    if (selectedKey) { display.textContent = fmt(selectedKey); trigger.classList.remove('is-empty'); }
-    else { display.textContent = 'Pick date'; trigger.classList.add('is-empty'); }
-  }
-  function renderGrid() {
-    if (titleEl) titleEl.textContent = `${MONTHS[viewM]} ${viewY}`;
-    grid.innerHTML = '';
-    const first = new Date(viewY, viewM, 1);
-    const start = new Date(viewY, viewM, 1 - first.getDay());
-    for (let i = 0; i < 42; i++) {
-      const d = new Date(start.getFullYear(), start.getMonth(), start.getDate() + i);
-      const key = toKey(d.getFullYear(), d.getMonth(), d.getDate());
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'cal-dp-day';
-      if (d.getMonth() !== viewM) btn.classList.add('is-other');
-      if (key === todayKey) btn.classList.add('is-today');
-      if (key === selectedKey) btn.classList.add('is-selected');
-      btn.textContent = String(d.getDate());
-      btn.dataset.key = key;
-      grid.appendChild(btn);
-    }
-  }
-  function openPanel() { panel.hidden = false; trigger.setAttribute('aria-expanded', 'true'); renderGrid(); }
-  function closePanel() { panel.hidden = true; trigger.setAttribute('aria-expanded', 'false'); }
-
-  trigger.addEventListener('click', (e) => { e.stopPropagation(); if (panel.hidden) openPanel(); else closePanel(); });
-  if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); viewM -= 1; if (viewM < 0) { viewM = 11; viewY -= 1; } renderGrid(); });
-  if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); viewM += 1; if (viewM > 11) { viewM = 0; viewY += 1; } renderGrid(); });
-  grid.addEventListener('click', (e) => {
-    const day = e.target.closest('.cal-dp-day'); if (!day) return;
-    selectedKey = day.dataset.key;
-    hidden.value = selectedKey;
-    const d = keyToDate(selectedKey); viewY = d.getFullYear(); viewM = d.getMonth();
-    paintTrigger();
-    closePanel();
-  });
-  root.addEventListener('click', (e) => {
-    if (panel.hidden) return;
-    if (e.target.closest && e.target.closest('#cal-datepicker')) return;
-    closePanel();
-  });
-
-  paintTrigger();
 }
 
 /* Themed tag chooser. Renders a clickable color chip per (fixed) tag and writes
@@ -1093,7 +1066,140 @@ function setupTagChooser(root, selectedKey) {
   render();
 }
 
+function openTaskPopover({ dateKey, taskId, anchor = null }) {
+  if (!workspacePersistence.guardMutation()) return;
+  destroyPopoverNodes();
+  if (!document.body) return;
+
+  const task = tasks.find((item) => item && item.id === taskId);
+  if (!task) return;
+  popoverCtx = { mode: 'task', dateKey, taskId };
+
+  popoverOverlay = document.createElement('div');
+  popoverOverlay.className = 'cal-popover-overlay';
+  popoverOverlay.addEventListener('mousedown', (event) => {
+    if (event.target === popoverOverlay) closePopover();
+  });
+
+  popover = document.createElement('div');
+  popover.className = 'cal-popover cal-task-popover';
+  popover.setAttribute('role', 'dialog');
+  popover.setAttribute('aria-label', 'Edit task');
+  popover.innerHTML = `
+    <div class="cal-popover-head">
+      <span class="cal-popover-title">Edit task</span>
+      <span class="cal-popover-date">${task.due || 'No due date'}</span>
+    </div>
+    <div>
+      <label for="cal-task-title">Title</label>
+      <input class="input" id="cal-task-title" type="text" placeholder="Task title">
+    </div>
+    <div>
+      <label for="cal-task-detail">Detail</label>
+      <textarea class="input" id="cal-task-detail" placeholder="Task detail or notes"></textarea>
+    </div>
+    <div class="cal-task-popover-meta">
+      <div>
+        <label for="cal-task-status">Status</label>
+        <div class="cal-task-dropdown" id="cal-task-status"></div>
+      </div>
+      <div>
+        <label for="cal-task-priority">Priority</label>
+        <div class="cal-task-dropdown" id="cal-task-priority"></div>
+      </div>
+      <div>
+        <label for="cal-task-due-picker">Due date</label>
+        <div class="task-date-picker cal-task-date-picker" id="cal-task-due-picker"></div>
+      </div>
+    </div>
+    <div class="cal-popover-actions">
+      <button class="btn btn-primary" id="cal-task-save" type="button">Save</button>
+      <button class="btn btn-ghost" id="cal-task-cancel" type="button">Cancel</button>
+      <button class="btn btn-ghost cal-delete-btn" id="cal-task-delete" type="button">Delete</button>
+    </div>
+  `;
+
+  document.body.appendChild(popoverOverlay);
+  document.body.appendChild(popover);
+
+  const titleInput = popover.querySelector('#cal-task-title');
+  const detailInput = popover.querySelector('#cal-task-detail');
+  const statusHost = popover.querySelector('#cal-task-status');
+  const priorityHost = popover.querySelector('#cal-task-priority');
+  const dueHost = popover.querySelector('#cal-task-due-picker');
+  if (titleInput) titleInput.value = task.title || '';
+  if (detailInput) detailInput.value = task.detail || '';
+  if (!statusHost || !priorityHost || typeof ConyDropdownList === 'undefined' || typeof ConyDropdownList.mount !== 'function') {
+    throw new Error('ConyDropdownList.mount is required for the calendar task popover');
+  }
+  taskPopoverStatusController = ConyDropdownList.mount(statusHost, {
+    value: ['todo', 'progress', 'done'].includes(task.col) ? task.col : 'todo',
+    ariaLabel: 'Task status',
+    options: [
+      { value: 'todo', label: 'To do' },
+      { value: 'progress', label: 'In progress' },
+      { value: 'done', label: 'Done' }
+    ],
+    onChange() {}
+  });
+  taskPopoverPriorityController = ConyDropdownList.mount(priorityHost, {
+    value: ['high', 'med', 'low'].includes(task.priority) ? task.priority : 'med',
+    ariaLabel: 'Task priority',
+    options: [
+      { value: 'high', label: 'High' },
+      { value: 'med', label: 'Medium' },
+      { value: 'low', label: 'Low' }
+    ],
+    onChange() {}
+  });
+  if (!dueHost || typeof ConyMiniCalendar === 'undefined' || typeof ConyMiniCalendar.mount !== 'function') {
+    throw new Error('ConyMiniCalendar.mount is required for the calendar task popover');
+  }
+  taskPopoverCalendarController = ConyMiniCalendar.mount(dueHost, {
+    date: /^\d{4}-\d{2}-\d{2}$/.test(task.due || '') ? task.due : '',
+    time: '',
+    onChange() {}
+  });
+
+  positionPopover(anchor);
+
+  if (!prefersReducedMotion) {
+    gsapFromTo(popoverOverlay, { opacity: 0 }, { opacity: 1, duration: 0.18, ease: 'power2.out' });
+    gsapFromTo(
+      popover,
+      { opacity: 0, scale: 0.9, y: 8 },
+      { opacity: 1, scale: 1, y: 0, duration: 0.3, ease: 'back.out(1.7)', clearProps: 'scale,y' }
+    );
+  } else {
+    gsapSet(popoverOverlay, { opacity: 1 });
+    gsapSet(popover, { opacity: 1, scale: 1, y: 0 });
+  }
+
+  if (titleInput && typeof titleInput.focus === 'function') {
+    try { titleInput.focus(); } catch (err) { /* headless guard */ }
+    if (typeof titleInput.select === 'function') { try { titleInput.select(); } catch (err) { /* noop */ } }
+  }
+
+  const saveBtn = popover.querySelector('#cal-task-save');
+  const cancelBtn = popover.querySelector('#cal-task-cancel');
+  const deleteBtn = popover.querySelector('#cal-task-delete');
+  if (saveBtn) saveBtn.addEventListener('click', () => void saveTaskPopover());
+  if (cancelBtn) cancelBtn.addEventListener('click', () => closePopover());
+  if (deleteBtn) deleteBtn.addEventListener('click', () => void deleteTaskFromPopover());
+
+  popover.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' && event.target && event.target.tagName !== 'TEXTAREA') {
+      event.preventDefault();
+      void saveTaskPopover();
+    } else if (event.key === 'Escape') {
+      event.preventDefault();
+      closePopover();
+    }
+  });
+}
+
 function openPopover({ dateKey, editingId = null, anchor = null }) {
+  if (!workspacePersistence.guardMutation()) return;
   // Cancel any in-flight close tween and remove leftover nodes immediately so
   // rapid quick-add/edit can never leave two popovers or a half-faded overlay.
   destroyPopoverNodes();
@@ -1127,39 +1233,7 @@ function openPopover({ dateKey, editingId = null, anchor = null }) {
       <input class="input" id="cal-pop-title" type="text" placeholder="Event title">
     </div>
     <div class="cal-popover-row">
-      <div class="cal-timepicker" id="cal-timepicker">
-        <label>Time</label>
-        <input type="hidden" id="cal-pop-time">
-        <div class="cal-picker-control">
-          <button type="button" class="input cal-timepicker-trigger is-empty" id="cal-time-trigger" aria-haspopup="listbox" aria-expanded="false">
-            <span class="cal-time-display">Set time</span>
-            <span class="cal-time-clear" id="cal-time-clear" title="Clear time" hidden>&times;</span>
-          </button>
-          <div class="cal-timepicker-panel" id="cal-time-panel" hidden>
-            <div class="cal-timecol" id="cal-time-hours" role="listbox" aria-label="Hour"></div>
-            <div class="cal-timecol-sep">:</div>
-            <div class="cal-timecol" id="cal-time-minutes" role="listbox" aria-label="Minute"></div>
-          </div>
-        </div>
-      </div>
-      <div class="cal-datepicker" id="cal-datepicker">
-        <label>Date</label>
-        <input type="hidden" id="cal-pop-date">
-        <div class="cal-picker-control">
-          <button type="button" class="input cal-datepicker-trigger" id="cal-date-trigger" aria-haspopup="dialog" aria-expanded="false">
-            <span class="cal-date-display">Pick date</span>
-          </button>
-          <div class="cal-datepicker-panel" id="cal-date-panel" hidden>
-            <div class="cal-dp-head">
-              <button type="button" class="cal-dp-nav" id="cal-dp-prev" aria-label="Previous month">&lsaquo;</button>
-              <span class="cal-dp-title" id="cal-dp-title"></span>
-              <button type="button" class="cal-dp-nav" id="cal-dp-next" aria-label="Next month">&rsaquo;</button>
-            </div>
-            <div class="cal-dp-weekdays"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div>
-            <div class="cal-dp-grid" id="cal-dp-grid"></div>
-          </div>
-        </div>
-      </div>
+      <div class="cal-popover-picker" data-cal-mini-calendar-host></div>
     </div>
     <div>
       <label>Tag</label>
@@ -1181,24 +1255,26 @@ function openPopover({ dateKey, editingId = null, anchor = null }) {
   document.body.appendChild(popover);
 
   const titleInput = popover.querySelector('#cal-pop-title');
-  const timeInput = popover.querySelector('#cal-pop-time');
   const tagInput = popover.querySelector('#cal-pop-tag');
-  const dateInput = popover.querySelector('#cal-pop-date');
   const noteInput = popover.querySelector('#cal-pop-note');
+  const pickerHost = popover.querySelector('[data-cal-mini-calendar-host]');
 
   if (existing) {
     if (titleInput) titleInput.value = existing.title || '';
-    if (timeInput) timeInput.value = existing.time || '';
-    if (tagInput) tagInput.value = normalizeTag(existing.tag);
+    if (tagInput) tagInput.value = normalizeTag(existing.tag, existing.title);
     if (noteInput) noteInput.value = existing.note || '';
   } else if (tagInput) {
-    tagInput.value = 'note';
+    tagInput.value = 'holiday';
   }
-  if (dateInput) dateInput.value = dateKey;
-
-  setupTimePicker(popover);
-  setupDatePicker(popover);
-  setupTagChooser(popover, tagInput ? (tagInput.value || 'note') : 'note');
+  if (!pickerHost || !ConyMiniCalendar || typeof ConyMiniCalendar.mount !== 'function') {
+    throw new Error('ConyMiniCalendar.mount is required for the calendar popover');
+  }
+  popoverCalendarController = ConyMiniCalendar.mount(pickerHost, {
+    date: dateKey,
+    time: normalizeTime(existing && existing.time),
+    onChange() {}
+  });
+  setupTagChooser(popover, tagInput ? (tagInput.value || 'holiday') : 'holiday');
 
   positionPopover(anchor);
 
@@ -1239,7 +1315,64 @@ function openPopover({ dateKey, editingId = null, anchor = null }) {
   });
 }
 
+async function saveTaskPopover() {
+  if (!workspacePersistence.guardMutation()) return;
+  if (!popover || !popoverCtx || popoverCtx.mode !== 'task') return;
+  const task = tasks.find((item) => item && item.id === popoverCtx.taskId);
+  if (!task) return;
+
+  const titleInput = popover.querySelector('#cal-task-title');
+  const title = titleInput ? (titleInput.value || '').trim() : '';
+  if (!title) {
+    if (titleInput && titleInput.focus) titleInput.focus();
+    showToast('Task title is required');
+    return;
+  }
+
+  const detail = (popover.querySelector('#cal-task-detail') || {}).value || '';
+  const colValue = getTaskPopoverStatusValue();
+  const priorityValue = getTaskPopoverPriorityValue();
+  const dueValue = taskPopoverCalendarController && typeof taskPopoverCalendarController.getValue === 'function'
+    ? (taskPopoverCalendarController.getValue().date || '')
+    : '';
+  const col = ['todo', 'progress', 'done'].includes(colValue) ? colValue : 'todo';
+  const priority = ['high', 'med', 'low'].includes(priorityValue) ? priorityValue : 'med';
+  const due = /^\d{4}-\d{2}-\d{2}$/.test(dueValue) ? dueValue : '';
+
+  task.title = title;
+  task.detail = detail.trim();
+  task.col = col;
+  task.priority = priority;
+  task.due = due;
+
+  if (due) {
+    const nextDate = keyToDate(due);
+    currentYear = nextDate.getFullYear();
+    currentMonth = nextDate.getMonth();
+    selectedDate = selectedDateFromKey(due);
+  }
+
+  closePopover();
+  renderAll({ renderGrid: true, animateGrid: false });
+  await persistTasks('Task updated');
+}
+
+async function deleteTaskFromPopover() {
+  if (!workspacePersistence.guardMutation()) return;
+  if (!popoverCtx || popoverCtx.mode !== 'task') return;
+  const task = tasks.find((item) => item && item.id === popoverCtx.taskId);
+  if (!task) return;
+  const label = task.title || 'this task';
+  if (typeof window.confirm === 'function' && !window.confirm(`Delete "${label}"? This cannot be undone.`)) return;
+
+  tasks = tasks.filter((item) => item && item.id !== popoverCtx.taskId);
+  closePopover();
+  renderAll({ renderGrid: true, animateGrid: false });
+  await persistTasks('Task deleted');
+}
+
 async function savePopover() {
+  if (!workspacePersistence.guardMutation()) return;
   if (!popover || !popoverCtx) return;
   const titleInput = popover.querySelector('#cal-pop-title');
   const title = titleInput ? (titleInput.value || '').trim() : '';
@@ -1249,10 +1382,13 @@ async function savePopover() {
     return;
   }
 
-  const time = normalizeTime((popover.querySelector('#cal-pop-time') || {}).value || '');
-  const tag = normalizeTag((popover.querySelector('#cal-pop-tag') || {}).value || 'note');
+  const pickerValue = popoverCalendarController
+    ? popoverCalendarController.getValue()
+    : { date: popoverCtx.dateKey, time: '' };
+  const time = normalizeTime(pickerValue.time || '');
+  const tag = normalizeTag((popover.querySelector('#cal-pop-tag') || {}).value || 'holiday', title);
   const note = normalizeNote((popover.querySelector('#cal-pop-note') || {}).value || '');
-  const dateField = (popover.querySelector('#cal-pop-date') || {}).value || popoverCtx.dateKey;
+  const dateField = pickerValue.date || popoverCtx.dateKey;
   const targetKey = /^\d{4}-\d{2}-\d{2}$/.test(dateField) ? dateField : popoverCtx.dateKey;
 
   const { dateKey, editingId } = popoverCtx;
@@ -1275,6 +1411,7 @@ async function savePopover() {
 }
 
 async function deleteFromPopover() {
+  if (!workspacePersistence.guardMutation()) return;
   if (!popoverCtx || !popoverCtx.editingId) return;
   const { dateKey, editingId } = popoverCtx;
   notes[dateKey] = getEventsForDate(dateKey).filter((item) => item.id !== editingId);
@@ -1385,13 +1522,40 @@ if (todayBtn) todayBtn.addEventListener('click', () => {
 
 async function init() {
   const result = await workspacePersistence.loadWorkspaceData();
-  notes = migrateCalendarNotes(result.data.calendarNotes);
+  const rawCalendarNotes = result.data.calendarNotes;
+  const migratedCalendarNotes = migrateCalendarNotes(rawCalendarNotes);
+  const needsCalendarTagMigration = calendarNotesNeedMigration(rawCalendarNotes, migratedCalendarNotes);
+  notes = migratedCalendarNotes;
   tasks = Array.isArray(result.data.tasks) ? result.data.tasks : [];
+  syncSaveIndicatorFromWorkspace({ bufferedLabel: 'Buffered - Save to write' });
+
+  if (needsCalendarTagMigration && typeof workspacePersistence.autoSaveSection === 'function') {
+    try {
+      const migrationResult = await workspacePersistence.autoSaveSection('calendarNotes', notes);
+      reflectSaveIndicator(migrationResult, { bufferedLabel: 'Buffered - Save to write' });
+      showToast('Calendar event tags cleaned');
+    } catch (error) {
+      showToast('Calendar tags cleaned in memory; save workspace data to persist them.');
+    }
+  }
 
   const now = new Date();
   selectedDate = { y: now.getFullYear(), m: now.getMonth(), d: now.getDate() };
   renderAll({ renderGrid: true, animateGrid: !gridHasAnimated });
   moveViewIndicator(viewMode, false);
+
+  if (typeof workspacePersistence.subscribe === 'function') {
+    workspacePersistence.subscribe((snapshot) => {
+      const sections = snapshot && snapshot.data && snapshot.data.sections
+        ? snapshot.data.sections
+        : snapshot && snapshot.data;
+      if (!sections) return;
+      notes = migrateCalendarNotes(sections.calendarNotes);
+      tasks = Array.isArray(sections.tasks) ? sections.tasks : [];
+      syncSaveIndicatorFromWorkspace({ bufferedLabel: 'Buffered - Save to write' });
+      renderAll({ renderGrid: true, animateGrid: false });
+    });
+  }
 
   if (!prefersReducedMotion && typeof gsap.from === 'function') {
     gsap.from('.cal-main', { opacity: 0, x: -10, duration: 0.5, ease: 'snappy' });
@@ -1401,6 +1565,7 @@ async function init() {
 
 window.CalendarPlanner = {
   migrateCalendarNotes,
+  normalizeTag,
   normalizeEvent,
   toKey,
   getState: () => ({ notes, tasks, selectedDate, viewMode })

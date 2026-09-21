@@ -2,7 +2,7 @@
    WorkspaceV3 - Tasks JS
    Kanban + Drag & Drop + shared persistence
    ============================================ */
-/* global gsap, CustomEase, Draggable, workspacePersistence */
+/* global gsap, CustomEase, Draggable, workspacePersistence, ConyMiniCalendar, ConyDropdownList */
 
 gsap.registerPlugin(CustomEase, Draggable);
 CustomEase.create("snappy", "M0,0 C0.165,0.84 0.44,1 1,1");
@@ -11,6 +11,7 @@ const {
   describeSaveResult,
   setSaveIndicator,
   reflectSaveIndicator,
+  syncSaveIndicatorFromWorkspace,
   showToast,
   escapeHtml
 } = window.WorkspaceUI;
@@ -19,8 +20,79 @@ let tasks = [];
 const priorities = { todo: 'med', progress: 'med', done: 'low' };
 const priorityRank = { high: 0, med: 1, low: 2 };
 let editingTaskId = null;
+let lastEditInvoker = null;
+const taskDateControllers = new Map();
+let taskStatusController = null;
+
+const TASK_STATUS_OPTIONS = [
+  { value: 'todo', label: 'To Do' },
+  { value: 'progress', label: 'In Progress' },
+  { value: 'done', label: 'Done' }
+];
+
+function validTaskDate(value) {
+  return /^\d{4}-\d{2}-\d{2}$/.test(String(value || '')) ? String(value) : '';
+}
+
+function mountTaskDatePicker(hostId, date = '') {
+  const host = document.getElementById(hostId);
+  if (!host || typeof ConyMiniCalendar === 'undefined' || typeof ConyMiniCalendar.mount !== 'function') return;
+  const previous = taskDateControllers.get(hostId);
+  if (previous && typeof previous.destroy === 'function') previous.destroy();
+  const controller = ConyMiniCalendar.mount(host, {
+    date: validTaskDate(date),
+    time: '',
+    onChange() {}
+  });
+  taskDateControllers.set(hostId, controller);
+}
+
+function getTaskDate(hostId) {
+  const controller = taskDateControllers.get(hostId);
+  return controller && typeof controller.getValue === 'function'
+    ? validTaskDate(controller.getValue().date)
+    : '';
+}
+
+function setTaskDate(hostId, date) {
+  const controller = taskDateControllers.get(hostId);
+  if (controller && typeof controller.setValue === 'function') {
+    controller.setValue({ date: validTaskDate(date), time: '' });
+  }
+}
+
+function mountTaskDatePickers() {
+  ['todo', 'progress', 'done'].forEach((col) => mountTaskDatePicker(`due-picker-${col}`));
+  mountTaskDatePicker('task-edit-due-picker');
+}
+
+function mountTaskStatusPicker() {
+  const host = document.getElementById('task-edit-col');
+  if (!host || typeof ConyDropdownList === 'undefined' || typeof ConyDropdownList.mount !== 'function') return;
+  taskStatusController = ConyDropdownList.mount(host, {
+    value: 'todo',
+    ariaLabel: 'Status',
+    options: TASK_STATUS_OPTIONS,
+    onChange() {}
+  });
+}
+
+function getTaskStatus() {
+  return taskStatusController && typeof taskStatusController.getValue === 'function'
+    ? taskStatusController.getValue()
+    : 'todo';
+}
+
+function setTaskStatus(value) {
+  if (taskStatusController && typeof taskStatusController.setValue === 'function') {
+    taskStatusController.setValue(value || 'todo');
+  }
+}
 
 async function saveTasks(options) {
+  if (!workspacePersistence.guardMutation()) {
+    return { source: 'empty', status: 'blocked', reason: 'not-connected' };
+  }
   setSaveIndicator('saving', 'Saving…');
   const result = await workspacePersistence.saveSection('tasks', tasks, options);
   reflectSaveIndicator(result);
@@ -39,7 +111,9 @@ function getPriorityLabel(p) {
 
 function formatDate(d) {
   if (!d) return '';
-  const dt = new Date(d);
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(d || ''));
+  if (!match) return '';
+  const dt = new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
   return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 }
 
@@ -109,10 +183,7 @@ function renderTasks() {
       card.innerHTML = `
         <div class="task-card-top">
           <div class="task-title">${escapeHtml(task.title)}</div>
-          <div class="task-card-actions">
-            <button class="task-edit" onclick="openEditTask('${task.id}')">Edit</button>
-            <button class="task-delete" onclick="deleteTask('${task.id}')">x</button>
-          </div>
+          <div class="task-card-actions"></div>
         </div>
         ${preview ? `<div class="task-detail">${preview}</div>` : ''}
         <div class="task-meta">
@@ -122,6 +193,26 @@ function renderTasks() {
           <span class="task-due">${formatDate(task.due)}</span>
         </div>
       `;
+      const actions = card.querySelector('.task-card-actions');
+      const editButton = document.createElement('button');
+      editButton.className = 'task-edit';
+      editButton.type = 'button';
+      editButton.textContent = 'Edit';
+      editButton.dataset.taskAction = 'edit';
+      editButton.dataset.taskId = task.id;
+      editButton.addEventListener('click', event => {
+        openEditTask(task.id, event.currentTarget);
+      });
+      const deleteButton = document.createElement('button');
+      deleteButton.className = 'task-delete';
+      deleteButton.type = 'button';
+      deleteButton.textContent = 'x';
+      deleteButton.dataset.taskAction = 'delete';
+      deleteButton.dataset.taskId = task.id;
+      deleteButton.addEventListener('click', () => {
+        void deleteTask(task.id);
+      });
+      actions.append(editButton, deleteButton);
 
       card.addEventListener('dragstart', event => {
         event.dataTransfer.setData('taskId', task.id);
@@ -164,6 +255,7 @@ function renderTasks() {
       const newCol = zone.dataset.col;
       const task = tasks.find(item => item.id === taskId);
       if (task && task.col !== newCol) {
+        if (!workspacePersistence.guardMutation()) return;
         task.col = newCol;
         renderTasks();
         saveTasks({ disk: true }).then(result => {
@@ -184,6 +276,7 @@ var openAddForm, closeAddForm, addTask, selectPriority, deleteTask;
 var openEditTask;
 
 openAddForm = window.openAddForm = function(col) {
+  if (!workspacePersistence.guardMutation()) return;
   document.getElementById(`form-${col}`).classList.add('open');
   document.getElementById(`input-${col}`).focus();
 };
@@ -191,7 +284,7 @@ openAddForm = window.openAddForm = function(col) {
 closeAddForm = window.closeAddForm = function(col) {
   document.getElementById(`form-${col}`).classList.remove('open');
   document.getElementById(`input-${col}`).value = '';
-  document.getElementById(`due-${col}`).value = '';
+  setTaskDate(`due-picker-${col}`, '');
   priorities[col] = 'med';
   document.querySelectorAll(`#priority-${col} .priority-opt`).forEach(button => {
     button.className = 'priority-opt';
@@ -199,6 +292,7 @@ closeAddForm = window.closeAddForm = function(col) {
 };
 
 selectPriority = window.selectPriority = function(col, priority, button) {
+  if (!workspacePersistence.guardMutation()) return;
   priorities[col] = priority;
   document.querySelectorAll(`#priority-${col} .priority-opt`).forEach(item => {
     item.className = 'priority-opt';
@@ -207,6 +301,7 @@ selectPriority = window.selectPriority = function(col, priority, button) {
 };
 
 addTask = window.addTask = async function(col) {
+  if (!workspacePersistence.guardMutation()) return;
   const titleEl = document.getElementById(`input-${col}`);
   const title = titleEl.value.trim();
   if (!title) return;
@@ -217,7 +312,7 @@ addTask = window.addTask = async function(col) {
     detail: '',
     col,
     priority: priorities[col] || 'med',
-    due: document.getElementById(`due-${col}`).value,
+    due: getTaskDate(`due-picker-${col}`),
     createdAt: new Date().toISOString()
   }));
 
@@ -235,25 +330,43 @@ function setEditPriority(priority) {
   if (active) active.className = `priority-opt selected-${priority}`;
 }
 
-function closeEditModal() {
-  document.getElementById('task-edit-modal').classList.remove('open');
-  editingTaskId = null;
+function setEditModalOpen(isOpen) {
+  const modal = document.getElementById('task-edit-modal');
+  modal.classList.toggle('open', isOpen);
+  modal.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
 }
 
-openEditTask = window.openEditTask = function(id) {
+function closeEditModal(options) {
+  const settings = options || {};
+  const restoreFocus = settings.restoreFocus !== false;
+  setEditModalOpen(false);
+  editingTaskId = null;
+  if (restoreFocus && lastEditInvoker && typeof lastEditInvoker.focus === 'function') {
+    lastEditInvoker.focus();
+  }
+  lastEditInvoker = null;
+}
+
+openEditTask = window.openEditTask = function(id, invoker) {
+  if (!workspacePersistence.guardMutation()) return;
   const task = tasks.find(item => item.id === id);
   if (!task) return;
 
+  lastEditInvoker = invoker || document.activeElement || null;
   editingTaskId = id;
-  document.getElementById('task-edit-title').value = task.title || '';
+  const titleInput = document.getElementById('task-edit-title');
+  titleInput.value = task.title || '';
   document.getElementById('task-edit-detail').value = task.detail || '';
-  document.getElementById('task-edit-col').value = task.col || 'todo';
-  document.getElementById('task-edit-due').value = task.due || '';
+  setTaskStatus(task.col || 'todo');
+  setTaskDate('task-edit-due-picker', task.due || '');
   setEditPriority(task.priority || 'med');
-  document.getElementById('task-edit-modal').classList.add('open');
+  setEditModalOpen(true);
+  titleInput.focus();
+  if (typeof titleInput.select === 'function') titleInput.select();
 };
 
 deleteTask = window.deleteTask = async function(id) {
+  if (!workspacePersistence.guardMutation()) return;
   const task = tasks.find(item => item.id === id);
   const label = task ? task.title : 'this task';
   if (typeof window.confirm === 'function' && !window.confirm(`Delete "${label}"? This cannot be undone.`)) return;
@@ -278,10 +391,13 @@ document.querySelectorAll('#task-edit-priority .priority-opt').forEach(button =>
   });
 });
 
-document.getElementById('task-edit-close').addEventListener('click', closeEditModal);
-document.getElementById('task-edit-cancel').addEventListener('click', closeEditModal);
+document.getElementById('task-edit-close').addEventListener('click', () => closeEditModal());
+document.getElementById('task-edit-cancel').addEventListener('click', () => closeEditModal());
 document.getElementById('task-edit-modal').addEventListener('click', event => {
   if (event.target === document.getElementById('task-edit-modal')) closeEditModal();
+});
+document.getElementById('task-edit-modal').addEventListener('keydown', event => {
+  if (event.key === 'Escape') closeEditModal({ restoreFocus: true });
 });
 
 document.getElementById('task-edit-save').addEventListener('click', () => {
@@ -295,8 +411,8 @@ document.getElementById('task-edit-save').addEventListener('click', () => {
   const activePriority = document.querySelector('#task-edit-priority .priority-opt[class*="selected-"]');
   task.title = nextTitle;
   task.detail = document.getElementById('task-edit-detail').value.trim();
-  task.col = document.getElementById('task-edit-col').value;
-  task.due = document.getElementById('task-edit-due').value;
+  task.col = getTaskStatus();
+  task.due = getTaskDate('task-edit-due-picker');
   task.priority = activePriority ? activePriority.dataset.p : 'med';
 
   closeEditModal();
@@ -310,11 +426,26 @@ document.getElementById('task-edit-save').addEventListener('click', () => {
 });
 
 async function init() {
+  mountTaskDatePickers();
+  mountTaskStatusPicker();
   const { data, migrated } = await workspacePersistence.loadWorkspaceData();
   tasks = Array.isArray(data.tasks) ? data.tasks.map(normalizeTask) : [];
+  syncSaveIndicatorFromWorkspace();
   renderTasks();
 
-  if (migrated) showToast('Migrated local tasks into workspace-data.json');
+  if (typeof workspacePersistence.subscribe === 'function') {
+    workspacePersistence.subscribe((snapshot) => {
+      const sections = snapshot && snapshot.data && snapshot.data.sections
+        ? snapshot.data.sections
+        : snapshot && snapshot.data;
+      if (!sections) return;
+      tasks = Array.isArray(sections.tasks) ? sections.tasks.map(normalizeTask) : [];
+      syncSaveIndicatorFromWorkspace();
+      renderTasks();
+    });
+  }
+
+  if (migrated) showToast('Migrated local tasks into workspace-data.js');
 
   gsap.from('.kanban-col', {
     opacity: 0,

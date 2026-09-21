@@ -30,9 +30,6 @@
   }
 
   function describeSaveResult(action, result, options = {}) {
-    if (result && result.reason === 'demo-memory-only') {
-      return options.buffered || `${action} updated for this demo session`;
-    }
     if (result && result.source === 'file') {
       return options.file || `${action} saved to disk`;
     }
@@ -57,7 +54,7 @@
     if (!el) return;
 
     if (options.unhide) el.hidden = false;
-    el.classList.remove('is-saving', 'is-saved', 'is-error');
+    el.classList.remove('is-saving', 'is-saved', 'is-buffered', 'is-error');
     if (state) el.classList.add(String(state).startsWith('is-') ? state : `is-${state}`);
 
     const labelEl = el.querySelector(options.labelSelector || '.save-status-label');
@@ -65,14 +62,32 @@
   }
 
   function reflectSaveIndicator(result, options = {}) {
-    if (result && result.reason === 'demo-memory-only') {
-      setSaveIndicator('saved', options.bufferedLabel || 'Demo - resets on refresh', options);
+    const onDisk = result && result.source === 'file';
+    const savedStamp = result && result.savedAt ? result.savedAt : undefined;
+    const savedLabel = options.savedLabel || `Saved ${formatSaveStamp(savedStamp)}`;
+    const bufferedLabel = options.bufferedLabel || 'Buffered - Save to write';
+    setSaveIndicator(onDisk ? 'saved' : 'buffered', onDisk ? savedLabel : bufferedLabel, options);
+  }
+
+  function syncSaveIndicatorFromWorkspace(options = {}) {
+    if (!window.Workspace || typeof window.Workspace.getState !== 'function') return;
+
+    const snapshot = window.Workspace.getState();
+    const savedAt = snapshot && snapshot.data && snapshot.data.meta ? snapshot.data.meta.savedAt : '';
+    const bufferedLabel = options.bufferedLabel || 'Buffered - Save to write';
+    const fallbackLabel = options.fallbackLabel || bufferedLabel;
+
+    if (snapshot && snapshot.dirty) {
+      setSaveIndicator('buffered', bufferedLabel, options);
       return;
     }
-    const onDisk = result && result.source === 'file';
-    const savedLabel = options.savedLabel || `Saved ${formatSaveStamp()}`;
-    const bufferedLabel = options.bufferedLabel || 'Buffered - Save to write';
-    setSaveIndicator('saved', onDisk ? savedLabel : bufferedLabel, options);
+
+    if (savedAt && snapshot.writeReady) {
+      setSaveIndicator('saved', options.savedLabel || `Saved ${formatSaveStamp(savedAt)}`, options);
+      return;
+    }
+
+    setSaveIndicator('buffered', fallbackLabel, options);
   }
 
   function setTextStatus(id, message, state) {
@@ -91,6 +106,7 @@
     formatSaveStamp,
     setSaveIndicator,
     reflectSaveIndicator,
+    syncSaveIndicatorFromWorkspace,
     setTextStatus
   });
 }());

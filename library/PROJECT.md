@@ -1,27 +1,30 @@
 # Cony Workspace Local Effect Library
 
 ## Current State
-This retained library is the local vanilla ShinyText effect used by the portfolio hero.
+This retained library contains the local vanilla effects and reusable UI components used by the portfolio hero and Public Workspace pages.
 
 The active assets require no React, Vite, shadcn, npm, or local server. The browser loads the CSS and JavaScript directly from the static project.
 
 ## Current Goal
-Keep the small retained effect surface clear and local to the portfolio hero.
+Keep reusable browser assets local, public-safe, and easy to load from static HTML pages without a build step.
 
 ## Project Memory Companion Notes
 Use this file as the entrypoint and summary. Create companion notes only when this folder grows beyond the current small-library shape.
 
 ## Key Decisions
 - Package reusable effects as vanilla browser globals so file-backed pages can load them with normal `<script src="...">` tags.
-- Retain `text/shiny_text/shiny_text.css` and `text/shiny_text/shiny_text.js` as the hero effect assets.
-- Keep the library limited to the approved ShinyText assets; deleted pasted effects are historical context only and are not active paths.
+- Retain `text/shiny_text/shiny_text.css` and `text/shiny_text/shiny_text.js` as the local text-wipe assets.
+- Keep `component/mini_calendar/` and `component/dropdown_list/` as local, public-safe dependencies for Public Workspace Tasks and Calendar.
+- Do not copy workspace data, personal labels, machine paths, or private application navigation into reusable assets.
 
 ## Active Problems
 - None known.
 
 ## Architecture / Important Files
-- `text/shiny_text/shiny_text.css` - local vanilla ShinyText styles used by the portfolio hero.
+- `text/shiny_text/shiny_text.css` - local vanilla ShinyText styles used by the portfolio hero and Public Workspace landing.
 - `text/shiny_text/shiny_text.js` - local vanilla ShinyText browser behavior and auto-initializer.
+- `component/mini_calendar/` - local mini-calendar picker used by Tasks and Calendar.
+- `component/dropdown_list/` - local dropdown list used by Tasks and Calendar.
 
 ## Preferences / Upgrade Notes
 - Prefer local, no-build, no-server HTML/CSS/JS usage for effects intended to be dropped into file-backed Cony Workspace pages.
@@ -38,6 +41,10 @@ Newest first.
   - Changed: confirmed `text/shiny_text/shiny_text.js` matches the current Cony Workspace source byte-for-byte.
   - Kept: the local CSS variant because it retains reduced-motion and forced-colors fallbacks that are absent from the current source copy.
   - Validation: bundled Node syntax check passed; no private workspace data or unrelated effects were copied.
+
+- 2026-09-21 - Added the public-safe UI dependencies for Public Workspace:
+  - Changed: synchronized the mini-calendar and dropdown-list component files needed by the latest Tasks and Calendar pages, plus their local Cony Workspace icons. These are browser-loadable copies in this repository, not runtime dependencies on the private workspace repository.
+  - Validation: page contract scans confirm the components are referenced locally and contain no personal workspace data or machine-specific paths.
 
 - 2026-08-26 - Portfolio library cleanup:
   - Changed: Retained the local vanilla ShinyText CSS and JavaScript assets plus this project manifest; removed unrelated pasted effects and the ShinyText usage page.

@@ -41,10 +41,12 @@
 
   /* Calendar event tags */
   --cal-tag-work:      #8fa8c8;
-  --cal-tag-site:      #8bb8a0;
-  --cal-tag-deadline:  #c89090;
+  --cal-tag-meeting:   #91a2d6;
+  --cal-tag-training:  #c89090;
+  --cal-tag-absent:    #c97b7b;
+  --cal-tag-holiday:   #b8b08a;
   --cal-tag-personal:  #b8a0c8;
-  --cal-tag-note:      #b8b08a;
+  --cal-tag-study:     #8bb8a0;
   --cal-tag-exercise:  #d0934e;
 
   /* Link launchpad tones */
@@ -148,10 +150,23 @@ html, body {
   border-color: var(--border-2);
 }
 
-.nav-item svg {
+.nav-item svg,
+.nav-icon {
   width: 16px;
   height: 16px;
+}
+
+.nav-item svg {
   stroke-width: 1.5;
+}
+
+.nav-icon {
+  display: block;
+  object-fit: contain;
+}
+
+.nav-item.active .nav-icon {
+  filter: brightness(1.08);
 }
 
 .nav-tooltip {
@@ -251,15 +266,22 @@ html, body {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #050505;
-  border: 1px solid rgba(255, 255, 255, 0.32);
+  background: #d9535f;
+  border: 1px solid rgba(255, 137, 146, 0.78);
+  box-shadow: 0 0 7px rgba(217, 83, 95, 0.34);
   flex: 0 0 auto;
 }
 
-.workspace-persist-dot[data-connected="true"] {
-  background: #f4f4f0;
-  border-color: rgba(255, 255, 255, 0.92);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.32);
+.workspace-persist-dot[data-indicator="green"] {
+  background: #63d18a;
+  border-color: rgba(174, 255, 198, 0.92);
+  box-shadow: 0 0 6px rgba(99, 209, 138, 0.72), 0 0 14px rgba(99, 209, 138, 0.28);
+}
+
+.workspace-persist-dot[data-indicator="amber"] {
+  background: #d6a84f;
+  border-color: rgba(255, 224, 153, 0.9);
+  box-shadow: 0 0 6px rgba(214, 168, 79, 0.58), 0 0 14px rgba(214, 168, 79, 0.22);
 }
 
 .workspace-persist-copy {
@@ -330,6 +352,78 @@ html, body {
   color: var(--text);
 }
 
+.workspace-persist-profile-menu {
+  margin-top: 8px;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: rgba(12, 12, 12, 0.82);
+}
+
+.workspace-persist-profile-title {
+  margin-bottom: 6px;
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.workspace-persist-profile,
+.workspace-persist-manual {
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text-2);
+  text-align: left;
+  cursor: pointer;
+}
+
+.workspace-persist-profile {
+  display: block;
+  padding: 6px 7px;
+}
+
+.workspace-persist-profile:hover,
+.workspace-persist-profile[aria-pressed="true"] {
+  border-color: var(--border-2);
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.workspace-persist-profile-name,
+.workspace-persist-profile-path {
+  display: block;
+}
+
+.workspace-persist-profile-name {
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.workspace-persist-profile-path {
+  margin-top: 2px;
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.workspace-persist-manual {
+  margin-top: 6px;
+  padding: 6px 7px;
+  border-color: var(--border);
+  font-size: 9px;
+}
+
+.workspace-persist-manual:hover {
+  border-color: var(--border-2);
+  background: var(--surface-2);
+  color: var(--text);
+}
+
 .workspace-persist-restore {
   position: fixed;
   right: 14px;
@@ -341,6 +435,97 @@ html, body {
   background: rgba(18, 18, 18, 0.96);
   z-index: 130;
   box-shadow: 0 18px 36px rgba(0, 0, 0, 0.35);
+}
+
+.workspace-persist-lock-warning {
+  position: fixed;
+  inset: 0;
+  z-index: 170;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.48);
+  cursor: pointer;
+  animation: workspace-persist-lock-fade-in 240ms ease-out both;
+}
+
+.workspace-persist-lock-warning[hidden] {
+  display: none;
+}
+
+.workspace-persist-lock-card {
+  width: min(330px, calc(100vw - 40px));
+  border: 1px solid rgba(223, 91, 100, 0.62);
+  border-radius: 5px;
+  background: rgba(19, 22, 21, 0.98);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.68), 0 0 24px rgba(223, 91, 100, 0.18);
+  overflow: hidden;
+  cursor: pointer;
+  animation: workspace-persist-lock-slide-in 240ms cubic-bezier(0.22, 0.8, 0.28, 1) both;
+}
+
+.workspace-persist-lock-strip {
+  padding: 7px 20px;
+  border-bottom: 1px solid rgba(223, 91, 100, 0.34);
+  color: #db7f86;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+
+.workspace-persist-lock-body {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 19px 20px 0;
+}
+
+.workspace-persist-lock-dot {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #df5b64;
+  box-shadow: 0 0 9px rgba(223, 91, 100, 0.72);
+}
+
+.workspace-persist-lock-title {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.workspace-persist-lock-message {
+  margin: 14px 20px 0;
+  color: #d6ddd8;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.workspace-persist-lock-hint {
+  margin: 13px 20px 17px;
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+@keyframes workspace-persist-lock-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes workspace-persist-lock-slide-in {
+  from { opacity: 0; transform: translateX(-18px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .workspace-persist-lock-warning,
+  .workspace-persist-lock-card {
+    animation: none;
+  }
 }
 
 /* ── Main Content ─────────────────────────── */
@@ -363,6 +548,14 @@ html, body {
   top: 0;
   z-index: 50;
   background: var(--bg);
+}
+
+.hub-mark-icon {
+  display: block;
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  flex: 0 0 auto;
 }
 
 .page-title {
@@ -587,6 +780,13 @@ select.input {
 .save-status.is-saved .save-status-dot {
   background: #6faf78;
   box-shadow: 0 0 8px rgba(111, 175, 120, 0.5);
+}
+.save-status.is-buffered {
+  color: #78a9c9;
+}
+.save-status.is-buffered .save-status-dot {
+  background: #78a9c9;
+  box-shadow: 0 0 8px rgba(120, 169, 201, 0.5);
 }
 .save-status.is-error {
   color: #c89090;

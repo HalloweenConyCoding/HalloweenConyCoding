@@ -14,7 +14,7 @@ Replace the old dark, card-heavy Task Planner demo landing page with a calm edit
 6. The page explains why personal data is not sent to HalloweenConyCoding: there is no upload endpoint, account, or server-side workspace copy in this flow.
 7. The visitor can open Tasks or Calendar directly from the entry page.
 
-The actual file picker, permission flow, and persistence migration are a separate integration slice. The landing-page slice owns the template download and navigation seam; the integration slice owns the connect-before-edit gate on Tasks and Calendar.
+The file picker, permission flow, and connect-before-edit gate are now included in the public-safe integration slice. The landing page owns the template download and explanation; Tasks and Calendar own the filtered UI, while the shared local persistence module owns file access, status, and mutation locking.
 
 ## Visual direction
 
@@ -34,7 +34,7 @@ The actual file picker, permission flow, and persistence migration are a separat
 - Destination section: two full-width ruled navigation rows for Tasks and Calendar, each with a description and arrow link.
 - Footer note: no account, no upload, and the local-file connection requirement stated plainly.
 
-The Tasks link remains `tasks.html`; the Calendar link remains `calendar.html`. The landing page must not silently load seeded demo data or claim that changes persist until the later persistence slice is complete.
+The Tasks link remains `tasks.html`; the Calendar link remains `calendar.html`. The landing page and destination pages must not silently load seeded demo data. Tasks and Calendar start empty until a local workspace file is connected.
 
 ## Template contract
 
@@ -54,7 +54,7 @@ The browser must construct the file locally with a Blob and an object URL. No ne
 
 ## Integration handoff
 
-Tasks and Calendar must use the current persistence API in the later integration slice. Until a valid local file is connected with write permission, the pages show data as read-only and keep create, edit, delete, drag, and event-edit controls disabled. The bottom-left connection control opens the file picker; successful connection loads the selected file and unlocks editing. Failed, canceled, or invalid selections keep the pages read-only and explain the next action.
+Tasks and Calendar use the local public-safe persistence API. Until a valid local file is connected with write permission, the pages show empty data as read-only and keep create, edit, delete, drag, and event-edit controls disabled. The bottom-left connection control opens the file picker; successful connection loads the selected file and unlocks editing. Failed, canceled, or invalid selections keep the pages read-only and explain the next action. Writes preserve unrelated sections in the user's file.
 
 ## Motion and interaction
 
@@ -67,11 +67,11 @@ Tasks and Calendar must use the current persistence API in the later integration
 
 ## Technical boundaries
 
-- Keep `categories/projects/task-planner/style.css` unchanged for Tasks and Calendar; the landing page receives a dedicated `landing.css` file.
+- Keep the current Cony Workspace visual behavior for Tasks and Calendar by copying only the required public-safe page and component files into this repository; the landing page receives a dedicated `landing.css` file.
 - Keep the landing page static and GitHub Pages-compatible: HTML, CSS, and local vanilla JavaScript only.
 - Copy/synchronize the approved ShinyText JavaScript and CSS into `library/text/shiny_text/` in this repository, retaining the local reduced-motion and forced-colors safety behavior.
 - Do not add npm, React, Vite, a server, analytics, authentication, or a new dependency.
-- Do not modify `tasks.html`, `tasks.js`, `calendar.html`, `calendar.js`, or the current persistence implementation in this slice.
+- Do not copy private workspace data, private path mappings, or unrelated private navigation. All copied page logic must load local components and the repository's public-safe `persistence.js`.
 
 ## Acceptance criteria
 
@@ -83,3 +83,5 @@ Tasks and Calendar must use the current persistence API in the later integration
 - Tasks and Calendar remain discoverable through direct links.
 - ShinyText loads only from local project assets and remains accessible under reduced-motion and forced-colors preferences.
 - No horizontal overflow, broken local assets, console errors, or inaccessible keyboard targets appear in browser smoke checks.
+- Tasks and Calendar contain no seeded demo data and expose a visible red/amber/green connection status dot.
+- Mutation controls remain locked until a connected file has read/write permission.
