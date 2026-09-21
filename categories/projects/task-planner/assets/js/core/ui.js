@@ -74,20 +74,28 @@
 
     const snapshot = window.Workspace.getState();
     const savedAt = snapshot && snapshot.data && snapshot.data.meta ? snapshot.data.meta.savedAt : '';
-    const bufferedLabel = options.bufferedLabel || 'Buffered - Save to write';
-    const fallbackLabel = options.fallbackLabel || bufferedLabel;
+    const notConnectedLabel = options.notConnectedLabel || 'Connect workspace file to edit';
+    const permissionLabel = options.permissionLabel || 'Write permission required';
+    const dirtyLabel = options.dirtyLabel || options.bufferedLabel || 'Unsaved changes';
 
-    if (snapshot && snapshot.dirty) {
-      setSaveIndicator('buffered', bufferedLabel, options);
+    if (!snapshot || !snapshot.writeReady) {
+      setSaveIndicator(snapshot && snapshot.hasHandle ? 'saving' : 'error',
+        snapshot && snapshot.hasHandle ? permissionLabel : notConnectedLabel,
+        options);
       return;
     }
 
-    if (savedAt && snapshot.writeReady) {
+    if (snapshot && snapshot.dirty) {
+      setSaveIndicator('saving', dirtyLabel, options);
+      return;
+    }
+
+    if (savedAt) {
       setSaveIndicator('saved', options.savedLabel || `Saved ${formatSaveStamp(savedAt)}`, options);
       return;
     }
 
-    setSaveIndicator('buffered', fallbackLabel, options);
+    setSaveIndicator('saved', options.connectedLabel || 'Connected · ready to edit', options);
   }
 
   function setTextStatus(id, message, state) {

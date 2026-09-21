@@ -48,10 +48,13 @@ Review the completed local homepage redesign and its scroll-linked background de
 
 ## Recent Work Log
 Newest first.
+- 2026-09-22 - Hardened Public Workspace deployment compatibility and connection status feedback.
+  - Changed: mapped the deployed Calendar failure to a stale `ui.js`/page mismatch, added cache-busting query versions to the local persistence and UI helper scripts, and changed the header status indicator from the neutral white fallback to red when disconnected, amber when permission/changes need attention, and green when the selected file is writable.
+  - Validation: the deployed runtime had no external Cony Workspace script reference; local deployment-path, landing, connection, syntax, and diff checks pass.
 - 2026-09-21 - Synchronized the public Tasks and Calendar pages with the latest Cony Workspace structure.
   - Changed: Copied only the required public-safe page logic, styles, UI helper, icons, mini-calendar, and dropdown components; removed the seeded demo persistence script and private calendar title mappings. Added a local `persistence.js` that starts empty, reads/writes only a user-selected `workspace-data.js`, preserves unrelated sections, shows the bottom-left connection status dot, and blocks mutations until write permission is available. Fixed the landing headline line overlap by using independent block lines and added a restrained ShinyText wipe to the accent line.
   - Privacy boundary: No personal workspace data, private paths, profiles, or machine-specific files were copied into this repository.
-  - Validation: Focused landing and connection contracts, syntax checks, personal-data scans, whitespace checks, and project regressions are being run before closeout. Browser smoke remains environment-blocked if the local file/HTTP policy is unchanged.
+  - Validation: Focused landing and connection contracts, local deployment-path checks, syntax checks, personal-data scans, whitespace checks, and project regressions pass. Browser smoke remains environment-blocked if the local file/HTTP policy is unchanged.
 - 2026-09-21 - Reframed the Task Planner entry as Public Workspace.
   - Changed: Replaced the old session-only demo landing page with a ruled, editorial cream/pastel landing page that draws the local-file workflow, explains why personal data is not sent to HalloweenConyCoding, links directly to Tasks and Calendar, and offers a blank downloadable `workspace-data.js` template. Added a local landing module and local ShinyText wiring; no personal workspace data was copied. The actual file connection and read-only-until-connected gate remains planned as a separate integration slice.
   - Validation: Landing contract test passes; generated template parses as `window.WORKSPACE_DATA` with empty tasks/calendar notes; local ShinyText JavaScript syntax-checks and retains reduced-motion/forced-colors safeguards. Changes remain uncommitted because this checkout cannot write Git metadata.

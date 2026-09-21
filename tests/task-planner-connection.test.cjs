@@ -11,6 +11,7 @@ const tasksJsPath = path.join(plannerRoot, 'tasks.js');
 const calendarJsPath = path.join(plannerRoot, 'calendar.js');
 const persistencePath = path.join(plannerRoot, 'persistence.js');
 const stylePath = path.join(plannerRoot, 'style.css');
+const uiPath = path.join(plannerRoot, 'assets/js/core/ui.js');
 const componentPaths = [
   path.join(root, 'library/component/mini_calendar/mini-calendar.js'),
   path.join(root, 'library/component/mini_calendar/mini-calendar.css'),
@@ -24,9 +25,25 @@ const tasksJs = fs.readFileSync(tasksJsPath, 'utf8');
 const calendarJs = fs.readFileSync(calendarJsPath, 'utf8');
 const persistenceJs = fs.readFileSync(persistencePath, 'utf8');
 const styleCss = fs.readFileSync(stylePath, 'utf8');
+const uiJs = fs.readFileSync(uiPath, 'utf8');
+
+function assertLocalReferences(name, htmlPath) {
+  const source = fs.readFileSync(htmlPath, 'utf8');
+  const references = [...source.matchAll(/(?:src|href)="([^"]+)"/g)].map((match) => match[1]);
+  references.forEach((reference) => {
+    if (/^(?:#|https?:|data:|mailto:|javascript:)/i.test(reference)) return;
+    assert.doesNotMatch(reference, /^\/(?!\/)|^[A-Za-z]:[\\/]/, `${name} must not use an absolute machine path`);
+    const localPath = reference.split(/[?#]/, 1)[0];
+    assert.ok(fs.existsSync(path.resolve(path.dirname(htmlPath), localPath)), `${name} reference is missing after push: ${reference}`);
+  });
+}
+
+assertLocalReferences('Tasks', tasksHtmlPath);
+assertLocalReferences('Calendar', calendarHtmlPath);
 
 for (const [name, html] of [['Tasks', tasksHtml], ['Calendar', calendarHtml]]) {
-  assert.match(html, /src="persistence\.js"/, `${name} must load local persistence`);
+  assert.match(html, /src="persistence\.js\?v=/, `${name} must refresh local persistence when deployed`);
+  assert.match(html, /src="assets\/js\/core\/ui\.js\?v=/, `${name} must refresh the local UI helper when deployed`);
   assert.doesNotMatch(html, /demo-persistence\.js/, `${name} must not load seeded demo persistence`);
   assert.match(html, /src="\.\.\/\.\.\/\.\.\/library\/component\/mini_calendar\/mini-calendar\.js"/, `${name} must load the local mini calendar`);
   assert.match(html, /src="\.\.\/\.\.\/\.\.\/library\/component\/dropdown_list\/dropdown-list\.js"/, `${name} must load the local dropdown component`);
@@ -70,6 +87,9 @@ for (const filePath of [tasksJsPath, calendarJsPath, ...componentPaths]) {
 
 assert.match(styleCss, /\.workspace-persist-dot\[data-indicator="green"\]/);
 assert.match(styleCss, /\.workspace-persist-dot\[data-indicator="amber"\]/);
+assert.match(styleCss, /\.save-status\.is-error \.save-status-dot/);
+assert.match(uiJs, /setSaveIndicator\(snapshot && snapshot\.hasHandle \? 'saving' : 'error'/, 'unconnected status should be visibly red');
+assert.match(uiJs, /setSaveIndicator\('saving'/, 'permission or dirty status should be visibly amber');
 assert.match(styleCss, /\.workspace-persist-lock-warning/);
 assert.match(styleCss, /workspace-persist-lock-fade-in/);
 

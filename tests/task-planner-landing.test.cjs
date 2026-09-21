@@ -17,6 +17,8 @@ assert.match(html, /Grant read and write permission/);
 assert.match(html, /Use Tasks or Calendar/);
 assert.match(html, /landing-title-line/);
 assert.ok((html.match(/data-shiny-text/g) || []).length >= 2, 'landing headline should use a visible ShinyText wipe');
+assert.match(html, /data-shiny-speed="2\.2"/, 'headline wipe should be fast enough to notice');
+assert.match(html, /data-shiny-color-shine="#fff4e4"/, 'headline wipe should use a high-contrast shine');
 assert.match(html, /connection-visual/);
 assert.match(html, /workspace-data\.js/);
 assert.match(html, /No upload/);
