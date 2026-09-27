@@ -8,7 +8,7 @@
   const pages = [
     { href: 'index.html', label: 'Workspace', icon: '../../../library/icon/cony-workspace/hub-command-orbit.svg' },
     { href: 'calendar.html', label: 'Calendar', icon: '../../../library/icon/cony-workspace/calendar-grid.svg' },
-    { href: 'tasks.html', label: 'Tasks', icon: '../../../library/icon/cony-workspace/tasks-stack.svg' }
+    { href: 'tasks.html', label: 'Tasks', icon: '../../../library/icon/cony-workspace/tasks-checklist-dark.svg' }
   ];
 
   const current = window.location.pathname.split('/').pop() || 'index.html';

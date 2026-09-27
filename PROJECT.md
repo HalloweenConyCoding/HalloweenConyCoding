@@ -48,6 +48,9 @@ Review the completed local homepage redesign and its scroll-linked background de
 
 ## Recent Work Log
 Newest first.
+- 2026-09-28 - Matched the Public Workspace Tasks rail icon to the original dark task-page icon.
+  - Changed: Copied the public-safe `tasks-checklist-dark.svg` asset from Cony Workspace into the shared icon library and pointed only the Public Workspace Tasks rail item to it. Left the task-page favicon and other navigation icons unchanged.
+  - Validation: Source and destination SVGs match byte-for-byte; `nav.js` syntax, changed reference, and whitespace checks pass. Graphify update was unavailable because the `graphify` command is not installed.
 - 2026-09-22 - Replaced the legacy Public Workspace rail icons with the filtered ACTIVE navigation treatment.
   - Changed: `nav.js` now uses local `hub-command-orbit.svg`, `calendar-grid.svg`, and `tasks-stack.svg` image assets, keeps only Workspace/Calendar/Tasks routes, and uses the ACTIVE vertical dock interaction for pointer and keyboard focus. No private navigation or data was copied.
   - Validation: connection contract covers local icon existence and references; `nav.js` syntax check passes.
