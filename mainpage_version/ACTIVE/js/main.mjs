@@ -43,7 +43,8 @@ function resize() {
 }
 function viewComposition(narrow=innerWidth<=700) {
   const introBlend=Math.max(0,1-current/.25);
-  camera.setViewOffset(innerWidth,innerHeight,narrow?0:innerWidth*(-.19+.39*introBlend),narrow?innerHeight*.21:0,innerWidth,innerHeight);
+  if(world)world.scene.fog.density=.009+.009*introBlend;
+  camera.setViewOffset(innerWidth,innerHeight,narrow?0:innerWidth*(-.19+.44*introBlend),narrow?innerHeight*(.21+.04*introBlend):0,innerWidth,innerHeight);
 }
 function schedule() {
   if(!raf && !disposed && renderer && camera && world && !document.hidden && !colors.matches)raf=requestAnimationFrame(frame);

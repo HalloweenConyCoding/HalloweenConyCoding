@@ -94,9 +94,10 @@ def scroll(x,z,scale,flip=1,y=-.56):
   xx,yy,zz=pts[j];leaf(xx,yy,zz,scale*.65,flip*(j*.12+.6))
 
 # Blender Z-up becomes browser Y-up; front faces negative Blender Y.
-for z,width,depth in [(0.18,9.4,2.3),(.48,9,2.1),(.72,8.8,1.9),(1,8.4,1.65)]:
- cube('Walnut plinth',(0,0,z),(width,depth,.28),wood,.075)
+for z,width,depth in [(.15,8.6,1.9),(.37,8.3,1.7)]:
+ cube('Walnut plinth',(0,0,z),(width,depth,.22),wood,.075)
  cube('Gilded plinth bead',(0,-depth*.5-.015,z+.12),(width,.05,.035),gold,.01)
+foundation=list(static)
 # The frame is furniture, with space around its dial, not a stone wall.
 cy=5.4;radius=3.3
 cylinder('Enamel astronomical face',radius,.32,(0,-.08,cy),blue,True,128)
@@ -142,18 +143,14 @@ for sign in [-1,1]:
   a=i*math.pi/4;tube('Pillar fluting',[(x+math.cos(a)*.225,math.sin(a)*.225,2.05),(x+math.cos(a)*.225,math.sin(a)*.225,7.85)],.012,edge)
  sphere('Pillar finial',.27,(x,0,8.7),bronze);cylinder('Finial stem',.06,.5,(x,0,8.4),gold,vertices=16)
  for z,sz in [(1.65,.48),(2.2,.4),(7.95,.45),(8.3,.3)]:scroll(x,z,sz,sign)
- for i in range(9):
-  a=(i+.5)*math.pi/18;xx=sign*math.sin(a)*3.8;zz=cy+math.cos(a)*3.8;scroll(xx,zz,.17,sign,y=-.22)
- # Brass astrolabe spheres resting beside the plinth.
- gx=sign*3.6;gz=1.65;sphere('Celestial globe',.48,(gx,-.85,gz),blue)
- for rot in [(math.pi/2,0,0),(0,0,0),(math.pi/2,math.pi/3,0)]:torus('Armillary meridian',.56,.018,(gx,-.85,gz),edge,rot,48)
- cylinder('Globe foot',.23,.15,(gx,-.85,1.07),bronze,vertices=24)
+ for i in range(5):
+  a=(i+.5)*math.pi/10;xx=sign*math.sin(a)*3.8;zz=cy+math.cos(a)*3.8;scroll(xx,zz,.17,sign,y=-.22)
 # Crown: linked scrolls and acanthus leaves.
 for sign in [-1,1]:
- for x,z,scale in [(2.7,8.4,.65),(1.8,9.15,.62),(.8,9.65,.42)]:scroll(sign*x,z,scale,sign,y=-.25)
+ for x,z,scale in [(2.7,8.4,.55),(1.8,9.15,.5)]:scroll(sign*x,z,scale,sign,y=-.25)
  tube('Crown arch',[(sign*(3.3-i*.082),-.12,8.15+math.sin(i/40*math.pi/2)*1.8) for i in range(41)],.065,bronze)
-for i in range(13):
- x=(i-6)*.38;z=9.6-abs(x)*.2;leaf(x,-.22,z,.75,x*.3)
+for i in range(7):
+ x=(i-3)*.57;z=9.6-abs(x)*.2;leaf(x,-.22,z,.75,x*.3)
 sphere('Crown celestial orb',.22,(0,-.02,10.35),blue);torus('Crown orb ring',.26,.018,(0,-.03,10.35),edge)
 cylinder('Crown spire',.027,.48,(0,0,10.65),edge,vertices=12)
 # Pendant below the dial.
@@ -161,13 +158,15 @@ cube('Pendulum recess',(0,0,1.6),(1.9,.35,1.3),black,.06)
 cube('Pendulum stem',(0,-.26,1.8),(.045,.04,1.3),edge,.008)
 sphere('Pendulum bob',.27,(0,-.29,1.25),gold,(1,.25,1))
 for x in [-.88,-.55,.55,.88]:cube('Lower grille',(x,-.25,1.65),(.04,.04,1.14),bronze,.008)
-for sign in [-1,1]:scroll(sign*.9,1.85,.5,sign,y=-.3)
+# Lower support stays quiet; no decorative curls on the foundation.
 # Hands stay separate and their origin is the dial spindle.
 for name,length,angle in [('MinuteHand',2.5,-.72),('HourHand',1.65,.8)]:
  points=[(0,0,-.42),(-.12,0,-.2),(-.055,0,.15),(-.035,0,length-.38),(-.12,0,length-.5),(0,0,length),(.12,0,length-.5),(.035,0,length-.38),(.055,0,.15),(.12,0,-.2)]
  verts=[(x,y+dy,z) for dy in [-.035,.035] for x,y,z in points];n=len(points);faces=[tuple(range(n-1,-1,-1)),tuple(range(n,2*n))]+[(i,(i+1)%n,(i+1)%n+n,i+n) for i in range(n)]
  data=bpy.data.meshes.new(name);data.from_pydata(verts,[],faces);data.update();o=bpy.data.objects.new(name,data);bpy.context.collection.objects.link(o);o.location=(0,-.7,cy);o.rotation_euler.y=angle;finish(o,edge,True)
 sphere('Spindle jewel',.13,(0,-.78,cy),gold)
+for obj in list(bpy.context.scene.objects):
+ if obj not in foundation:obj.location.z-=.6
 # Join static geometry by material to keep browser draw calls bounded.
 groups={mat:[o for o in static if o.data.materials[0]==mat] for mat in [gold,edge,bronze,wood,blue,black,dial]}
 for mat,objects in groups.items():

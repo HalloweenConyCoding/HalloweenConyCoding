@@ -20,18 +20,33 @@ function woodMap() {
 /** An actual room and separately exported clock; no photographic backdrop. */
 export async function buildLibrary(scene,clock,animations) {
   const gltf=await new GLTFLoader().loadAsync(new URL('../assets/models/astronomical-clock.glb',import.meta.url).href);
-  clock.add(gltf.scene);clock.position.set(-1.6,0,1);
+  clock.add(gltf.scene);clock.position.set(-3.8,.03,-1.1);clock.scale.setScalar(.88);clock.rotation.y=-.16;
+  // The timepiece is an installed observatory instrument, not an evenly lit display.
+  const dialCenter=new THREE.Vector3(0,4.8,.25);clock.localToWorld(dialCenter);
   for(const [name,speed] of [['MinuteHand',.007],['HourHand',.0006]]) {
     const object=gltf.scene.getObjectByName(name);if(object)animations.push({object,speed});
   }
-  gltf.scene.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});
+  const clockMaterials=new Set();
+  gltf.scene.traverse(o=>{if(o.isMesh){
+    o.castShadow=true;o.receiveShadow=true;
+    for(const mat of Array.isArray(o.material)?o.material:[o.material]) {
+      if(clockMaterials.has(mat))continue;clockMaterials.add(mat);
+      if(mat.name==='Antique gold'){mat.color.multiplyScalar(.68);mat.roughness=.48;}
+      if(mat.name==='Polished engraved brass'){mat.color.multiplyScalar(.72);mat.roughness=.43;}
+      if(mat.name==='Carved walnut'){mat.color.multiplyScalar(.65);mat.roughness=.66;}
+      if(mat.name==='Mechanism recess'){mat.emissive.set('#9a5526');mat.emissiveIntensity=.12;}
+    }
+  }});
   const room=new THREE.Group();room.name='library';scene.add(room);
   const wood=new THREE.MeshStandardMaterial({map:woodMap(),roughness:.5});
   const walnut=new THREE.MeshStandardMaterial({color:'#20140e',roughness:.62});
   const brass=new THREE.MeshStandardMaterial({color:'#b38a43',metalness:.8,roughness:.34});
+  const agedBrass=new THREE.MeshStandardMaterial({color:'#625542',metalness:.58,roughness:.68});
+  const recessedWood=wood.clone();recessedWood.color.set('#756c61');recessedWood.roughness=.85;
+  const recessedBrass=agedBrass.clone();recessedBrass.color.set('#45423b');
   const stone=new THREE.MeshStandardMaterial({color:'#303638',roughness:.88});
   const enamel=new THREE.MeshStandardMaterial({color:'#172b39',metalness:.25,roughness:.6});
-  const parchment=new THREE.MeshStandardMaterial({color:'#bda77e',roughness:.9});
+  const parchment=new THREE.MeshStandardMaterial({color:'#958469',roughness:.9});
   // Merge fixed furniture by material; repeated books remain instanced.
   const batches=new Map();const transform=new THREE.Object3D();
   function part(geometry,mat,pos=[0,0,0],rot=[0,0,0]) {
@@ -53,21 +68,23 @@ export async function buildLibrary(scene,clock,animations) {
     }
     let seed=412;for(let i=0;i<14000;i++){seed=(seed*1664525+1013904223)>>>0;const x=(seed>>>16)%w;seed=(seed*1664525+1013904223)>>>0;ctx.fillStyle=i%2?'rgba(10,15,18,.12)':'rgba(134,139,132,.09)';ctx.fillRect(x,(seed>>>16)%h,1+(seed%3),1+(seed%4));}
   });floorMap.wrapS=floorMap.wrapT=THREE.RepeatWrapping;floorMap.repeat.set(6,7);
-  const floor=new THREE.MeshStandardMaterial({map:floorMap,roughness:.32,metalness:.15});
+  const floor=new THREE.MeshStandardMaterial({map:floorMap,color:'#9b9f9c',roughness:.48,metalness:.08});
   box([34,.12,42],[-1,-.005,-9],floor);
   box([34,21,.5],[-1,10.5,-16],stone);
-  // Seven tall walnut bookcases, with articulated cornices and inset side pillars.
+  // Recessed and staggered shelves frame the instrument alcove instead of filling a flat wall.
   const bookPlacements=[];let seed=816;
   const rand=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296;};
   function shelf(x,z,width=3.6,height=16) {
+    const shelfMaterial=z<-12?recessedWood:wood,shelfTrim=z<-12?recessedBrass:agedBrass;
+    const shelfBox=(size,pos,mat=shelfMaterial)=>box(size,pos,mat);
     box([width,height,.2],[x,height/2,z-.38],walnut);
     for(const dx of [-width/2,width/2]) {
-      box([.23,height,1],[x+dx,height/2,z]);cyl(.11,height,[x+dx,height/2,z+.52],brass);
-      box([.48,.22,1.25],[x+dx,.2,z]);box([.45,.23,1.25],[x+dx,height-.2,z]);
+      shelfBox([.23,height,1],[x+dx,height/2,z]);cyl(.11,height,[x+dx,height/2,z+.52],shelfTrim);
+      shelfBox([.48,.22,1.25],[x+dx,.2,z]);shelfBox([.45,.23,1.25],[x+dx,height-.2,z]);
     }
-    for(const [dy,w,d] of [[height,width+.55,1.3],[height+.25,width+.7,1.4],[.2,width+.35,1.25]])box([w,.18,d],[x,dy,z]);
+    for(const [dy,w,d] of [[height,width+.55,1.3],[height+.25,width+.7,1.4],[.2,width+.35,1.25]])shelfBox([w,.18,d],[x,dy,z]);
     for(let y=.7;y<height-.6;y+=1.3) {
-      box([width,.13,1],[x,y,z]);box([width,.025,.045],[x,y+.08,z+.51],brass);
+      shelfBox([width,.13,1],[x,y,z]);shelfBox([width,.025,.045],[x,y+.08,z+.51],shelfTrim);
       let xx=-width/2+.2;
       while(xx<width/2-.25) {
         const bw=.13+rand()*.16,bh=.65+rand()*.4;
@@ -75,11 +92,31 @@ export async function buildLibrary(scene,clock,animations) {
       }
     }
     // Pierced fan ornament above each cabinet.
-    torus(.5,.024,[x,height+.32,z+.56]);
-    for(let i=0;i<7;i++){const a=i*Math.PI/6;tube([[x,height+.3,z+.56],[x+Math.cos(a)*.5,height+.3+Math.sin(a)*.5,z+.56]],.016);}
+    torus(.5,.024,[x,height+.32,z+.56],[0,0,0],shelfTrim);
+    for(let i=0;i<7;i++){const a=i*Math.PI/6;tube([[x,height+.3,z+.56],[x+Math.cos(a)*.5,height+.3+Math.sin(a)*.5,z+.56]],.016,shelfTrim);}
   }
-  for(const x of [-13,-9,-5,-1,3])shelf(x,-5.8,3.7,18);
+  shelf(-12.8,-5.8,3.7,18);shelf(-8.8,-8.2,3.7,18.6);
   for(const x of [-13,-9,-5,-1,3])shelf(x,-14.6,3.7,20);
+  // A built-in stone bay makes the clock part of the architecture.
+  for(const x of [-8.5,.9]) {
+    box([.65,12,1.1],[x,6,-5.3],stone);
+    box([1.05,.28,1.4],[x,.2,-5.3],stone);
+    box([.9,.34,1.3],[x,10.8,-5.3],stone);
+    cyl(.04,10,[x-.22,5.5,-4.67],agedBrass);
+  }
+  tube([[-8.5,10.5,-5.3],[-7.2,12.6,-5.3],[-3.8,14,-5.3],[-.4,12.6,-5.3],[.9,10.5,-5.3]],.24,stone);
+  tube([[-8.5,10.5,-5.12],[-7.2,12.6,-5.12],[-3.8,14,-5.12],[-.4,12.6,-5.12],[.9,10.5,-5.12]],.022,agedBrass);
+  // The floor collar and cross-braces share the clock's foundation.
+  box([7.8,.1,2.2],[-3.8,.065,-1.1],stone,[0,-.16,0]);
+  for(const sign of [-1,1]) {
+    const foot=clock.localToWorld(new THREE.Vector3(sign*3.63,.56,0));
+    box([.7,.18,.8],foot.toArray(),walnut,[0,-.16,0]);
+    const anchor=clock.localToWorld(new THREE.Vector3(sign*3.63,.7,-.45));
+    tube([anchor.toArray(),[anchor.x,1.4,-3.7],[sign<0?-8.5:.9,2.1,-5.1]],.065,walnut);
+  }
+  // An access ladder follows the shelf wall, not the hero silhouette.
+  for(const x of [-9.9,-9])tube([[x,.1,-6.7],[x,9,-8.15]],.045,walnut);
+  for(let y=.45;y<9;y+=.5)box([.95,.035,.11],[-9.45,y,-6.7-y*.16],walnut);
   // Book bindings with ribs, foil ornaments, and worn leather grain.
   const bookMap=canvasMap((ctx,w,h)=>{
     ctx.fillStyle='#e0cab0';ctx.fillRect(0,0,w,h);
@@ -93,7 +130,7 @@ export async function buildLibrary(scene,clock,animations) {
   const palette=['#947047','#705842','#486354','#4c5c6c','#8c4936','#5c3f33','#777062'];
   for(let i=0;i<palette.length;i++) {
     const positions=bookPlacements.filter(b=>b.color===i);const books=new THREE.InstancedMesh(new THREE.BoxGeometry(1,1,1),new THREE.MeshStandardMaterial({map:bookMap,color:palette[i],roughness:.78}),positions.length);
-    for(let j=0;j<positions.length;j++){const b=positions[j];transform.position.set(...b.pos);transform.scale.set(...b.scale);transform.rotation.set(0,0,b.tilt);transform.updateMatrix();books.setMatrixAt(j,transform.matrix);}
+    for(let j=0;j<positions.length;j++){const b=positions[j];books.setColorAt(j,new THREE.Color().setScalar(b.pos[2]<-12?.63:.86));transform.position.set(...b.pos);transform.scale.set(...b.scale);transform.rotation.set(0,0,b.tilt);transform.updateMatrix();books.setMatrixAt(j,transform.matrix);}
     books.castShadow=true;books.receiveShadow=true;room.add(books);
   }
   // Gothic window behind the text area. Tracery has geometric depth.
@@ -145,7 +182,7 @@ export async function buildLibrary(scene,clock,animations) {
   for(const z of [4.45,4.8,5.15])part(new THREE.CylinderGeometry(.14,.14,1.25,24),parchment,[.2,1.94,z],[0,0,Math.PI/2]);
   box([.3,.25,.3],[.8,1.9,6],enamel);tube([[.8,2.05,6],[1.2,3,6],[1.55,3.5,6]],.025,parchment);
   // Smaller desks down the aisle and celestial instruments.
-  for(const [x,z] of [[7,-5],[9,-11],[-8,-11]]) {
+  for(const [x,z] of [[4.1,-10],[12,-13],[-8,-11]]) {
     box([3.6,.16,1.8],[x,1.8,z]);for(const dx of [-1.4,1.4])for(const dz of [-.6,.6])cyl(.08,1.8,[x+dx,.9,z+dz]);
     part(new THREE.SphereGeometry(.4,24,12),enamel,[x,2.45,z]);
     for(const rot of [[0,0,0],[Math.PI/2,0,0],[0,Math.PI/3,0]])torus(.52,.025,[x,2.45,z],rot);
@@ -160,7 +197,7 @@ export async function buildLibrary(scene,clock,animations) {
     part(new THREE.SphereGeometry(.045,8,6),flame,[x,y+height+.08,z]);
     const glow=new THREE.Sprite(glowMaterial);glow.position.set(x,y+height+.08,z);glow.scale.set(.8,1,.8);room.add(glow);
   }
-  for(const [x,y,z] of [[-5,2.55,4.3],[.4,1.85,4.1],[7,1.9,-5],[-8,1.9,-11],[9,1.9,-11],[-9,7,-4.9],[-5,12,-4.9],[3,10,-4.9],[-13,15,-4.9]]) {
+  for(const [x,y,z] of [[-5,2.55,4.3],[.4,1.85,4.1],[4.1,1.9,-10],[-8,1.9,-11],[12,1.9,-13],[-8.8,7,-7.65],[-8.5,10.2,-4.68],[.9,8,-4.68],[-12.8,15,-5.25]]) {
     for(const dx of [-.24,0,.24])candle(x+dx,y,z,.45+Math.abs(dx));
     if(y>3){box([1,.08,.45],[x,y-.06,z],brass);tube([[x,y,z],[x,y-.6,z-.2],[x,y-.6,z-.5]],.045);}
   }
@@ -170,8 +207,14 @@ export async function buildLibrary(scene,clock,animations) {
   for(const [x,y,z,power,distance] of [[-4,4,3,24,17],[2,7,-3,30,17],[9,4,-9,30,13]]) {
     const light=new THREE.PointLight('#ffb565',power,distance,2);light.position.set(x,y,z);room.add(light);
   }
-  const key=new THREE.SpotLight('#ffc179',190,35,.7,.7,1.5);key.position.set(-6,10,9);key.target.position.set(-1.5,5,1);key.castShadow=true;key.shadow.mapSize.set(1024,1024);key.shadow.bias=-.0004;key.shadow.normalBias=.03;key.shadow.camera.near=.5;key.shadow.camera.far=35;room.add(key,key.target);
-  const windowLight=new THREE.SpotLight('#9bc6ef',600,45,.43,.85,1.5);windowLight.position.set(10,12,-13);windowLight.target.position.set(-3,1,4);room.add(windowLight,windowLight.target);
+  const key=new THREE.SpotLight('#ffc179',100,30,.38,.85,1.5);key.position.set(-4.4,7,3.5);key.target.position.copy(dialCenter);key.castShadow=true;key.shadow.mapSize.set(1024,1024);key.shadow.bias=-.0004;key.shadow.normalBias=.03;key.shadow.camera.near=.5;key.shadow.camera.far=35;room.add(key,key.target);
+  const windowLight=new THREE.SpotLight('#9bc6ef',600,45,.43,.85,1.5);windowLight.position.set(10,12,-13);windowLight.target.position.set(-4.6,5.8,-1.8);room.add(windowLight,windowLight.target);
+  const clockSpill=new THREE.PointLight('#ffc078',12,11,2);clockSpill.position.copy(dialCenter).add(new THREE.Vector3(0,-.2,1.15));room.add(clockSpill);
+  // Candlelight catches the foundation and desk edge; the face's warm spill shares this pool.
+  candle(-6.3,.7,.5,.75);candle(-5.9,.7,.5,.48);
+  const windowGlow=canvasMap((ctx,w,h)=>{const g=ctx.createRadialGradient(w/2,h/2,0,w/2,h/2,w/2);g.addColorStop(0,'rgba(255,255,255,.55)');g.addColorStop(.35,'rgba(255,255,255,.15)');g.addColorStop(1,'rgba(255,255,255,0)');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);},128,128);
+  const windowBloom=new THREE.Sprite(new THREE.SpriteMaterial({map:windowGlow,color:'#8cb9db',transparent:true,opacity:.20,depthWrite:false,blending:THREE.AdditiveBlending}));
+  windowBloom.position.set(9.5,10.5,-14.9);windowBloom.scale.set(10,15,1);room.add(windowBloom);
   // A restrained arcane halo is real scene geometry, independent of the dial texture.
   const runeMap=canvasMap((ctx,w,h)=>{
     ctx.translate(w/2,h/2);ctx.strokeStyle='#7ea9a1';ctx.fillStyle='#a7c1a2';ctx.lineWidth=1.5;
@@ -180,19 +223,14 @@ export async function buildLibrary(scene,clock,animations) {
     for(let i=0;i<32;i++){const a=i*Math.PI/16;ctx.save();ctx.translate(Math.sin(a)*w*.45,-Math.cos(a)*w*.45);ctx.rotate(a);ctx.fillText(glyphs[i%glyphs.length],0,0);ctx.restore();}
   },1024,1024);
   const halo=new THREE.Mesh(new THREE.PlaneGeometry(8.1,8.1),new THREE.MeshBasicMaterial({map:runeMap,transparent:true,opacity:.24,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide}));
-  halo.position.set(-1.6,5.4,.75);room.add(halo);
+  halo.position.set(0,4.8,.02);clock.add(halo);
   const spellGeometry=new THREE.BufferGeometry();const spellPoints=[];
-  for(let i=0;i<64;i++){const a=rand()*Math.PI*2,r=3.6+rand()*.7;spellPoints.push(-1.6+Math.sin(a)*r,5.4+Math.cos(a)*r,.4+rand()*.7);}
+  for(let i=0;i<64;i++){const a=rand()*Math.PI*2,r=3.6+rand()*.7;spellPoints.push(Math.sin(a)*r,4.8+Math.cos(a)*r,.1+rand()*.7);}
   spellGeometry.setAttribute('position',new THREE.Float32BufferAttribute(spellPoints,3));
-  room.add(new THREE.Points(spellGeometry,new THREE.PointsMaterial({color:'#97c9ba',size:.022,transparent:true,opacity:.55,depthWrite:false,blending:THREE.AdditiveBlending})));
+  clock.add(new THREE.Points(spellGeometry,new THREE.PointsMaterial({color:'#97c9ba',size:.022,transparent:true,opacity:.55,depthWrite:false,blending:THREE.AdditiveBlending})));
   const moonFill=new THREE.PointLight('#91bee6',85,24,2);moonFill.position.set(9,9,-7);room.add(moonFill);
-  // Soft shafts from the Gothic window suggest moonlit haze, without a flat backdrop.
-  const shaftMaterial=new THREE.MeshBasicMaterial({color:'#7aaed0',transparent:true,opacity:.012,depthWrite:false,blending:THREE.AdditiveBlending,side:THREE.DoubleSide});
-  const from=new THREE.Vector3(10,12,-13),to=new THREE.Vector3(-3,1,4),delta=to.clone().sub(from);
-  const shaft=new THREE.Mesh(new THREE.ConeGeometry(4,delta.length(),24,1,true),shaftMaterial);
-  shaft.position.copy(from).add(to).multiplyScalar(.5);shaft.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),delta.clone().negate().normalize());room.add(shaft);
   // Quiet dust motes supply depth; motion stays limited to the clock hands.
-  const dust=[];for(let i=0;i<160;i++)dust.push(rand()*22-10,rand()*15+1,-rand()*17);
+  const dust=[];for(let i=0;i<200;i++)dust.push(rand()*22-10,rand()*15+1,-rand()*17);
   const dustGeometry=new THREE.BufferGeometry();dustGeometry.setAttribute('position',new THREE.Float32BufferAttribute(dust,3));
   room.add(new THREE.Points(dustGeometry,new THREE.PointsMaterial({color:'#dcc49d',size:.025,transparent:true,opacity:.45,depthWrite:false})));
   for(const [mat,geometries] of batches) {

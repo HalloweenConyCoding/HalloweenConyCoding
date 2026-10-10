@@ -96,6 +96,8 @@ def journey(browser):
 def resilience(browser):
     def instrument(page):
         page.add_init_script("""window.__scheduledFrames=0; window.__draws=0;
+        window.__motionChanges=[];
+        matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',event=>window.__motionChanges.push(event.matches));
         const request=window.requestAnimationFrame.bind(window),cancel=window.cancelAnimationFrame.bind(window);
         window.__pendingFrames=new Set();
         window.requestAnimationFrame=fn=>{window.__scheduledFrames++;let id=request(time=>{window.__pendingFrames.delete(id);fn(time);});window.__pendingFrames.add(id);return id;};
@@ -138,7 +140,9 @@ def resilience(browser):
     check(page.evaluate('window.__scheduledFrames')==frames,'Reduced motion has no continuous scheduling')
     page.emulate_media(reduced_motion='no-preference');page.wait_for_function('(draws) => window.__draws > draws',arg=draws)
     check(page.evaluate('window.__draws')>draws,'Motion can resume after preference change')
-    page.emulate_media(reduced_motion='reduce');page.wait_for_function('window.__pendingFrames.size === 0')
+    page.emulate_media(reduced_motion='reduce')
+    page.wait_for_function('window.__motionChanges.at(-1) === true')
+    page.wait_for_function('window.__pendingFrames.size === 0')
     draws=page.evaluate('window.__draws');page.wait_for_timeout(300)
     check(page.evaluate('window.__draws')==draws,'Dynamic reduced motion stops animation')
     page.emulate_media(forced_colors='active')

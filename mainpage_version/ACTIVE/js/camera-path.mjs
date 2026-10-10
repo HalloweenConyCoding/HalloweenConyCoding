@@ -48,6 +48,7 @@ export function sampleCamera(progress, narrow = false) {
     // Back away along the viewing direction to keep tall props in a portrait frame.
     for (let axis = 0; axis < 3; axis++) position[axis] = target[axis] + (position[axis] - target[axis]) * 1.2;
   }
+  if(narrow){const introBlend=Math.max(0,1-scaled);position[0]-=2.2*introBlend;target[0]-=2.2*introBlend;}
   return {position, target, fov: narrow ? 58 : 48};
 }
 
