@@ -51,12 +51,12 @@ def journey(browser):
     check(page.evaluate("document.documentElement.dataset.renderMode") == 'webgl', 'Actual WebGL initialization required')
     page.wait_for_timeout(350)
     canvas=page.locator('#world')
-    rendered=canvas.screenshot()
+    rendered=canvas.screenshot(timeout=90000)
     page.evaluate("document.getElementById('world').style.visibility='hidden'")
-    fallback=page.screenshot()
+    fallback=page.screenshot(timeout=90000)
     page.evaluate("document.getElementById('world').style.visibility=''")
     check(hashlib.sha256(rendered).digest()!=hashlib.sha256(fallback).digest(),'Rendered canvas differs from CSS fallback')
-    groups=page.evaluate("""async () => {const {createWorld}=await import('./js/world.mjs');const world=createWorld(); const names=['clock','station','workstation','telescope'].filter(name=>world.scene.getObjectByName(name));world.dispose();return names;}""")
+    groups=page.evaluate("""async () => {const {createWorld}=await import('./js/world.mjs');const world=await createWorld(); const names=['clock','station','workstation','telescope'].filter(name=>world.scene.getObjectByName(name));world.dispose();return names;}""")
     check(len(groups)==4,'All four landmarks are real scene objects')
     output=Path('/tmp/observatory-review');output.mkdir(exist_ok=True)
     views=[]
@@ -67,8 +67,8 @@ def journey(browser):
         page.wait_for_function("(id) => document.querySelector('nav a[aria-current]')?.hash === '#'+id",arg=chapter)
         check(page.get_by_role('navigation',name='Chapters').locator(f'a[href="#{chapter}"]').get_attribute('aria-current')=='location','Current chapter agrees with anchor: '+chapter)
         page.wait_for_timeout(850)
-        page.screenshot(path=str(output/f'desktop-{chapter}.png'))
-        views.append(hashlib.sha256(canvas.screenshot()).hexdigest())
+        page.screenshot(timeout=90000,path=str(output/f'desktop-{chapter}.png'))
+        views.append(hashlib.sha256(canvas.screenshot(timeout=90000)).hexdigest())
     check(len(set(views))==4,'Four distinct rendered camera views')
     intro_link=page.get_by_role('navigation',name='Chapters').locator('a[href="#intro"]')
     intro_link.focus();intro_link.press('Enter')
@@ -89,20 +89,30 @@ def journey(browser):
         for chapter in ['intro','telecom','coding','explore']:
             page.get_by_role('navigation',name='Chapters').locator(f'a[href="#{chapter}"]').click()
             page.wait_for_timeout(700)
-            if width==390:page.screenshot(path=str(output/f'mobile-{chapter}.png'))
+            if width==390:page.screenshot(timeout=90000,path=str(output/f'mobile-{chapter}.png'))
     check(not errors,'No browser JavaScript errors: '+str(errors))
     context.close()
 
 def resilience(browser):
     def instrument(page):
         page.add_init_script("""window.__scheduledFrames=0; window.__draws=0;
-        const request=window.requestAnimationFrame.bind(window);
-        window.requestAnimationFrame=fn=>{window.__scheduledFrames++;return request(fn);};
+        const request=window.requestAnimationFrame.bind(window),cancel=window.cancelAnimationFrame.bind(window);
+        window.__pendingFrames=new Set();
+        window.requestAnimationFrame=fn=>{window.__scheduledFrames++;let id=request(time=>{window.__pendingFrames.delete(id);fn(time);});window.__pendingFrames.add(id);return id;};
+        window.cancelAnimationFrame=id=>{window.__pendingFrames.delete(id);cancel(id);};
         for(const type of [WebGLRenderingContext,WebGL2RenderingContext]){
           for(const method of ['drawElements','drawArrays']){
             const original=type.prototype[method];type.prototype[method]=function(...args){window.__draws++;return original.apply(this,args);};
           }
         }""")
+    # Idle first-scene rendering must stop; otherwise a rich scene monopolizes the GPU.
+    context=browser.new_context(viewport={'width':1440,'height':900})
+    page=context.new_page();instrument(page)
+    page.goto(URL,wait_until='load');page.wait_for_function("document.documentElement.dataset.renderMode === 'webgl'")
+    page.wait_for_function("window.__pendingFrames.size === 0",timeout=10000)
+    frames=page.evaluate('window.__scheduledFrames');page.wait_for_timeout(250)
+    check(page.evaluate('window.__scheduledFrames')==frames,'Settled intro stops scheduling')
+    context.close()
     for failure in ['blocked-runtime','no-webgl','context-lost']:
         print('Checking fallback:',failure,flush=True)
         context=browser.new_context(viewport={'width':390,'height':844})
@@ -122,13 +132,13 @@ def resilience(browser):
     context=browser.new_context(viewport={'width':1440,'height':900},reduced_motion='reduce')
     page=context.new_page();instrument(page);errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
     page.goto(URL,wait_until='load');page.wait_for_function("document.documentElement.dataset.renderMode === 'webgl'")
-    page.wait_for_timeout(200);draws=page.evaluate('window.__draws');frames=page.evaluate('window.__scheduledFrames')
+    page.wait_for_function('window.__pendingFrames.size === 0');draws=page.evaluate('window.__draws');frames=page.evaluate('window.__scheduledFrames')
     page.wait_for_timeout(300)
     check(page.evaluate('window.__draws')==draws,'Reduced motion has no continuous drawing')
     check(page.evaluate('window.__scheduledFrames')==frames,'Reduced motion has no continuous scheduling')
-    page.emulate_media(reduced_motion='no-preference');page.wait_for_timeout(150)
+    page.emulate_media(reduced_motion='no-preference');page.wait_for_function('(draws) => window.__draws > draws',arg=draws)
     check(page.evaluate('window.__draws')>draws,'Motion can resume after preference change')
-    page.emulate_media(reduced_motion='reduce');page.wait_for_timeout(200)
+    page.emulate_media(reduced_motion='reduce');page.wait_for_function('window.__pendingFrames.size === 0')
     draws=page.evaluate('window.__draws');page.wait_for_timeout(300)
     check(page.evaluate('window.__draws')==draws,'Dynamic reduced motion stops animation')
     page.emulate_media(forced_colors='active')

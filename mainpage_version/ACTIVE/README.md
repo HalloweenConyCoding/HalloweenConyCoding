@@ -39,7 +39,7 @@ The original test suite has a known failure in `tests/task-planner-connection.te
 
 ## Rendering and motion
 
-Desktop rendering caps device pixel ratio at 1.5; screens 700 CSS pixels wide or narrower cap it at 1. Motion is subtle at the clock and stops when the camera settles elsewhere. Hidden pages stop scheduling animation. Reduced motion shows a stable clock view. Forced colors removes decorative rendering. Missing WebGL, failed runtime loading, and lost rendering contexts leave readable HTML and native navigation over the CSS atmosphere.
+Desktop rendering caps device pixel ratio at 1.5; screens 700 CSS pixels wide or narrower cap it at 1. The clock hands move subtly during the first camera transition. Drawing stops once the camera settles in every chapter, including the clock, to keep the detailed scene from continuously using the GPU. Hidden pages stop scheduling animation. Reduced motion shows a stable clock view. Forced colors removes decorative rendering. Missing WebGL, failed runtime loading, and lost rendering contexts leave readable HTML and native navigation over the CSS atmosphere.
 
 ## Runtime integrity
 
@@ -47,13 +47,15 @@ Desktop rendering caps device pixel ratio at 1.5; screens 700 CSS pixels wide or
 
 ## Scope and remaining work
 
-This is the functional geometry prototype, not the detailed illustration in the approved storyboard. It establishes the world layout, camera movement, and portfolio usability. The clock now has an initial detail pass: locally authored stone and bronze textures, recessed masonry joints, extruded toothed gears and ornate hands, engraved dial markings, instanced fasteners, and lantern lighting. The station, workstation, and astronomy scenes remain geometry prototypes. Further architectural atmosphere and material polish are still needed to approach the illustrative storyboard.
+The first scene is now an ancient magical library: a separately loaded GLB astronomical clock on the left, portfolio copy on the right, tall walnut bookcases, books, writing desks, candles, celestial instruments, Gothic window, subtle rune halo and moonlit haze. The clock includes original carved geometry and a generated engraved dial texture. This is a rendered 3D scene; no room photograph or storyboard image is used as its backdrop. It is still an interpretation of the supplied visual reference, not a claim of matching its photorealism.
+
+The station, workstation and astronomy scenes remain the functional geometry prototypes. Further visual refinement and physical-device performance review remain outstanding. The current root `index.html` is unchanged.
 
 Phone viewport checks do not establish physical-phone GPU speed or battery use. Cloud frame timing comes from software rendering and is not a hardware performance guarantee. Test on Beer's phone when a hosted review is requested. No Site or GitHub deployment has been created by this implementation.
 
 ## Implementation decisions and review evidence
 
-The accepted visual storyboard is retained as `docs/storyboard.png`. Review screenshots are in `docs/review/`; `clock-refined.png` and `clock-refined-mobile.png` show the first clock detail pass; the other images preserve the functional prototype. These are browser renders, while the storyboard is an illustrative target.
+The accepted visual storyboard is retained as `docs/storyboard.png`. Review screenshots are in `docs/review/`; `library-magic-desktop.png` and `library-magic-mobile.png` show the latest ancient magical library; `clock-refined.png` and `clock-refined-mobile.png` preserve the preceding clock detail pass; the other images preserve the functional prototype. These are browser renders, while the storyboard is an illustrative target.
 
 The tower camera was pulled back and raised to keep the antennas visible. The workstation view moved to a more frontal angle because the initial phone view showed the screen edge-on. Chapter measurements include the native anchor offset, and the current-chapter indicator tolerates one-pixel rounding. These are composition/measurement adjustments to the draft route, preserving the agreed journey.
 
@@ -63,6 +65,16 @@ The unavailable-WebGL fixture blocks all context names, including `experimental-
 
 Observed cloud render sample at 1440×900: 152 draw calls and 14,110 triangles; median interval 182.6 ms across twelve software-rendered frames while other validation was running. This establishes geometry/rendering evidence, not production hardware speed. Physical-phone review is still needed.
 
-Final validation: 7 Node camera tests and 67 browser checks passed, including actual WebGL rendering, keyboard navigation, no-script content, fallbacks, motion preferences, hidden/idle scheduling, and integrated timing. Existing root tests remain at 3 passing files and 1 unchanged stale-icon failure. Existing application files were compared against commit `3a4e68a` and have no changes.
+Prototype validation before the library pass: 7 Node camera tests and 67 browser checks passed, including actual WebGL rendering, keyboard navigation, no-script content, fallbacks, motion preferences, hidden/idle scheduling, and integrated timing. Existing root tests remain at 3 passing files and 1 unchanged stale-icon failure. Existing application files were compared against commit `3a4e68a` and have no changes.
 
-The clock detail pass retains the same camera route and HTML content. Its textures are deterministic canvas surfaces authored in `js/clock.mjs`; gears use extruded annular geometry and masonry/bolts use instancing to reduce separate draw calls. No external model or texture assets are required.
+The preceding clock detail pass retained the same camera route and HTML content. Its textures are deterministic canvas surfaces authored in `js/clock.mjs`; gears use extruded annular geometry and masonry/bolts use instancing to reduce separate draw calls. No external model or texture assets are required.
+
+## Clock and library assets
+
+Model and texture sources are recorded in `assets/models/PROVENANCE.md`; the Three.js loader, geometry utility and reflection-environment sources are recorded in `assets/vendor/PROVENANCE.md`. `js/library.mjs` assembles the room, merges fixed geometry by material, and instances books. The GLB has roughly 115,000 triangles and occupies about 7 MB, including embedded maps. Shadows are computed once for the static room; the moving hands do not refresh them. Reflection lighting is generated locally. These choices need physical-phone validation before publication.
+
+The scene keeps native scrolling and the original camera route. Desktop camera composition shifts from clock-left at the intro to landmark-right in the later sections; mobile retains its overhead model / readable card layout. Loading is asynchronous, with cancellation checks so context loss during loading cannot re-enable a disposed renderer. Asset-load failure retains the HTML fallback. `python3 mainpage_version/ACTIVE/tests/library-assets.py` checks successful GLB loading, failed-model navigation, and context loss while initialization is pending.
+
+The detailed scene initially drew continuously at the intro, causing cloud software-renderer input and screenshot timeouts. A regression instrument tracks outstanding animation callbacks rather than inferring idleness from frame intervals; it failed against continuous intro drawing and verifies that drawing stops at rest. Browser captures allow longer software-GPU screenshot timeouts, and motion-preference assertions wait for observed draws rather than a fixed 150 ms delay. These checks are not a device-speed benchmark.
+
+Library-pass validation: 7 camera tests and 68 complete browser checks passed, including real WebGL journey/navigation, idle intro scheduling, preferences, hidden tabs, context failure and integrated camera timing. The separate asset integration checks passed for successful GLB loading, failed-model navigation and context loss during loading. The latter was observed failing before cancellation checks were added, then passing. A fresh reviewer confirmed hand pivots and batching and identified that cancellation issue; it is fixed, and asset provenance is updated. Existing root tests still have 3 passing files and the unchanged `tests/task-planner-connection.test.cjs` stale-icon failure. No existing application files were changed; no deployment was created.

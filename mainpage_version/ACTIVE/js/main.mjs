@@ -30,19 +30,23 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',
 
 function resize() {
   measure();navigation();
-  if(renderer){
+  if(renderer && camera){
     const narrow=innerWidth<=700;
     renderer.setPixelRatio(Math.min(devicePixelRatio,narrow?1:1.5));
     renderer.setSize(innerWidth,innerHeight,false);
     camera.aspect=innerWidth/innerHeight;
     // Shift the view to place the landmark beside desktop text or above mobile text.
-    camera.setViewOffset(innerWidth,innerHeight,narrow?0:-innerWidth*.19,narrow?innerHeight*.21:0,innerWidth,innerHeight);
+    viewComposition(narrow);
     camera.updateProjectionMatrix();
   }
   dirty=true;schedule();
 }
+function viewComposition(narrow=innerWidth<=700) {
+  const introBlend=Math.max(0,1-current/.25);
+  camera.setViewOffset(innerWidth,innerHeight,narrow?0:innerWidth*(-.19+.39*introBlend),narrow?innerHeight*.21:0,innerWidth,innerHeight);
+}
 function schedule() {
-  if(!raf && !disposed && renderer && !document.hidden && !colors.matches)raf=requestAnimationFrame(frame);
+  if(!raf && !disposed && renderer && camera && world && !document.hidden && !colors.matches)raf=requestAnimationFrame(frame);
 }
 function frame(now) {
   raf=0;
@@ -52,8 +56,8 @@ function frame(now) {
   current=motion.matches?0:damp(current,target,dt);
   if(Math.abs(current-target)<.00001)current=target;
   const sample=sampleCamera(current,innerWidth<=700);
-  camera.position.set(...sample.position);camera.lookAt(...sample.target);camera.fov=sample.fov;camera.updateProjectionMatrix();
-  const animateClock=!motion.matches && current<.19;
+  camera.position.set(...sample.position);camera.lookAt(...sample.target);camera.fov=sample.fov;viewComposition();camera.updateProjectionMatrix();
+  const animateClock=!motion.matches && current<.19 && current!==target;
   if(animateClock)world.update(Math.min(dt,.05));
   if(dirty||animateClock||current!==target){renderer.render(world.scene,camera);dirty=false;}
   if(animateClock||current!==target)schedule();
@@ -79,12 +83,22 @@ measure();navigation();
 root.dataset.renderMode='loading';
 try {
   const [THREE,{createWorld}]=await Promise.all([import('../assets/vendor/three.module.js'),import('./world.mjs')]);
+  if(disposed)throw new Error('Scene initialization was cancelled.');
   renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'low-power'});
+  renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;
   renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.2;
+  const {RoomEnvironment}=await import('../assets/vendor/RoomEnvironment.js');
+  if(disposed)throw new Error('Scene initialization was cancelled.');
+  const pmrem=new THREE.PMREMGenerator(renderer);
+  const roomEnvironment=new RoomEnvironment(renderer);
+  const reflection=pmrem.fromScene(roomEnvironment,.04);roomEnvironment.dispose();pmrem.dispose();
   camera=new THREE.PerspectiveCamera(48,innerWidth/innerHeight,.15,350);
-  world=createWorld();current=motion.matches?0:progressFor(scrollY,starts,maxScroll);
+  try {world=await createWorld();if(disposed)throw new Error('Scene initialization was cancelled.');} catch(error) {reflection.dispose();throw error;}
+  world.scene.environment=reflection.texture;
+  const disposeWorld=world.dispose;world.dispose=()=>{disposeWorld();reflection.dispose();};
+  current=motion.matches?0:progressFor(scrollY,starts,maxScroll);
   resize();
-  const sample=sampleCamera(current,innerWidth<=700);camera.position.set(...sample.position);camera.lookAt(...sample.target);camera.fov=sample.fov;camera.updateProjectionMatrix();
+  const sample=sampleCamera(current,innerWidth<=700);camera.position.set(...sample.position);camera.lookAt(...sample.target);camera.fov=sample.fov;viewComposition();camera.updateProjectionMatrix();
   renderer.render(world.scene,camera);root.dataset.renderMode='webgl';
 } catch(error) {
   fallback();console.warn('The observatory is using its readable background fallback.',error.message);

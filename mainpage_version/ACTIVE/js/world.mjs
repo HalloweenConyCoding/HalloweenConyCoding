@@ -1,11 +1,12 @@
 import * as THREE from '../assets/vendor/three.module.js';
-import {buildClock, weatheredSurface} from './clock.mjs';
+import {weatheredSurface} from './clock.mjs';
+import {buildLibrary} from './library.mjs';
 
 /** One observatory, assembled from geometry rather than rendered background pictures. */
-export function createWorld() {
+export async function createWorld() {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color('#101e2b');
-  scene.fog = new THREE.FogExp2('#101e2b', .0065);
+  scene.fog = new THREE.FogExp2('#101e2b', .009);
   const bronze = new THREE.MeshStandardMaterial({color:'#a38150', metalness:.65, roughness:.48});
   const gold = new THREE.MeshStandardMaterial({color:'#d7b77b', metalness:.52, roughness:.38});
   const paving=weatheredSurface('stone',24);
@@ -50,10 +51,9 @@ export function createWorld() {
 
   const courtyard=group('courtyard',[27,-.35,-15]);
   box(courtyard,[96,.6,88],[0,0,0],stone);
-  for(let i=0;i<4;i++) box(scene,[9+i*.8,.22,1.2],[0,-.02-i*.2,4+i*1.2],paleStone);
 
   const clock=group('clock',[0,0,0]);
-  buildClock(clock,hands);
+  await buildLibrary(scene,clock,hands);
 
   const station=group('station',[20,0,-4]);
   box(station,[5,.55,5],[0,.28,0],paleStone);
@@ -136,16 +136,16 @@ export function createWorld() {
   mesh(scene,new THREE.SphereGeometry(5.5,40,24),new THREE.MeshStandardMaterial({map:planetTexture,roughness:.95}),[54,23,-64]);
   mesh(scene,new THREE.SphereGeometry(1.1,20,12),paleStone,[65,18,-62]);
 
-  scene.add(new THREE.HemisphereLight('#adc9cd','#514332',.9));
-  const moon=new THREE.DirectionalLight('#bacfdb',1.6);moon.position.set(-18,35,20);scene.add(moon);
-  const warm=new THREE.DirectionalLight('#d7a564',2.2);warm.position.set(10,12,10);scene.add(warm);
+  scene.add(new THREE.HemisphereLight('#adc9cd','#514332',.5));
+  const moon=new THREE.DirectionalLight('#bacfdb',.8);moon.position.set(-18,35,20);scene.add(moon);
+  const warm=new THREE.DirectionalLight('#d7a564',.8);warm.position.set(10,12,10);scene.add(warm);
   const fill=new THREE.DirectionalLight('#77b7b0',1.1);fill.position.set(60,15,-30);scene.add(fill);
   return {
     scene,
     update(dtSeconds) {for(const item of hands) item.object.rotation.z+=item.speed*dtSeconds;},
     dispose() {
       const geometries=new Set(), materials=new Set(), textures=new Set();
-      scene.traverse(object=>{if(object.geometry)geometries.add(object.geometry);if(object.material)for(const material of Array.isArray(object.material)?object.material:[object.material])materials.add(material);});
+      scene.traverse(object=>{object.shadow?.dispose();if(object.isInstancedMesh)object.dispose();if(object.geometry)geometries.add(object.geometry);if(object.material)for(const material of Array.isArray(object.material)?object.material:[object.material])materials.add(material);});
       for(const material of materials)for(const value of Object.values(material))if(value?.isTexture)textures.add(value);
       geometries.forEach(g=>g.dispose());textures.forEach(t=>t.dispose());materials.forEach(m=>m.dispose());
     },
