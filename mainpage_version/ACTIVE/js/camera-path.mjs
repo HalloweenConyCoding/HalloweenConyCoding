@@ -21,8 +21,8 @@ export function progressFor(scrollY, chapterStarts, maxScroll) {
 
 const waypoints = [
   {position: [8, 6, 14], target: [0, 5, 0]},
-  {position: [22, 9, 12], target: [20, 6, -4]},
-  {position: [27, 7, -12], target: [36, 3, -15]},
+  {position: [22, 10, 18], target: [20, 7, -4]},
+  {position: [30, 5, -5], target: [36, 3, -15]},
   {position: [49, 5, -20], target: [52, 4, -29]},
   {position: [53, 7, -24], target: [54, 17, -45]},
 ];

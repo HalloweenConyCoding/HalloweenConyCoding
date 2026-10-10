@@ -41,9 +41,16 @@ if (api) {
       assert.ok(Math.hypot(...a.target.map((v,j)=>v-b.target[j]))<.001);
     }
   });
+  test('station view includes antenna tops with headroom',()=>{
+    const view=sampleCamera(.25,false);
+    const distance=Math.hypot(...view.position.map((v,i)=>v-view.target[i]));
+    const halfHeight=distance*Math.tan(view.fov*Math.PI/360);
+    assert.ok(view.target[1]+halfHeight>15, '14m antenna station needs visible headroom');
+  });
   test('damping is time based and never overshoots',()=>{
     function run(hz){let v=0;for(let i=0;i<hz;i++) v=damp(v,1,1/hz);return v;}
     assert.ok(Math.abs(run(30)-run(60))<1e-6);
+    assert.ok(Math.abs(run(10)-run(60))<1e-6);
     assert.equal(damp(.2,.8,0),.2);
     assert.ok(damp(.2,.8,1/60)>.2 && damp(.2,.8,1/60)<.8);
   });
