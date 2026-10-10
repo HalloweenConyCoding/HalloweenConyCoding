@@ -46,6 +46,7 @@ def journey(browser):
     page=context.new_page()
     errors=[]
     page.on('pageerror',lambda error: errors.append(str(error)))
+    page.on('console',lambda message: errors.append(message.text) if message.type=='error' else None)
     page.goto(URL,wait_until='load')
     page.wait_for_function("document.documentElement.dataset.renderMode === 'webgl'")
     check(page.evaluate("document.documentElement.dataset.renderMode") == 'webgl', 'Actual WebGL initialization required')
@@ -58,6 +59,9 @@ def journey(browser):
     check(hashlib.sha256(rendered).digest()!=hashlib.sha256(fallback).digest(),'Rendered canvas differs from CSS fallback')
     groups=page.evaluate("""async () => {const {createWorld}=await import('./js/world.mjs');const world=await createWorld(); const names=['clock','station','workstation','telescope'].filter(name=>world.scene.getObjectByName(name));world.dispose();return names;}""")
     check(len(groups)==4,'All four landmarks are real scene objects')
+    floating=page.evaluate("""async () => {const {createWorld}=await import('./js/world.mjs');const world=await createWorld();const rooms=['library','courtyard','observatory'].filter(name=>world.scene.getObjectByName(name));const isolated=[];if(world.compose)for(const p of [0,.25,.5,.75]){world.compose(p);isolated.push(['clock','station','workstation','telescope'].filter(name=>world.scene.getObjectByName(name).visible));}world.dispose();return {rooms,isolated};}""")
+    check(not floating['rooms'],'Floating journey has no room architecture')
+    check(floating['isolated']==[['clock'],['station'],['workstation'],['telescope']],'Each chapter brings forward its own object')
     output=Path('/tmp/observatory-review');output.mkdir(exist_ok=True)
     views=[]
     for chapter in ['intro','telecom','coding','explore']:
@@ -171,7 +175,7 @@ def camera_timing(browser):
         "if(window.__timeProbe && !motion.matches){window.__timeSamples.push({progress:current,clock:window.__probeClock});}else{renderer.render(world.scene,camera);}")
     for hz in [10,30,60]:
         context=browser.new_context(viewport={'width':1440,'height':900},reduced_motion='reduce')
-        page=context.new_page();page.route('**/js/main.mjs',lambda route:route.fulfill(body=instrumented,content_type='text/javascript'))
+        page=context.new_page();page.route('**/js/main.mjs*',lambda route:route.fulfill(body=instrumented,content_type='text/javascript'))
         page.goto(URL,wait_until='load');page.wait_for_function("document.documentElement.dataset.renderMode==='webgl'")
         page.evaluate("scrollTo(0,document.getElementById('coding').offsetTop-parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop))")
         page.wait_for_timeout(150)

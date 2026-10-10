@@ -1,4 +1,4 @@
-import {progressFor, sampleCamera, damp} from './camera-path.mjs';
+import {progressFor, sampleCamera, damp} from './camera-path.mjs?v=floating-1';
 
 const root=document.documentElement;
 const canvas=document.getElementById('world');
@@ -43,8 +43,8 @@ function resize() {
 }
 function viewComposition(narrow=innerWidth<=700) {
   const introBlend=Math.max(0,1-current/.25);
-  if(world)world.scene.fog.density=.009+.009*introBlend;
-  camera.setViewOffset(innerWidth,innerHeight,narrow?0:innerWidth*(-.19+.44*introBlend),narrow?innerHeight*(.21+.04*introBlend):0,innerWidth,innerHeight);
+  if(world)world.compose(current);
+  camera.setViewOffset(innerWidth,innerHeight,narrow?0:innerWidth*(-.19+.44*introBlend),narrow?innerHeight*.21:0,innerWidth,innerHeight);
 }
 function schedule() {
   if(!raf && !disposed && renderer && camera && world && !document.hidden && !colors.matches)raf=requestAnimationFrame(frame);
@@ -83,10 +83,10 @@ window.addEventListener('pageshow',()=>{last=0;resize();});
 measure();navigation();
 root.dataset.renderMode='loading';
 try {
-  const [THREE,{createWorld}]=await Promise.all([import('../assets/vendor/three.module.js'),import('./world.mjs')]);
+  const [THREE,{createWorld}]=await Promise.all([import('../assets/vendor/three.module.js'),import('./world.mjs?v=floating-1')]);
   if(disposed)throw new Error('Scene initialization was cancelled.');
   renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'low-power'});
-  renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;
+  renderer.shadowMap.enabled=false;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;
   renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.2;
   const {RoomEnvironment}=await import('../assets/vendor/RoomEnvironment.js');
   if(disposed)throw new Error('Scene initialization was cancelled.');

@@ -24,7 +24,7 @@ const waypoints = [
   {position: [22, 10, 18], target: [20, 7, -4]},
   {position: [30, 5, -5], target: [36, 3, -15]},
   {position: [49, 5, -20], target: [52, 4, -29]},
-  {position: [53, 7, -24], target: [54, 17, -45]},
+  {position: [58, 8, -20], target: [52, 6, -31]},
 ];
 
 function curve(key, segment, t) {
@@ -45,10 +45,11 @@ export function sampleCamera(progress, narrow = false) {
   const position = curve('position', segment, t);
   const target = curve('target', segment, t);
   if (narrow) {
-    // Back away along the viewing direction to keep tall props in a portrait frame.
-    for (let axis = 0; axis < 3; axis++) position[axis] = target[axis] + (position[axis] - target[axis]) * 1.2;
+    // Leave space between phone navigation and the content card for each subject.
+    const distances=[1.75,1.55,1.2,1.75,1.75];
+    const blend=t*t*(3-2*t),backaway=distances[segment]+(distances[segment+1]-distances[segment])*blend;
+    for (let axis = 0; axis < 3; axis++) position[axis] = target[axis] + (position[axis] - target[axis]) * backaway;
   }
-  if(narrow){const introBlend=Math.max(0,1-scaled);position[0]-=2.2*introBlend;target[0]-=2.2*introBlend;}
   return {position, target, fov: narrow ? 58 : 48};
 }
 

@@ -94,9 +94,7 @@ def scroll(x,z,scale,flip=1,y=-.56):
   xx,yy,zz=pts[j];leaf(xx,yy,zz,scale*.65,flip*(j*.12+.6))
 
 # Blender Z-up becomes browser Y-up; front faces negative Blender Y.
-for z,width,depth in [(.15,8.6,1.9),(.37,8.3,1.7)]:
- cube('Walnut plinth',(0,0,z),(width,depth,.22),wood,.075)
- cube('Gilded plinth bead',(0,-depth*.5-.015,z+.12),(width,.05,.035),gold,.01)
+# No display plinth: the complete antique housing is suspended.
 foundation=list(static)
 # The frame is furniture, with space around its dial, not a stone wall.
 cy=5.4;radius=3.3

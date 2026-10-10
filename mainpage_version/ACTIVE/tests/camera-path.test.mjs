@@ -24,7 +24,7 @@ if (api) {
   });
   test('endpoint views and narrow composition',()=>{
     assert.deepEqual(sampleCamera(0,false).position,[8,6,14]);
-    assert.deepEqual(sampleCamera(1,false).target,[54,17,-45]);
+    assert.deepEqual(sampleCamera(1,false).target,[52,6,-31]);
     assert.equal(sampleCamera(0,false).fov,48);
     assert.equal(sampleCamera(0,true).fov,58);
     assert.notDeepEqual(sampleCamera(.5,true).position,sampleCamera(.5,false).position);
