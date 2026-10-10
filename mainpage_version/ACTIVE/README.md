@@ -47,13 +47,13 @@ Desktop rendering caps device pixel ratio at 1.5; screens 700 CSS pixels wide or
 
 ## Scope and remaining work
 
-This is the functional geometry prototype, not the detailed illustration in the approved storyboard. It establishes the world layout, camera movement, and portfolio usability. Weathered textures, richer architecture, fine model detail, and optional atmospheric effects remain future visual work.
+This is the functional geometry prototype, not the detailed illustration in the approved storyboard. It establishes the world layout, camera movement, and portfolio usability. The clock now has an initial detail pass: locally authored stone and bronze textures, recessed masonry joints, extruded toothed gears and ornate hands, engraved dial markings, instanced fasteners, and lantern lighting. The station, workstation, and astronomy scenes remain geometry prototypes. Further architectural atmosphere and material polish are still needed to approach the illustrative storyboard.
 
 Phone viewport checks do not establish physical-phone GPU speed or battery use. Cloud frame timing comes from software rendering and is not a hardware performance guarantee. Test on Beer's phone when a hosted review is requested. No Site or GitHub deployment has been created by this implementation.
 
 ## Implementation decisions and review evidence
 
-The accepted visual storyboard is retained as `docs/storyboard.png`. Review screenshots are in `docs/review/`; these show the functional geometry prototype rather than the illustrative target.
+The accepted visual storyboard is retained as `docs/storyboard.png`. Review screenshots are in `docs/review/`; `clock-refined.png` and `clock-refined-mobile.png` show the first clock detail pass; the other images preserve the functional prototype. These are browser renders, while the storyboard is an illustrative target.
 
 The tower camera was pulled back and raised to keep the antennas visible. The workstation view moved to a more frontal angle because the initial phone view showed the screen edge-on. Chapter measurements include the native anchor offset, and the current-chapter indicator tolerates one-pixel rounding. These are composition/measurement adjustments to the draft route, preserving the agreed journey.
 
@@ -64,3 +64,5 @@ The unavailable-WebGL fixture blocks all context names, including `experimental-
 Observed cloud render sample at 1440×900: 152 draw calls and 14,110 triangles; median interval 182.6 ms across twelve software-rendered frames while other validation was running. This establishes geometry/rendering evidence, not production hardware speed. Physical-phone review is still needed.
 
 Final validation: 7 Node camera tests and 67 browser checks passed, including actual WebGL rendering, keyboard navigation, no-script content, fallbacks, motion preferences, hidden/idle scheduling, and integrated timing. Existing root tests remain at 3 passing files and 1 unchanged stale-icon failure. Existing application files were compared against commit `3a4e68a` and have no changes.
+
+The clock detail pass retains the same camera route and HTML content. Its textures are deterministic canvas surfaces authored in `js/clock.mjs`; gears use extruded annular geometry and masonry/bolts use instancing to reduce separate draw calls. No external model or texture assets are required.

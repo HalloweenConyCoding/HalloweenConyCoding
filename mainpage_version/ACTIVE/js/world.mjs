@@ -1,4 +1,5 @@
 import * as THREE from '../assets/vendor/three.module.js';
+import {buildClock, weatheredSurface} from './clock.mjs';
 
 /** One observatory, assembled from geometry rather than rendered background pictures. */
 export function createWorld() {
@@ -7,7 +8,8 @@ export function createWorld() {
   scene.fog = new THREE.FogExp2('#101e2b', .0065);
   const bronze = new THREE.MeshStandardMaterial({color:'#a38150', metalness:.65, roughness:.48});
   const gold = new THREE.MeshStandardMaterial({color:'#d7b77b', metalness:.52, roughness:.38});
-  const stone = new THREE.MeshStandardMaterial({color:'#696655', roughness:.96});
+  const paving=weatheredSurface('stone',24);
+  const stone = new THREE.MeshStandardMaterial({color:'#696655',map:paving,bumpMap:paving,bumpScale:.035,roughness:.96});
   const paleStone = new THREE.MeshStandardMaterial({color:'#938979', roughness:.9});
   const iron = new THREE.MeshStandardMaterial({color:'#35434a', metalness:.52, roughness:.55});
   const dark = new THREE.MeshStandardMaterial({color:'#192629', roughness:.85});
@@ -48,42 +50,10 @@ export function createWorld() {
 
   const courtyard=group('courtyard',[27,-.35,-15]);
   box(courtyard,[96,.6,88],[0,0,0],stone);
-  // Thin inlaid paving lines join the modern landmarks to the old architecture.
-  for(let i=-6;i<=6;i++) {
-    box(courtyard,[.035,.016,85],[i*7,.31,0],dark);
-    box(courtyard,[94,.016,.035],[0,.31,i*7],dark);
-  }
   for(let i=0;i<4;i++) box(scene,[9+i*.8,.22,1.2],[0,-.02-i*.2,4+i*1.2],paleStone);
 
   const clock=group('clock',[0,0,0]);
-  box(clock,[10,1,3],[0,.5,-.6],paleStone);
-  box(clock,[8,10,1.4],[0,5.4,-1.2],stone);
-  for(const x of [-4.2,4.2]) column(clock,x,-.7,10);
-  box(clock,[10,.7,2],[0,10.5,-.7],paleStone);
-  const dial=cylinder(clock,3.55,3.55,.38,[0,5.5,0],dark,72);dial.rotation.x=Math.PI/2;
-  ring(clock,3.56,.17,[0,5.5,.25]);ring(clock,3.12,.065,[0,5.5,.28],gold);
-  ring(clock,2.34,.045,[0,5.5,.3],gold);ring(clock,.77,.09,[0,5.5,.31]);
-  const faceTexture=texture((ctx,w,h)=>{
-    ctx.clearRect(0,0,w,h);ctx.translate(w/2,h/2);
-    const numerals=['XII','I','II','III','IV','V','VI','VII','VIII','IX','X','XI'];
-    ctx.fillStyle='#d5b67d';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='50px Georgia';
-    for(let i=0;i<12;i++){const a=i*Math.PI/6;ctx.fillText(numerals[i],Math.sin(a)*400,-Math.cos(a)*400);}
-    ctx.strokeStyle='#9f865d';ctx.lineWidth=2;
-    for(let i=0;i<60;i++){const a=i*Math.PI/30;ctx.beginPath();ctx.moveTo(Math.sin(a)*450,-Math.cos(a)*450);ctx.lineTo(Math.sin(a)*(i%5?438:428),-Math.cos(a)*(i%5?438:428));ctx.stroke();}
-  });
-  mesh(clock,new THREE.PlaneGeometry(6.7,6.7),new THREE.MeshBasicMaterial({map:faceTexture,transparent:true,depthWrite:false}),[0,5.5,.38]);
-  for(let i=0;i<6;i++) {
-    const a=i*Math.PI/3, g=new THREE.Group();g.position.set(Math.cos(a)*1.6,5.5+Math.sin(a)*1.6,.41);clock.add(g);
-    ring(g,.49,.052,[0,0,0],i%2?bronze:gold);
-    for(let tooth=0;tooth<12;tooth++){const b=tooth*Math.PI/6;const t=box(g,[.15,.17,.10],[Math.cos(b)*.51,Math.sin(b)*.51,0],bronze);t.rotation.z=b;}
-    for(let j=0;j<3;j++){const spoke=box(g,[.9,.035,.06],[0,0,0],gold);spoke.rotation.z=j*Math.PI/3;}
-    hands.push({object:g,speed:i%2?.014:-.014});
-  }
-  for(const [length,angle,speed] of [[2.5,-.82,.007],[1.8,.85,.0006]]) {
-    const pivot=new THREE.Group();pivot.position.set(0,5.5,.65);pivot.rotation.z=angle;clock.add(pivot);
-    box(pivot,[.09,length,.10],[0,length*.35,0],gold);hands.push({object:pivot,speed});
-  }
-  mesh(clock,new THREE.SphereGeometry(.2,16,12),gold,[0,5.5,.72]);lamp(clock,-5,0,1.5);lamp(clock,5,0,1.5);
+  buildClock(clock,hands);
 
   const station=group('station',[20,0,-4]);
   box(station,[5,.55,5],[0,.28,0],paleStone);
@@ -166,9 +136,9 @@ export function createWorld() {
   mesh(scene,new THREE.SphereGeometry(5.5,40,24),new THREE.MeshStandardMaterial({map:planetTexture,roughness:.95}),[54,23,-64]);
   mesh(scene,new THREE.SphereGeometry(1.1,20,12),paleStone,[65,18,-62]);
 
-  scene.add(new THREE.HemisphereLight('#adc9cd','#75664e',2));
-  const moon=new THREE.DirectionalLight('#bacfdb',2.4);moon.position.set(-18,35,20);scene.add(moon);
-  const warm=new THREE.DirectionalLight('#d7a564',2);warm.position.set(10,12,10);scene.add(warm);
+  scene.add(new THREE.HemisphereLight('#adc9cd','#514332',.9));
+  const moon=new THREE.DirectionalLight('#bacfdb',1.6);moon.position.set(-18,35,20);scene.add(moon);
+  const warm=new THREE.DirectionalLight('#d7a564',2.2);warm.position.set(10,12,10);scene.add(warm);
   const fill=new THREE.DirectionalLight('#77b7b0',1.1);fill.position.set(60,15,-30);scene.add(fill);
   return {
     scene,
