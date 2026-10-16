@@ -221,16 +221,19 @@
     const roleLabel = ROLE_LABELS[node.id] || pipelineLabel;
     const reportsToLabel = node.reports_to === 'none' ? 'none' : (NODE_MAP.get(node.reports_to)?.display_name || node.reports_to);
     const card = el('article', 'codex-card reveal');
-    card.tabIndex = 0;
-    card.setAttribute('role', 'button');
-    card.setAttribute('aria-pressed', 'false');
-    card.setAttribute('aria-label', `${node.display_name}, ${roleLabel}. Click to flip.`);
+    card.setAttribute('aria-label', `${node.display_name}, ${roleLabel}`);
     card.dataset.node = node.id;
     card.dataset.pipeline = node.pipeline;
     card.style.setProperty('--pipeline-color', pipelineColor);
 
     const tab = el('div', 'pipeline-tab font-mono', pipelineLabel);
+    const inner = el('div', 'card-inner');
     const front = el('div', 'card-face card-front');
+    const flipButton = el('button', 'flip-hint flip-button font-mono', 'details →');
+    flipButton.type = 'button';
+    flipButton.setAttribute('aria-label', `View ${node.display_name} role details`);
+    flipButton.setAttribute('aria-expanded', 'false');
+    flipButton.setAttribute('aria-controls', `details-${node.id}`);
     const portraitWrap = el('div', 'portrait-wrap');
     const portrait = el('img', 'agent-portrait');
     portrait.src = PORTRAIT_PATHS[node.id] || PORTRAIT_PATHS.me;
@@ -248,11 +251,16 @@
       el('span', 'sequence font-mono', `${String(index + 1).padStart(2, '0')} / ${totalCount}`),
       portraitWrap,
       frontText,
-      el('span', 'flip-hint font-mono', 'flip →')
+      flipButton
     );
 
     const back = el('div', 'card-face card-back');
+    back.id = `details-${node.id}`;
+    back.inert = true;
+    back.setAttribute('aria-hidden', 'true');
     const backScroll = el('div', 'card-back-scroll');
+    backScroll.tabIndex = 0;
+    backScroll.setAttribute('aria-label', `${node.display_name} role details`);
     backScroll.innerHTML = `<div class="back-head"><div class="back-pipeline font-mono"><i class="diamond"></i><span>${pipelineLabel}</span></div><button class="back-button font-mono" type="button">&larr; back</button></div><div class="back-title"><h3 class="font-cinzel">${node.display_name}</h3><span class="font-mono">${node.role_id}</span></div><p class="back-quote font-cormorant">"${node.scope}"</p>`;
     [['Non-scope', node.non_scope], ['Reports to', reportsToLabel], ['Group', node.group], ['Level', node.level], ['Independence', node.independence_flag ? 'true' : 'false']].forEach(([label, value]) => {
       const field = el('dl', 'field');
@@ -262,28 +270,31 @@
     const rule = el('div', 'rule-box');
     rule.innerHTML = `<small class="font-mono">Operating rule</small><span class="font-cormorant">${node.operating_rule}</span>`;
     backScroll.append(rule);
-    back.append(backScroll);
+    // Keep the return control available even when the role details are scrolled.
+    back.append(backScroll.querySelector('.back-head'), backScroll);
+    const backButton = back.querySelector('.back-button');
+    backButton.setAttribute('aria-label', `Return to ${node.display_name} portrait`);
 
-    const flip = () => {
-      const flipped = card.classList.toggle('flipped');
-      card.setAttribute('aria-pressed', flipped ? 'true' : 'false');
+    const setFlipped = (flipped) => {
+      if (flipped) backScroll.scrollTop = 0;
+      card.classList.toggle('flipped', flipped);
+      flipButton.setAttribute('aria-expanded', String(flipped));
+      front.inert = flipped;
+      front.setAttribute('aria-hidden', String(flipped));
+      back.inert = !flipped;
+      back.setAttribute('aria-hidden', String(!flipped));
+      (flipped ? backButton : flipButton).focus({ preventScroll: true });
     };
-    card.addEventListener('click', (event) => {
-      if (event.target.closest('.back-button')) return;
-      flip();
-    });
+    front.addEventListener('click', () => setFlipped(true));
     card.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter' || event.key === ' ') {
+      if (event.key === 'Escape' && card.classList.contains('flipped')) {
         event.preventDefault();
-        flip();
+        setFlipped(false);
       }
     });
-    back.querySelector('.back-button')?.addEventListener('click', (event) => {
-      event.stopPropagation();
-      flip();
-    });
-    backScroll.addEventListener('wheel', (event) => event.stopPropagation(), { passive: true });
-    card.append(tab, front, back);
+    backButton.addEventListener('click', () => setFlipped(false));
+    inner.append(front, back);
+    card.append(tab, inner);
     return card;
   }
 

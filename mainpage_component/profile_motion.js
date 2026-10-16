@@ -40,6 +40,7 @@
   var gsapTimelines = [];
   var gsapTriggers = [];
   var gsapReady = false;
+  var storyController = null;
   var themeSectionIndex = 0;
   var lastThemeScrollY = window.scrollY;
   doc.documentElement.classList.add('js');
@@ -93,16 +94,28 @@
     event.preventDefault();
     setMenu(false, false);
     if (window.location.hash !== hash) window.history.pushState(null, '', hash);
+    if (storyController && storyController.navigate(target.id, {
+      focus: !anchor.classList.contains('skip-link'),
+      instant: anchor.classList.contains('skip-link')
+    })) return;
     focusDestination(target, anchor.classList.contains('skip-link') ? false : true);
   });
-  window.addEventListener('hashchange', function () {
+  function followHistoryDestination() {
     var target = destination(window.location.hash);
     setMenu(false, false);
-    if (target) focusDestination(target, false);
-  });
+    if (!target) return;
+    if (storyController && storyController.navigate(target.id, { focus: true, instant: true })) return;
+    focusDestination(target, false);
+  }
+  window.addEventListener('hashchange', followHistoryDestination);
+  window.addEventListener('popstate', followHistoryDestination);
 
   function update() {
     scheduled = false;
+    if (storyController && storyController.isActive()) {
+      updateParallax();
+      return;
+    }
     var threshold = header.getBoundingClientRect().height + 32;
     var paperThreshold = threshold + Math.max(180, Math.round(window.innerHeight * .65));
     var paperExitThreshold = threshold + Math.max(120, Math.round(window.innerHeight * .5));
@@ -143,8 +156,10 @@
   }
   function preferenceChange() {
     if (reduced.matches) { animations.forEach(function (animation) { animation.cancel(); }); animations.clear(); }
-    if (reduced.matches) clearGsapMotion();
-    else initGsapMotion();
+    if (!storyController || !storyController.isActive()) {
+      if (reduced.matches) clearGsapMotion();
+      else initGsapMotion();
+    }
     requestUpdate();
   }
 
@@ -251,7 +266,7 @@
   }
 
   function initGsapMotion() {
-    if (gsapReady || reduced.matches || !gsap || !ScrollTrigger) return;
+    if (gsapReady || reduced.matches || !gsap || !ScrollTrigger || (storyController && storyController.isActive())) return;
     gsap.registerPlugin(ScrollTrigger);
     initZoneTintMotion();
     initCardRevealMotion();
@@ -281,12 +296,47 @@
     if (query.addEventListener) query.addEventListener('change', callback);
     else query.addListener(callback);
   }
+
+  function syncStoryTone(tone) {
+    if (!storyController || !storyController.isActive()) return;
+    var previous = doc.body.dataset.theme === 'paper' ? 'paper' : 'night';
+    var model = window.ProfileStoryModel;
+    doc.body.dataset.theme = model ? model.headerTheme(tone.light, previous) : (tone.light >= .5 ? 'paper' : 'night');
+    var sceneTarget = {
+      intro: 'library', radio: 'celestial', tools: 'story-tools', workbench: 'about',
+      team: 'ai-team', horizon: 'uncharted', contact: 'connect'
+    }[tone.scene];
+    navLinks.forEach(function (link) {
+      if (link.getAttribute('href') === '#' + sceneTarget) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+    updateParallax();
+  }
+
+  function syncStoryMode(active, state) {
+    if (active) {
+      animations.forEach(function (animation) { animation.cancel(); });
+      animations.clear();
+      clearGsapMotion();
+    } else if (state && state.permanentFlow) {
+      animations.forEach(function (animation) { animation.cancel(); });
+      animations.clear();
+      clearGsapMotion();
+    } else {
+      initGsapMotion();
+      requestUpdate();
+    }
+  }
   listen(mobile, syncViewport);
   listen(reduced, preferenceChange);
   window.addEventListener('scroll', requestUpdate, { passive: true });
   window.addEventListener('resize', requestUpdate, { passive: true });
   window.addEventListener('load', requestUpdate, { once: true });
   doc.addEventListener('toggle', requestUpdate, true);
+  if (window.ProfileStory && typeof window.ProfileStory.init === 'function') {
+    storyController = window.ProfileStory.init({ onTone: syncStoryTone, onMode: syncStoryMode });
+    if (storyController.isActive()) storyController.refresh();
+  }
   syncViewport();
   update();
 
@@ -296,6 +346,7 @@
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
+        if (storyController && storyController.isActive() && entry.target.closest('[data-story-scene]')) return;
         observer.unobserve(entry.target);
         if (reduced.matches || typeof entry.target.animate !== 'function') return;
         var animation = entry.target.animate([
@@ -311,5 +362,5 @@
   }
   initGsapMotion();
   var initial = destination(window.location.hash);
-  if (initial) focusDestination(initial, false);
+  if (initial && !(storyController && storyController.navigate(initial.id, { focus: true, instant: true }))) focusDestination(initial, false);
 }());

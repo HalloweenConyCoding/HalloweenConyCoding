@@ -1,14 +1,15 @@
 # PROJECT.md
 
 ## Current State
-Plain static portfolio. Root homepage now uses native scrolling with a clockwork cream hero, dark project gallery, About/story disclosure, compact AI team atlas, Uncharted teaser, and contact section. The public Task Planner entry is now a privacy-first Public Workspace flow with an editorial cream/pastel landing page, local workspace template download, public-safe Tasks and Calendar pages synchronized from the latest Cony Workspace structure, and a local file connection gate that keeps editing locked until write permission is granted. The profile's three semantic zones now use local GSAP/ScrollTrigger for slow tint crossfades and reversible project-card entrances.
+Plain static portfolio. Root homepage keeps a clockwork cream hero, dark project gallery, About/story disclosure, compact AI team atlas, Uncharted teaser, and contact section. On capable desktop viewports, it enhances these sections into three fixed scroll-driven zones with seven reversible scenes. It uses the checked-in GSAP/ScrollTrigger runtime, retains native scrolling, and falls back to readable document flow when the viewport, scene height, reduced-motion preference, forced-colors mode, or runtime is unsuitable. The public Task Planner entry remains a privacy-first Public Workspace flow with an editorial cream/pastel landing page, local workspace template download, public-safe Tasks and Calendar pages synchronized from the latest Cony Workspace structure, and a local file connection gate that keeps editing locked until write permission is granted.
 
 ## Current Goal
-Review the completed local homepage redesign and its scroll-linked background depth before publishing. No commit or push has been made.
+Maintain and visually review the implemented fixed-zone scrollytelling in `docs/superpowers/specs/2026-10-09-fixed-zone-scrollytelling.md`. The intro, collection, and contact stages pin in sequence on eligible desktops; each stage releases as the next enters. The implementation is uncommitted. Do not commit, push, or deploy without authorization.
 
 ## Key Decisions
 - Preserve the clockwork/celestial identity with ivory, navy, bronze, and teal; show real project interfaces early.
-- Keep one navigation/motion controller and native scrolling at every size. No pinned chapters or floating rail. Local GSAP/ScrollTrigger is progressive enhancement only; the page remains readable if the library is unavailable.
+- Keep native scrolling at every size. The local `profile_story.js` controller uses GSAP/ScrollTrigger to pin each of the three stages only after measuring viewport and scene capacity; small screens, short viewports, accessibility preferences, and setup failures use native flow. Do not use wheel interception, scroll snapping, nested pins, or a floating chapter rail.
+- Keep one story controller as the owner of foreground scene transforms, zone tint, pin lifecycle, and scene accessibility. The legacy motion controller owns navigation, header handoff, and decorative parallax, and suspends its foreground/tint animations while story mode is active.
 - Keep content visible without JavaScript. Mobile navigation supports hidden/inert state, Escape, and destination focus.
 - Preserve the local ShinyText effect on the name with an 8-second wipe; keep the role line static. Respect reduced-motion and forced-colors preferences.
 - Keep parallax limited to decorative background layers: the astrolabe and fixed atmosphere use separate slow amplitudes while foreground content remains stable. The intro and collection use only the fixed wallpaper plus zone filters; no clipped section-local picture is layered over it. Mobile uses smaller offsets and reduced-motion disables transforms.
@@ -23,13 +24,15 @@ Review the completed local homepage redesign and its scroll-linked background de
 - Public Workspace starts with empty Tasks and Calendar data. The local `workspace-data.js` picker and bottom-left status control are the only path to editing; the persistence layer preserves unrelated sections when writing back.
 
 ## Active Problems / Limits
-- Native OS reduced-motion rendering was not toggled during this review. Its CSS fallback was inspected; an isolated preference fixture exercised the controller's instant-scroll and zero-reveal path.
+- The browser harness cannot emulate live `prefers-reduced-motion` or forced-colors media-query changes. Model eligibility, runtime change listeners, and CSS fallbacks are covered by source contracts; direct browser toggling remains unverified.
 - External Google Fonts remain optional; local/system font fallbacks are defined.
 
 ## Architecture / Important Files
 - `index.html`: semantic homepage sections and links; preserved original section IDs plus About and Connect.
 - `mainpage_component/profile_style.css`: homepage tokens, layouts, states, responsive and accessibility styles.
-- `mainpage_component/profile_motion.js`: navigation, focus, header theme, native parallax, GSAP zone tint crossfades, and card reveals.
+- `mainpage_component/profile_story_model.js`: pure zone progress, scene, tone, anchor, and capacity model.
+- `mainpage_component/profile_story.js`: checked-in GSAP/ScrollTrigger stage pins, reversible scene motion, focus/accessibility, navigation, resize, and fallback lifecycle.
+- `mainpage_component/profile_motion.js`: navigation, focus, header theme, decorative parallax, and native-flow fallback motion.
 - `mainpage_component/gsap/`: checked-in GSAP and ScrollTrigger runtime used without a CDN.
 - `mainpage_component/profile_parallax.js`: small clamped progress/offset helpers used by the single rAF motion controller.
 - `library/text/shiny_text/`: existing shared name-wipe component, unchanged.
@@ -48,6 +51,11 @@ Review the completed local homepage redesign and its scroll-linked background de
 
 ## Recent Work Log
 Newest first.
+- 2026-10-10 - Implemented fixed-zone scrollytelling and lifecycle handling.
+  - Changed: Added three desktop scroll stages with five collection scenes, local scrubbed GSAP timelines, continuous zone tint and header handoffs, previous/next controls, hash/history routing, inert-scene focus retention that also holds outgoing content visibly readable, live resize teardown/rebuild, and native-flow fallback. Opening the biography permanently returns the visit to natural flow while keeping the disclosure focused and at its prior screen position.
+  - Validation: Focused model/parallax/depth tests pass 11/11; story structure 10/10, motion 7/7, traversal 9/9, contact bottom 6/6, navigation 20/20, focus 4/4, biography 3/3, live resize 4/4, and mobile 12/12 pass in the local browser. The complete `tests/*.test.cjs` run passes 12/13; its only failure is the pre-existing `task-planner-connection.test.cjs` assertion expecting `tasks-stack.svg` while the unchanged Tasks nav uses `tasks-checklist-dark.svg`. Direct reduced-motion/forced-colors media changes could not be emulated by the available browser harness; their eligibility gates, listeners, and CSS fallback contracts were checked.
+  - Records: `docs/superpowers/specs/2026-10-09-fixed-zone-scrollytelling.md`, `docs/superpowers/plans/2026-10-09-fixed-zone-scrollytelling.md`, and `docs/project-memory/MOTION_TRANSITION_QA.md`.
+  - Status: human visual review remains; no commit, push, or deployment.
 - 2026-09-28 - Matched the Public Workspace Tasks rail icon to the original dark task-page icon.
   - Changed: Copied the public-safe `tasks-checklist-dark.svg` asset from Cony Workspace into the shared icon library and pointed only the Public Workspace Tasks rail item to it. Left the task-page favicon and other navigation icons unchanged.
   - Validation: Source and destination SVGs match byte-for-byte; `nav.js` syntax, changed reference, and whitespace checks pass. Graphify update was unavailable because the `graphify` command is not installed.
@@ -179,3 +187,11 @@ Newest first.
 
 ## Detailed Notes
 - None yet.
+
+## AI team card repair — 2026-10-10
+
+- The v4 converted page used `display: none` to swap faces, so its perspective setting never produced a flip. A dedicated `card-inner` now rotates through 180 degrees over 700ms in both directions, while faces remain rendered with hidden backfaces. Reduced-motion users get an immediate state change.
+- Clicking the portrait or its native Details button opens the role. Reading/selecting the back no longer closes it. The return control stays outside the scroll area; role boundaries, reporting line, group, level, independence and operating rule remain available. Reopening resets the detail scroll to the name/scope.
+- Native Enter/Space buttons and Escape restore focus correctly. Inactive faces use `inert` and `aria-hidden`; visible focus, touch targets and a thin scrollbar support reading. Existing 23 public agents and portraits are preserved; no private source data was imported.
+- Validation: browser regression checks reproduced the missing animation and accidental detail closure before the fix; 15 checks passed at desktop, and mobile animation/details/keyboard checks passed at 390×844 with zero horizontal overflow and no browser errors/warnings. JavaScript syntax and diff whitespace checks passed. Node suite: 12/13 pass; the existing Task Planner connection test still expects `tasks-stack.svg` while its navigation uses `tasks-checklist-dark.svg`.
+- Evidence: `tests/ai_team.behavior.test.mjs`, `docs/qa/ai-team-card-flip-20261010.png`. No commit, push or deployment.
